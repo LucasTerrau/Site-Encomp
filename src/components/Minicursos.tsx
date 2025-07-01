@@ -8,23 +8,45 @@ export const minicursosData = [
     titulo: 'Cloud Computing',
     speakers: 'Gabriel Bernardes e Rafael de Padua',
     imagem: '/imagens/Cloud.png',
-    descricao: 'Aprenda os fundamentos da computação em nuvem e suas aplicações práticas.'
+    descricao: 'Entenda os conceitos fundamentais da computação em nuvem e descubra como utilizá-la para armazenar, processar e escalar aplicações de forma eficiente.'
   },
   {
     id: "edicao-video",
     titulo: 'Edição de Vídeo com DaVinci Resolve',
     speakers: 'Matheus Terra Wachsmuth e Lucas Terra Wachsmuth',
     imagem: '/imagens/Davincimagia.png',
-    descricao: 'Domine as técnicas de edição profissional com DaVinci Resolve.'
+    descricao: 'Explore as ferramentas e técnicas de edição profissional de vídeo utilizando o DaVinci Resolve, um dos softwares mais completos do mercado audiovisual.'
   },
   {
     id: "introducao-informatica",
     titulo: 'Introdução à Informática',
     speakers: 'Gabriel Xavier e Richard Rodrigues',
     imagem: '/imagens/ComputacaoBasicaHacking.png',
-    descricao: 'Aprenda o básico sobre como manipular um computador e fundamentos da informática.'
+    descricao: 'Ideal para iniciantes, este minicurso apresenta os principais conceitos da informática, como uso de sistemas operacionais, organização de arquivos e navegação segura na internet.'
+  },
+  {
+    id: "chatbot-python",
+    titulo: 'Criação de Chatbots com Python',
+    speakers: 'Rafael de Padua e Rômulo Vargas',
+    imagem: '/imagens/Chatbot_Python.png',
+    descricao: 'Aprenda passo a passo como desenvolver chatbots interativos com Python, utilizando bibliotecas modernas para automatizar conversas e responder usuários de forma inteligente.'
+  },
+  {
+    id: "computacao-forense",
+    titulo: 'Computação Forense',
+    speakers: 'Helen Enes e Kaiki Alvarenga',
+    imagem: '/imagens/Computacao_Forense.png',
+    descricao: 'Descubra como especialistas investigam crimes digitais. Entenda como identificar, preservar e analisar evidências em dispositivos e redes de forma ética e técnica.'
+  },
+  {
+    id: "deep-learing",
+    titulo: 'Deep Learning',
+    speakers: 'Pedro Gabriel e Gabriel Bernardes',
+    imagem: '/imagens/Deep_Learning.png',
+    descricao: 'Mergulhe nos conceitos básicos do Deep Learning, aprendendo como redes neurais artificiais funcionam e são aplicadas em áreas como reconhecimento de imagens e linguagem natural.'
   },
 ];
+
 
 const Minicursos = () => {
   return (
