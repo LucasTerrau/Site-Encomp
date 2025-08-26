@@ -2,51 +2,116 @@ import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-export const minicursosData = [
+const minicursosData = [
   {
     id: "cloud-computing",
     titulo: 'Cloud Computing',
     speakers: 'Gabriel Bernardes e Rafael de Padua',
     imagem: '/imagens/Cloud.png',
-    descricao: 'Entenda os conceitos fundamentais da computação em nuvem e descubra como utilizá-la para armazenar, processar e escalar aplicações de forma eficiente.'
+    descricao: 'Entenda os conceitos fundamentais da computação em nuvem e descubra como utilizá-la para armazenar, processar e escalar aplicações de forma eficiente.',
+    objectPosition: "center 35%",
+    instituto: "IFSULDEMINAS - Campus Passos",
   },
   {
     id: "edicao-video",
     titulo: 'Edição de Vídeo com DaVinci Resolve',
     speakers: 'Matheus Terra Wachsmuth e Lucas Terra Wachsmuth',
     imagem: '/imagens/Davincimagia.png',
-    descricao: 'Explore as ferramentas e técnicas de edição profissional de vídeo utilizando o DaVinci Resolve, um dos softwares mais completos do mercado audiovisual.'
+    descricao: 'Explore as ferramentas e técnicas de edição profissional de vídeo utilizando o DaVinci Resolve, um dos softwares mais completos do mercado audiovisual.',
+    objectPosition: "center 40%",
+    instituto: "IFSULDEMINAS - Campus Passos",
   },
   {
     id: "introducao-informatica",
     titulo: 'Introdução à Informática',
     speakers: 'Gabriel Xavier e Richard Rodrigues',
     imagem: '/imagens/ComputacaoBasicaHacking.png',
-    descricao: 'Ideal para iniciantes, este minicurso apresenta os principais conceitos da informática, como uso de sistemas operacionais, organização de arquivos e navegação segura na internet.'
+    descricao: 'Ideal para iniciantes, este minicurso apresenta os principais conceitos da informática, como uso de sistemas operacionais, organização de arquivos e navegação segura na internet.',
+    objectPosition: "center 40%",
+    instituto: "IFSULDEMINAS - Campus Passos",
   },
   {
     id: "chatbot-python",
     titulo: 'Criação de Chatbots com Python',
     speakers: 'Rafael de Padua e Rômulo Vargas',
-    imagem: '/imagens/Chatbot_Python.png',
-    descricao: 'Aprenda passo a passo como desenvolver chatbots interativos com Python, utilizando bibliotecas modernas para automatizar conversas e responder usuários de forma inteligente.'
+    imagem: '/imagens/Chatbot_Python.jpg',
+    descricao: 'Aprenda passo a passo como desenvolver chatbots interativos com Python, utilizando bibliotecas modernas para automatizar conversas e responder usuários de forma inteligente.',
+    objectPosition: "center 45%",
+    instituto: "IFSULDEMINAS - Campus Passos",
   },
   {
     id: "computacao-forense",
     titulo: 'Computação Forense',
     speakers: 'Helen Enes e Kaiki Alvarenga',
-    imagem: '/imagens/Computacao_Forense.png',
-    descricao: 'Descubra como especialistas investigam crimes digitais. Entenda como identificar, preservar e analisar evidências em dispositivos e redes de forma ética e técnica.'
+    imagem: '/imagens/Computacao_Forense.jpg',
+    descricao: 'Descubra como especialistas investigam crimes digitais. Entenda como identificar, preservar e analisar evidências em dispositivos e redes de forma ética e técnica.',
+    objectPosition: "center 40%",
+    instituto: "IFSULDEMINAS - Campus Passos",
   },
   {
     id: "deep-learing",
     titulo: 'Deep Learning',
     speakers: 'Pedro Gabriel e Gabriel Bernardes',
     imagem: '/imagens/Deep_Learning.png',
-    descricao: 'Mergulhe nos conceitos básicos do Deep Learning, aprendendo como redes neurais artificiais funcionam e são aplicadas em áreas como reconhecimento de imagens e linguagem natural.'
+    descricao: 'Mergulhe nos conceitos básicos do Deep Learning, aprendendo como redes neurais artificiais funcionam e são aplicadas em áreas como reconhecimento de imagens e linguagem natural.',
+    objectPosition: "center 55%",
+    instituto: "IFSULDEMINAS - Campus Passos",
+  },
+  {
+    id: "ingles-computacao",
+    titulo: "Inglês na Computação",
+    speakers: "Enzo Lessa e Victor Hugo",
+    imagem: "/imagens/Ingles.jpg",
+    descricao: "Aprenda como o inglês é utilizado no dia a dia da computação, desde a leitura de documentações até a comunicação em projetos internacionais.",
+    objectPosition: "center 25%",
+    instituto: "IFSULDEMINAS - Campus Passos",
+  },
+  {
+    id: "introducao-javascript",
+    titulo: "Introdução ao JavaScript",
+    speakers: "Pedro Miranda e Gabriel Canela",
+    imagem: "/imagens/Introducao_ao_java_script.jpeg",
+    descricao: "Conheça os conceitos básicos do JavaScript e dê os primeiros passos no desenvolvimento de páginas web interativas e dinâmicas.",
+    objectPosition: "center 30%",
+    instituto: "IFSULDEMINAS - Campus Passos",
+  },
+  {
+    id: "modelagem-3d-blender",
+    titulo: "Modelagem 3D com Blender",
+    speakers: "Maria Clara e Stanley Melo",
+    imagem: "/imagens/Modelagem_3D_Blender.jpg",
+    descricao: "Descubra o mundo da modelagem 3D utilizando o Blender. Crie seus primeiros modelos, aprenda técnicas essenciais e explore ferramentas de animação.",
+    objectPosition: "center 40%",
+    instituto: "IFSULDEMINAS - Campus Passos",
+  },
+  {
+    id: "montagem-conserto-computadores",
+    titulo: "Montagem e Conserto de Computadores",
+    speakers: "Tiago Raquena e Robson Ribeiro",
+    imagem: "/imagens/Montagem_e_Conserto_de_Computadores.jpg",
+    descricao: "Aprenda na prática a montar, configurar e realizar manutenção em computadores, entendendo cada peça e seu funcionamento.",
+    objectPosition: "center 25%",
+    instituto: "IFSULDEMINAS - Campus Passos",
+  },
+  {
+    id: "react-basico",
+    titulo: "React Básico",
+    speakers: "Davi Henrique e Layla Pimenta",
+    imagem: "/imagens/React.png",
+    descricao: "Introdução ao desenvolvimento de interfaces modernas com React. Entenda os conceitos de componentes, estados e propriedades para criar aplicações web dinâmicas.",
+    objectPosition: "center 30%",
+    instituto: "IFSULDEMINAS - Campus Passos",
+  },
+  {
+    id: "docker",
+    titulo: "Docker",
+    speakers: "Luciano Davilla",
+    imagem: "/imagens/Docker_LucianoDavilla.jpg",
+    descricao: "teste",
+    objectPosition: "center 60%",
+    instituto: "IFSULDEMINAS - Campus Passos",
   },
 ];
-
 
 const Minicursos = () => {
   return (
@@ -72,19 +137,26 @@ const Minicursos = () => {
                   style={{
                     width: '100%',
                     height: '100%',
-                    objectPosition: 'center 40%'
+                    objectPosition: minicurso.objectPosition || "center"
                   }}
                 />
               </div>
               
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-4 text-encomp-green font-orbitron text-center">
+              <CardContent className="p-6 flex flex-col justify-between min-h-[350px]">
+                <h3 className="text-xl font-bold mb-2 text-encomp-green font-orbitron text-center">
                   {minicurso.titulo}
                 </h3>
                 
-                <div className="text-center mb-4">
-                  <p className="text-sm text-gray-400 mb-1">Speakers:</p>
+                <div className="text-center mb-3">
+                  <p className="text-sm text-gray-400 mb-1">
+                    {minicurso.speakers.includes(" e ") || minicurso.speakers.includes(",")
+                      ? "Ministrantes:"
+                      : "Ministrante:"}
+                  </p>
                   <p className="text-white font-medium">{minicurso.speakers}</p>
+                  <span className="inline-block bg-encomp-green/10 text-encomp-green text-xs px-2 py-1 rounded-full mt-2">
+                    Instituição: {minicurso.instituto}
+                  </span>
                 </div>
                 
                 <p className="text-gray-300 text-sm leading-relaxed mb-4 text-center">
@@ -109,3 +181,5 @@ const Minicursos = () => {
 };
 
 export default Minicursos;
+
+export { minicursosData };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,24 +17,52 @@ const formSchema = z.object({
   curso: z.string().min(1, { message: "Selecione um curso." }),
 });
 
-const courses = [
-  "Inglês voltado para a computação",
-  "Blender para iniciantes",
-  "Informática Básica",
-  "Computação Forense",
-  "React",
-  "Edição de Vídeos com DaVinci Resolve",
-  "Como comprar seu computador",
-  "Introdução a Deep learning em Python",
-  "Introdução a Cloud Computing",
-  "Criação de um Chat Bot com Python",
-  "Introdução ao Git",
-  "Virtualização e Introdução ao Kali Linux com foco em Pentest",
-  "Montagem e Funcionamento de Computadores",
-];
-
 const FormRegistro = () => {
   const { toast } = useToast();
+  const [vagas, setVagas] = useState<{ [curso: string]: number }>({});
+  const [loadingVagas, setLoadingVagas] = useState(true);
+
+  useEffect(() => {
+    const SHEET_DOC_ID = "1GlVcP6QJtvS_RGwztxn_-Q0eyjzMbPA6pkX_b1jOQjY";
+    const SHEET_NAME = "Planilha Bongas";
+
+    const url =
+      `https://docs.google.com/spreadsheets/d/${SHEET_DOC_ID}/gviz/tq` +
+      `?tq=${encodeURIComponent("select A,B")}` +
+      `&tqx=out:csv` +
+      `&sheet=${encodeURIComponent(SHEET_NAME)}` +
+      `&_=${Date.now()}`; 
+    fetch(url)
+      .then(res => res.text())
+      .then(text => {
+        const clean = text.replace(/^\uFEFF/, "").replace(/\r/g, "").trim();
+
+        if (/<(html|head|style|body)/i.test(clean)) {
+          setVagas({});
+          return;
+        }
+
+        const sep = clean.split("\n")[0].includes(";") ? ";" : ",";
+
+        const linhas = clean
+          .split("\n")
+          .map(l => l.split(sep).map(c => c.replace(/^"+|"+$/g, "").trim()))
+          .filter(arr => arr.length >= 2 && (arr[0] ?? "").length > 0);
+
+        const data = linhas.slice(1);
+
+        const obj: { [curso: string]: number } = {};
+        for (const cols of data) {
+          const curso = cols[0];
+          const qtd = Number.parseInt((cols[1] || "0").replace(/[^\d-]/g, ""), 10);
+          if (curso) obj[curso] = Number.isFinite(qtd) ? qtd : 0;
+        }
+
+        setVagas(obj);
+      })
+      .catch(() => setVagas({}))
+      .finally(() => setLoadingVagas(false));
+  }, []);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -50,10 +78,8 @@ const FormRegistro = () => {
   const isSubmitting = form.formState.isSubmitting;
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const formId = "1FAIpQLSd0_PCOx5EgFOYqu7QRDIWlR8b87YnNJmawhxLOFIFemQiDYw";
     const googleFormURL = `https://docs.google.com/forms/u/3/d/e/1FAIpQLSd0_PCOx5EgFOYqu7QRDIWlR8b87YnNJmawhxLOFIFemQiDYw/formResponse`;
 
-    // 🔥 Substituir pelos entry IDs corretos
     const formData = new FormData();
     formData.append("entry.950192036", values.nome);
     formData.append("entry.512518463", values.email);
@@ -101,13 +127,10 @@ const FormRegistro = () => {
           <span className="text-encomp-green">/&gt;</span>
         </h2>
 
-        <p className="text-center text-gray-400 mb-8 max-w-2xl mx-auto">
-          Reserve sua vaga para o ENCOMP 2025! Esta é uma pré-inscrição para demonstrar interesse. As inscrições oficiais serão abertas em breve.
-        </p>
-
         <div className="max-w-2xl mx-auto bg-encomp-black p-8 rounded-xl border border-encomp-green/20 hover:border-encomp-green/40 shadow-xl">
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+
               <FormField
                 control={form.control}
                 name="nome"
@@ -129,12 +152,7 @@ const FormRegistro = () => {
                   <FormItem>
                     <FormLabel className="text-encomp-green">Email</FormLabel>
                     <FormControl>
-                      <Input
-                        type="email"
-                        placeholder="seu.email@exemplo.com"
-                        {...field}
-                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green"
-                      />
+                      <Input type="email" placeholder="seu.email@exemplo.com" {...field} className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -148,12 +166,7 @@ const FormRegistro = () => {
                   <FormItem>
                     <FormLabel className="text-encomp-green">CPF</FormLabel>
                     <FormControl>
-                      <Input
-                        placeholder="000.000.000-00"
-                        {...field}
-                        onChange={handleCpfChange}
-                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green"
-                      />
+                      <Input placeholder="000.000.000-00" {...field} onChange={handleCpfChange} className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -167,11 +180,7 @@ const FormRegistro = () => {
                   <FormItem>
                     <FormLabel className="text-encomp-green">Endereço</FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder="Seu endereço completo"
-                        {...field}
-                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green"
-                      />
+                      <Textarea placeholder="Seu endereço completo" {...field} className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -186,13 +195,18 @@ const FormRegistro = () => {
                     <FormLabel className="text-encomp-green">Curso/Área de Interesse</FormLabel>
                     <FormControl>
                       <select
-                        className="w-full h-10 rounded-md border border-encomp-green/30 bg-encomp-dark px-3 py-2 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
+                        className="w-full h-10 rounded-md border border-encomp-green/30 bg-encomp-dark px-3 py-2 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                         {...field}
                       >
-                        <option value="">Selecione um curso</option>
-                        {courses.map((course) => (
-                          <option key={course} value={course}>
-                            {course}
+                        <option value="">
+                          {loadingVagas ? "Carregando cursos..." : "Selecione um curso"}
+                        </option>
+                        {!loadingVagas && Object.keys(vagas).length === 0 && (
+                          <option disabled value="">Não foi possível carregar as vagas</option>
+                        )}
+                        {Object.entries(vagas).map(([curso, qtd]) => (
+                          <option key={curso} value={curso} disabled={qtd <= 0}>
+                            {curso} {qtd > 0 ? `(${qtd} vagas)` : `(Esgotado)`}
                           </option>
                         ))}
                       </select>
@@ -202,14 +216,8 @@ const FormRegistro = () => {
                 )}
               />
 
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-encomp-green hover:bg-encomp-light-green text-black font-bold py-2 px-4 rounded-md transition-all transform hover:scale-105 duration-300 flex items-center justify-center gap-2"
-              >
-                {isSubmitting ? (
-                  <div className="animate-spin h-5 w-5 border-2 border-black border-t-transparent rounded-full" />
-                ) : (
+              <Button type="submit" disabled={isSubmitting} className="w-full bg-encomp-green text-black font-bold">
+                {isSubmitting ? "Enviando..." : (
                   <>
                     <SendIcon size={18} />
                     Enviar Pré-inscrição
