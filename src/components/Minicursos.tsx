@@ -1,8 +1,48 @@
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-
 const minicursosData = [
+  {
+    id: "externo-linux",
+    titulo: "Linux",
+    speakers: "João Fernando",
+    imagem: "/imagens/Externo (João Fernando) - Linux.png",
+    descricao:
+      "Fundamentos práticos de Linux: estrutura de diretórios, permissões, comandos essenciais, gerenciamento de pacotes e dicas de terminal para o dia a dia.",
+    objectPosition: "center 40%",
+    instituto: "Externo",
+  },
+  {
+    id: "externo-docker",
+    titulo: "Docker",
+    speakers: "Luciano",
+    imagem: "/imagens/Externo (Luciano) - Docker.png",
+    descricao:
+      "Containerização na prática: imagens, containers, volumes e redes. Entenda como empacotar e distribuir aplicações de forma portátil e escalável.",
+    objectPosition: "center 55%",
+    instituto: "Externo",
+  },
+  {
+    id: "externo-dotnet-angular",
+    titulo: ".NET e Angular",
+    speakers: "Gabriel",
+    imagem: "/imagens/Externo (Gabriel) - .NET e Angular.png",
+    descricao:
+      "Construindo aplicações web modernas com back-end .NET e front-end Angular: rotas, componentes, APIs e integração.",
+    objectPosition: "center 40%",
+    instituto: "Externo",
+  },
+  {
+    id: "externo-langchain",
+    titulo: "Workshop de LangChain: desenvolvimento de aplicativos LLM para iniciantes",
+    speakers: "Adonis",
+    imagem:
+      "/imagens/Externo (Adonis) - Workshop de LangChain para desenvolvimento de aplicativos LLM para iniciantes em programação.png",
+    descricao:
+      "Aprenda a usar LangChain para orquestrar prompts, memórias e ferramentas, criando apps com modelos de linguagem de forma acessível para iniciantes.",
+    objectPosition: "center 50%",
+    instituto: "Externo",
+  },
   {
     id: "cloud-computing",
     titulo: 'Cloud Computing',
@@ -122,31 +162,31 @@ const Minicursos = () => {
           Minicursos
           <span className="text-encomp-green">/&gt;</span>
         </h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {minicursosData.map((minicurso, index) => (
-            <Card 
-              key={index} 
+            <Card
+              key={index}
               className="bg-encomp-darkGray border border-encomp-green/20 hover:border-encomp-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-encomp-green/20 overflow-hidden group"
             >
               <div className="h-64 relative overflow-hidden bg-encomp-dark/50">
-                <img 
-                  src={minicurso.imagem} 
+                <img
+                  src={encodeURI(minicurso.imagem)}
                   alt={minicurso.titulo}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   style={{
                     width: '100%',
                     height: '100%',
-                    objectPosition: minicurso.objectPosition || "center"
+                    objectPosition: minicurso.objectPosition || 'center',
                   }}
                 />
               </div>
-              
+
               <CardContent className="p-6 flex flex-col justify-between min-h-[350px]">
                 <h3 className="text-xl font-bold mb-2 text-encomp-green font-orbitron text-center">
                   {minicurso.titulo}
                 </h3>
-                
+
                 <div className="text-center mb-3">
                   <p className="text-sm text-gray-400 mb-1">
                     {minicurso.speakers.includes(" e ") || minicurso.speakers.includes(",")
@@ -158,14 +198,14 @@ const Minicursos = () => {
                     Instituição: {minicurso.instituto}
                   </span>
                 </div>
-                
+
                 <p className="text-gray-300 text-sm leading-relaxed mb-4 text-center">
                   {minicurso.descricao}
                 </p>
 
                 <div className="flex justify-center">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     className="bg-encomp-green/10 text-encomp-green border-encomp-green/30 hover:bg-encomp-green hover:text-black transition-all font-semibold"
                   >
                     Em breve mais informações
@@ -181,5 +221,4 @@ const Minicursos = () => {
 };
 
 export default Minicursos;
-
 export { minicursosData };
