@@ -73,7 +73,7 @@ const Speakers = () => {
 
   return (
     <section id="speakers" className="py-16 bg-encomp-dark">
-      <div className="container mx-auto text-center">
+      <div className="container mx-auto text-center ">
         <h2 className="text-3xl font-bold text-white mb-8 font-orbitron">
           <span className="text-encomp-green">&lt;</span>
           Palestrantes
@@ -85,12 +85,12 @@ const Speakers = () => {
               id={speaker.id}
               key={index} 
               ref={el => speakerRefs.current[speaker.id] = el}
-              className={`bg-encomp-darkGray p-6 rounded-lg shadow-md flex flex-col items-center transition-all duration-500 transform hover:scale-105 hover:shadow-lg ${
+              className={`bg-encomp-darkGray min-w-[280px] p-8 rounded-lg shadow-md flex flex-col items-center transition-all duration-500 transform hover:scale-105 hover:shadow-lg ${
                 highlightedSpeaker === speaker.id ? 'animate-highlight border-2 border-encomp-green/70' : ''
               }`}
               onMouseEnter={() => highlightedSpeaker === speaker.id && setHighlightedSpeaker(null)}
             >
-              <Avatar className="w-24 h-24 mb-4 border-2 border-encomp-green/30 hover:border-encomp-green transition-all duration-300">
+              <Avatar className="w-48 h-48 mb-4 border-2 border-encomp-green/30 hover:border-encomp-green transition-all duration-300">
                 <AvatarImage src={speaker.imageUrl} alt={speaker.name} />
                 <AvatarFallback className="bg-encomp-dark text-encomp-green">
                   {speaker.name.split(' ').map(n => n[0]).join('')}

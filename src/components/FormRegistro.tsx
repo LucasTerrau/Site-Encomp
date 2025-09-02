@@ -13,7 +13,7 @@ const formSchema = z.object({
   nome: z.string().min(3, { message: "Nome deve ter pelo menos 3 caracteres." }),
   email: z.string().email({ message: "Email inválido." }),
   cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, { message: "CPF deve estar no formato 000.000.000-00" }),
-  endereco: z.string().min(5, { message: "Endereço deve ter pelo menos 5 caracteres." }),
+  público: z.string(),
   curso: z.string().min(1, { message: "Selecione um curso." }),
 });
 
@@ -70,7 +70,6 @@ const FormRegistro = () => {
       nome: "",
       email: "",
       cpf: "",
-      endereco: "",
       curso: "",
     },
   });
@@ -84,7 +83,6 @@ const FormRegistro = () => {
     formData.append("entry.950192036", values.nome);
     formData.append("entry.512518463", values.email);
     formData.append("entry.891552767", values.cpf);
-    formData.append("entry.371273980", values.endereco);
     formData.append("entry.729292152", values.curso);
 
     try {
@@ -175,20 +173,6 @@ const FormRegistro = () => {
 
               <FormField
                 control={form.control}
-                name="endereco"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-encomp-green">Endereço</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="Seu endereço completo" {...field} className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
                 name="curso"
                 render={({ field }) => (
                   <FormItem>
@@ -205,8 +189,8 @@ const FormRegistro = () => {
                           <option disabled value="">Não foi possível carregar as vagas</option>
                         )}
                         {Object.entries(vagas).map(([curso, qtd]) => (
-                          <option key={curso} value={curso} disabled={qtd <= 0}>
-                            {curso} {qtd > 0 ? `(${qtd} vagas)` : `(Esgotado)`}
+                          <option key={curso} value={curso}>
+                            {curso} {qtd > 0 ? `(${qtd} vagas)` : `(Excedente)`}
                           </option>
                         ))}
                       </select>
