@@ -75,7 +75,7 @@ const Navbar = () => {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <button onClick={() => scrollToSection('programacao')} className="w-full text-left text-white hover:text-encomp-green hover:bg-encomp-green/10 cursor-pointer">
-                  Pré-programação
+                  Programação
                 </button>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
@@ -94,11 +94,6 @@ const Navbar = () => {
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-encomp-dark/95 backdrop-blur border-encomp-green/20">
-              <DropdownMenuItem asChild>
-                <button onClick={() => scrollToSection('patrocinio')} className="w-full text-left text-white hover:text-encomp-green hover:bg-encomp-green/10 cursor-pointer">
-                  Seja um Patrocinador
-                </button>
-              </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <button onClick={() => scrollToSection('faq')} className="w-full text-left text-white hover:text-encomp-green hover:bg-encomp-green/10 cursor-pointer">
                   FAQ

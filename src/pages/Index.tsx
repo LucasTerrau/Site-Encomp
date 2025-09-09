@@ -30,7 +30,7 @@ const Index = () => {
 
     return () => {
       sections.forEach(section => {
-        observer.unobserve(section);
+       observer.unobserve(section);
       });
     };
   }, []);
@@ -45,10 +45,11 @@ const Index = () => {
       <Programacao />
       <Minicursos />
       <FormRegistro />
-      <Patrocinadores />
+      
       <Faq />
       <Footer />
     </div>
+    //<Patrocinadores />
   );
 };
 
