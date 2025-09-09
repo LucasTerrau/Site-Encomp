@@ -11,6 +11,7 @@ import Faq from '@/components/Faq';
 import Footer from '@/components/Footer';
 import Patrocinadores from '@/components/Patrocinadores';
 import FormRegistro from '@/components/FormRegistro';
+import FloatingRegistrationButton from '@/components/FloatingRegistrationButton';
 
 const Index = () => {
   useEffect(() => {
@@ -48,6 +49,7 @@ const Index = () => {
       
       <Faq />
       <Footer />
+      <FloatingRegistrationButton />
     </div>
     //<Patrocinadores />
   );

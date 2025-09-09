@@ -109,7 +109,7 @@ const Navbar = () => {
             duration={500} 
             className="bg-encomp-green text-encomp-dark px-4 py-2 rounded font-medium hover:bg-encomp-green/80 transition-colors cursor-pointer"
           >
-            Pré-inscrição
+            Inscreva-se!
           </Link>
         </nav>
 
@@ -127,7 +127,7 @@ const Navbar = () => {
             <Link onClick={() => setIsOpen(false)} to="galeria" spy={true} smooth={true} duration={500} className="my-2 text-white hover:text-encomp-green transition-colors cursor-pointer">Galeria</Link>
             <Link onClick={() => setIsOpen(false)} to="programacao" spy={true} smooth={true} duration={500} className="my-2 text-white hover:text-encomp-green transition-colors cursor-pointer">Pré-programação</Link>
             <Link onClick={() => setIsOpen(false)} to="minicursos" spy={true} smooth={true} duration={500} className="my-2 text-white hover:text-encomp-green transition-colors cursor-pointer">Minicursos</Link>
-            <Link onClick={() => setIsOpen(false)} to="inscricao" spy={true} smooth={true} duration={500} className="my-2 text-white hover:text-encomp-green transition-colors cursor-pointer">Pré-inscrição</Link>
+            <Link onClick={() => setIsOpen(false)} to="inscricao" spy={true} smooth={true} duration={500} className="my-2 text-white hover:text-encomp-green transition-colors cursor-pointer">Inscreva-se!</Link>
             <Link onClick={() => setIsOpen(false)} to="patrocinio" spy={true} smooth={true} duration={500} className="my-2 text-white hover:text-encomp-green transition-colors cursor-pointer">Seja um Patrocinador</Link>
             <Link onClick={() => setIsOpen(false)} to="faq" spy={true} smooth={true} duration={500} className="my-2 text-white hover:text-encomp-green transition-colors cursor-pointer">FAQ</Link>
           </div>
