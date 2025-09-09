@@ -9,7 +9,7 @@ import Speakers from '@/components/Speakers';
 import Minicursos from '@/components/Minicursos';
 import Faq from '@/components/Faq';
 import Footer from '@/components/Footer';
-import FormPatrocinio from '@/components/FormPatrocinio';
+import Patrocinadores from '@/components/Patrocinadores';
 import FormRegistro from '@/components/FormRegistro';
 
 const Index = () => {
@@ -45,7 +45,7 @@ const Index = () => {
       <Programacao />
       <Minicursos />
       <FormRegistro />
-      <FormPatrocinio />
+      <Patrocinadores />
       <Faq />
       <Footer />
     </div>

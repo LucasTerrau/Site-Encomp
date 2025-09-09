@@ -5,61 +5,32 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { SendIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-
 const formSchema = z.object({
-  cpf: z
-    .string()
-    .regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/u, { message: "CPF deve estar no formato 000.000.000-00" }),
+  cpf: z.string().regex(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/u, { message: "CPF deve estar no formato 000.000.000-00" }),
   nome: z.string().min(3, { message: "Nome deve ter pelo menos 3 caracteres." }),
   email: z.string().email({ message: "Email inválido." }),
-  publico: z.string().min(1, { message: "Selecione o público." }),
+  endereco: z.string().min(3, { message: "Endereço deve ter pelo menos 3 caracteres." }),
   periodo: z.string().min(1, { message: "Selecione o período." }),
-  telefone: z
-    .string()
-    .refine((v) => {
-      const d = v.replace(/\D/g, "");
-      return d.length >= 10 && d.length <= 11;
-    }, { message: "Telefone deve ter 10 ou 11 dígitos (com DDD)." }),
+  telefone: z.string().refine((v) => {
+    const d = v.replace(/\D/g, "");
+    return d.length >= 10 && d.length <= 11;
+  }, { message: "Telefone deve ter 10 ou 11 dígitos (com DDD)." }),
 });
-
-const PUBLICO_OPCOES = [
-  "Moda",
-  "DG",
-  "TI",
-  "BCC",
-  "Outros ( Interno )",
-  "Público Externo",
-];
-
-const PERIODO_OPCOES = [
-  "1° Ano",
-  "2° Ano",
-  "3° Ano",
-  "1° período",
-  "2° período",
-  "3° período",
-  "4° período",
-  "5° período",
-  "6° período",
-  "7° período",
-  "8° período",
-  "N/A",
-];
-
 
 const GOOGLE_FORM_URL =
   "https://docs.google.com/forms/u/3/d/e/1FAIpQLSd0_PCOx5EgFOYqu7QRDIWlR8b87YnNJmawhxLOFIFemQiDYw/formResponse";
 
 const FORM_ENTRY_IDS = {
-  cpf: "entry.891552767", 
-  nome: "entry.950192036", 
-  email: "entry.512518463", 
-  publico: "entry.REPLACE_PUBLICO_ID",
-  periodo: "entry.REPLACE_PERIODO_ID", 
-  telefone: "entry.REPLACE_TELEFONE_ID", 
+  cpf: "entry.891552767",
+  nome: "entry.950192036",
+  email: "entry.512518463",
+  endereco: "entry.371273980",
+  periodo: "entry.729292152",
+  telefone: "entry.123456789",
 };
 
 const FormRegistro: React.FC = () => {
@@ -71,9 +42,9 @@ const FormRegistro: React.FC = () => {
       cpf: "",
       nome: "",
       email: "",
-      cpf: "",
       endereco: "",
-      curso: "",
+      periodo: "",
+      telefone: "",
     },
   });
 
@@ -108,11 +79,12 @@ const FormRegistro: React.FC = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const formData = new FormData();
-    formData.append("entry.950192036", values.nome);
-    formData.append("entry.512518463", values.email);
-    formData.append("entry.891552767", values.cpf);
-    formData.append("entry.371273980", values.endereco);
-    formData.append("entry.729292152", values.curso);
+    formData.append(FORM_ENTRY_IDS.nome, values.nome);
+    formData.append(FORM_ENTRY_IDS.email, values.email);
+    formData.append(FORM_ENTRY_IDS.cpf, values.cpf);
+    formData.append(FORM_ENTRY_IDS.endereco, values.endereco);
+    formData.append(FORM_ENTRY_IDS.periodo, values.periodo);
+    formData.append(FORM_ENTRY_IDS.telefone, values.telefone);
 
     try {
       await fetch(GOOGLE_FORM_URL, {
@@ -211,7 +183,11 @@ const FormRegistro: React.FC = () => {
                   <FormItem>
                     <FormLabel className="text-encomp-green">Endereço</FormLabel>
                     <FormControl>
-                      <Textarea placeholder="Seu endereço completo" {...field} className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green" />
+                      <Textarea
+                        placeholder="Seu endereço completo"
+                        {...field}
+                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -229,17 +205,19 @@ const FormRegistro: React.FC = () => {
                         className="w-full h-10 rounded-md border border-encomp-green/30 bg-encomp-dark px-3 py-2 text-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                         {...field}
                       >
-                        <option value="">
-                          {loadingVagas ? "Carregando cursos..." : "Selecione um curso"}
-                        </option>
-                        {!loadingVagas && Object.keys(vagas).length === 0 && (
-                          <option disabled value="">Não foi possível carregar as vagas</option>
-                        )}
-                        {Object.entries(vagas).map(([curso, qtd]) => (
-                          <option key={curso} value={curso} disabled={qtd <= 0}>
-                            {curso} {qtd > 0 ? `(${qtd} vagas)` : `(Esgotado)`}
-                          </option>
-                        ))}
+                        <option value="">Selecione o período</option>
+                        <option value="1° Ano">1° Ano</option>
+                        <option value="2° Ano">2° Ano</option>
+                        <option value="3° Ano">3° Ano</option>
+                        <option value="1° período">1° período</option>
+                        <option value="2° período">2° período</option>
+                        <option value="3° período">3° período</option>
+                        <option value="4° período">4° período</option>
+                        <option value="5° período">5° período</option>
+                        <option value="6° período">6° período</option>
+                        <option value="7° período">7° período</option>
+                        <option value="8° período">8° período</option>
+                        <option value="N/A">N/A</option>
                       </select>
                     </FormControl>
                     <FormMessage />

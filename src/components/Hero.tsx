@@ -51,7 +51,7 @@ const Hero = () => {
           onClick={scrollToRegistration}
           className="px-8 py-6 bg-encomp-light-green hover:bg-encomp-green text-black font-bold text-lg rounded-xl transition-all hover:scale-105 duration-200"
         >
-          PRÉ-INSCRIÇÃO
+          INSCREVA-SE!
         </Button>
       </div>
     </section>

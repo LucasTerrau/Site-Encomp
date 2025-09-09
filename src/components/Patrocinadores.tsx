@@ -1,6 +1,4 @@
-
 import React from 'react';
-import { Award } from 'lucide-react';
 
 const Sponsors = () => {
   return (
@@ -8,12 +6,6 @@ const Sponsors = () => {
       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80')] bg-cover bg-center opacity-5"></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-          <span className="text-encomp-green">&lt;</span>
-          Patrocinadores
-          <span className="text-encomp-green">/&gt;</span>
-        </h2>
-        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <SponsorCard 
             name="Instituto Federal" 
@@ -38,22 +30,6 @@ const Sponsors = () => {
             logo="https://via.placeholder.com/200x80/171717/00ff88?text=InnovateTech"
             type="Bronze"
           />
-        </div>
-        
-        <div className="mt-16 text-center">
-          <h3 className="text-xl font-bold mb-4">
-            <Award className="inline mr-2 text-encomp-green" />
-            Quer ser um patrocinador?
-          </h3>
-          <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-            Tenha sua marca associada ao maior evento de computação do Sul de Minas. Entre em contato conosco para conhecer os planos de patrocínio.
-          </p>
-          <a 
-            href="mailto:encomp@ifsuldeminas.edu.br" 
-            className="inline-flex items-center px-6 py-3 bg-encomp-light-green hover:bg-encomp-green text-black font-bold rounded-lg transition-colors"
-          >
-            Seja um Patrocinador
-          </a>
         </div>
       </div>
     </section>
@@ -91,8 +67,6 @@ const SponsorCard: React.FC<SponsorCardProps> = ({ name, logo, type }) => {
           />
         </div>
       </div>
-      
-      <h3 className="text-xl font-bold text-center">{name}</h3>
     </div>
   );
 };

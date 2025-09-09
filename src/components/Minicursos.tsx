@@ -34,7 +34,7 @@ const minicursosData = [
   },
   {
     id: "externo-langchain",
-    titulo: "Workshop de LangChain: desenvolvimento de aplicativos LLM para iniciantes",
+    titulo: "Workshop de LangChain",
     speakers: "Adonis",
     imagem:
       "/imagens/Externo (Adonis) - Workshop de LangChain para desenvolvimento de aplicativos LLM para iniciantes em programação.png",
@@ -50,7 +50,7 @@ const minicursosData = [
     imagem: '/imagens/Cloud.png',
     descricao: 'Entenda os conceitos fundamentais da computação em nuvem e descubra como utilizá-la para armazenar, processar e escalar aplicações de forma eficiente.',
     objectPosition: "center 35%",
-    instituto: "Alunos-BCC",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
   },
   {
     id: "edicao-video",
@@ -59,7 +59,7 @@ const minicursosData = [
     imagem: '/imagens/Davincimagia.png',
     descricao: 'Explore as ferramentas e técnicas de edição profissional de vídeo utilizando o DaVinci Resolve, um dos softwares mais completos do mercado audiovisual.',
     objectPosition: "center 40%",
-    instituto: "Alunos-BCC",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
   },
   {
     id: "introducao-informatica",
@@ -68,7 +68,7 @@ const minicursosData = [
     imagem: '/imagens/ComputacaoBasicaHacking.png',
     descricao: 'Ideal para iniciantes, este minicurso apresenta os principais conceitos da informática, como uso de sistemas operacionais, organização de arquivos e navegação segura na internet.',
     objectPosition: "center 40%",
-    instituto: "Alunos-BCC",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
   },
   {
     id: "chatbot-python",
@@ -77,7 +77,7 @@ const minicursosData = [
     imagem: '/imagens/Chatbot_Python.jpg',
     descricao: 'Aprenda passo a passo como desenvolver chatbots interativos com Python, utilizando bibliotecas modernas para automatizar conversas e responder usuários de forma inteligente.',
     objectPosition: "center 45%",
-    instituto: "Alunos-BCC",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
   },
   {
     id: "computacao-forense",
@@ -86,7 +86,7 @@ const minicursosData = [
     imagem: '/imagens/Computacao_Forense.jpg',
     descricao: 'Descubra como especialistas investigam crimes digitais. Entenda como identificar, preservar e analisar evidências em dispositivos e redes de forma ética e técnica.',
     objectPosition: "center 40%",
-    instituto: "Alunos-BCC",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
   },
   {
     id: "deep-learing",
@@ -95,7 +95,7 @@ const minicursosData = [
     imagem: '/imagens/Deep_Learning.png',
     descricao: 'Mergulhe nos conceitos básicos do Deep Learning, aprendendo como redes neurais artificiais funcionam e são aplicadas em áreas como reconhecimento de imagens e linguagem natural.',
     objectPosition: "center 55%",
-    instituto: "Alunos-BCC",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
   },
   {
     id: "ingles-computacao",
@@ -104,7 +104,7 @@ const minicursosData = [
     imagem: "/imagens/Ingles.jpg",
     descricao: "Aprenda como o inglês é utilizado no dia a dia da computação, desde a leitura de documentações até a comunicação em projetos internacionais.",
     objectPosition: "center 25%",
-    instituto: "Alunos-BCC",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
   },
   {
     id: "introducao-javascript",
@@ -113,7 +113,7 @@ const minicursosData = [
     imagem: "/imagens/Introducao_ao_java_script.jpeg",
     descricao: "Conheça os conceitos básicos do JavaScript e dê os primeiros passos no desenvolvimento de páginas web interativas e dinâmicas.",
     objectPosition: "center 30%",
-    instituto: "Alunos-BCC",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
   },
   {
     id: "modelagem-3d-blender",
@@ -122,7 +122,7 @@ const minicursosData = [
     imagem: "/imagens/Modelagem_3D_Blender.jpg",
     descricao: "Descubra o mundo da modelagem 3D utilizando o Blender. Crie seus primeiros modelos, aprenda técnicas essenciais e explore ferramentas de animação.",
     objectPosition: "center 40%",
-    instituto: "Alunos-BCC",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
   },
   {
     id: "montagem-conserto-computadores",
@@ -131,7 +131,7 @@ const minicursosData = [
     imagem: "/imagens/Montagem_e_Conserto_de_Computadores.jpg",
     descricao: "Aprenda na prática a montar, configurar e realizar manutenção em computadores, entendendo cada peça e seu funcionamento.",
     objectPosition: "center 25%",
-    instituto: "Alunos-BCC",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
   },
   {
     id: "react-basico",
@@ -140,16 +140,7 @@ const minicursosData = [
     imagem: "/imagens/React.png",
     descricao: "Introdução ao desenvolvimento de interfaces modernas com React. Entenda os conceitos de componentes, estados e propriedades para criar aplicações web dinâmicas.",
     objectPosition: "center 30%",
-    instituto: "Alunos-BCC",
-  },
-  {
-    id: "docker",
-    titulo: "Docker",
-    speakers: "Luciano Davilla",
-    imagem: "/imagens/Docker_LucianoDavilla.jpg",
-    descricao: "teste",
-    objectPosition: "center 60%",
-    instituto: "Alunos-BCC",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
   },
 ];
 
@@ -195,7 +186,7 @@ const Minicursos = () => {
                   </p>
                   <p className="text-white font-medium">{minicurso.speakers}</p>
                   <span className="inline-block bg-encomp-green/10 text-encomp-green text-xs px-2 py-1 rounded-full mt-2">
-                    Instituição: {minicurso.instituto}
+                    {minicurso.instituto}
                   </span>
                 </div>
 
@@ -208,7 +199,7 @@ const Minicursos = () => {
                     variant="outline"
                     className="bg-encomp-green/10 text-encomp-green border-encomp-green/30 hover:bg-encomp-green hover:text-black transition-all font-semibold"
                   >
-                    Em breve mais informações
+                    Inscreva-se já!
                   </Button>
                 </div>
               </CardContent>

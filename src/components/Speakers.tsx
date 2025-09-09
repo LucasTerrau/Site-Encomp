@@ -5,42 +5,42 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 export const speakersData = [
   {
     id: "paulo-guilherme",
-    name: 'Paulo Guilherme',
+    name: 'Gabriel Canela',
     title: 'Especialista em Cloud Computing',
     imageUrl: '/imagens/Interno (Gabriel Canela) - A importância da privacidade na Internet e a Regulamentação do Uso de IA nos ambientes Virtuais.png',
     description: 'A importância da privacidade na Internet e a Regulamentação do Uso de IA nos ambientes Virtuais.',
-    date: '15 de Março',
-    time: '14:00 - 15:00',
+    date: '04 de Novembro',
+    time: '08:30 - 09:30',
     instituto: 'IFSULDEMINAS - Campus Passos'
   },
   {
     id: "luciano-davilla",
-    name: 'Luciano Davilla',
+    name: 'Vincius Ótavio de Lima Moreira',
     title: 'DevOps Engineer & Docker Expert',
     imageUrl: '/imagens/Palestra3.png',
     description: 'Docker na prática: containerização e orquestração para desenvolvimento moderno.',
-    date: '15 de Março',
+    date: '04 de Novembro',
     time: '15:30 - 16:30',
     instituto: 'IFSULDEMINAS - Campus Passos'
   },
   {
     id: "romulo-lima",
-    name: 'Rômulo Lima',
+    name: 'Rildo Borges Duarte',
     title: 'Desenvolvedor Full Stack',
     imageUrl: '/imagens/Palestra2.png',
     description: 'Arquiteturas modernas: microserviços, APIs RESTful e desenvolvimento ágil.',
-    date: '16 de Março',
-    time: '09:00 - 10:00',
+    date: '03 de Novembro',
+    time: '8:30 - 9:30',
     instituto: 'IFSULDEMINAS - Campus Passos'
   },
   {
     id: "bernardao-paulo",
-    name: 'Paulo e Bernardão',
+    name: 'Nélito Bernardes Junior',
     title: 'Especialistas em Cybersecurity',
     imageUrl: '/imagens/Palestra1.png',
     description: 'Ethical Hacking e Cybersecurity: protegendo sistemas e dados empresariais.',
-    date: '16 de Março',
-    time: '10:30 - 11:30',
+    date: '03 de Novembro',
+    time: '8:30 - 9:30',
     instituto: 'IFSULDEMINAS - Campus Passos'
   },
 ];
