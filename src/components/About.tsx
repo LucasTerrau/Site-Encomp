@@ -33,7 +33,7 @@ const About = () => {
                 <div className="flex items-start">
                   <MapPin className="text-encomp-green mr-3 mt-1 flex-shrink-0" />
                   <p className="text-gray-300">
-                    Para 2025, o ENCOMP chega à sua 10ª edição com uma programação especial, trazendo temas inovadores como Inteligência Artificial, Cloud Computing, Edição de Vídeo e muito mais, além do primeiro campeonato oficial de League of Legends.
+                     Para 2025, o ENCOMP chega à sua 11ª edição com uma programação especial, trazendo temas inovadores como Inteligência Artificial, Cloud Computing, Edição de Vídeo e muito mais, além de um campeonato oficial de League of Legends.
                   </p>
                 </div>
               </div>

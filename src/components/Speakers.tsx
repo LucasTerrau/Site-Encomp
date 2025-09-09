@@ -11,6 +11,7 @@ export const speakersData = [
     date: '03 de Novembro',
     time: '08:30',
     modalidade: 'Presencial',
+    local: 'Auditório',
     instituto: 'IFSULDEMINAS - Campus Poços de Caldas '
   },
   {
@@ -20,8 +21,9 @@ export const speakersData = [
     imageUrl: '/imagens/Palestra3.png',
     description: 'Do Zero ao Futuro - Como entrar no mercado de trabalho com IA no radar e o impacto das escolhas.',
     date: '03 de Novembro',
-    time: '08:30',
+    time: '10:30',
     modalidade: 'Presencial',
+    local: 'Auditório',
     instituto: 'Ex Aluno / Empresa Statum'
   },
   {
@@ -33,6 +35,7 @@ export const speakersData = [
     date: '04 de Novembro',
     time: '08:30',
     modalidade: 'Presencial',
+    local: 'Auditório',
     instituto: 'Empresa Salesforce - SP'
   },
   {
@@ -42,8 +45,9 @@ export const speakersData = [
     imageUrl: '/imagens/Passos_mg.png',
     description: 'Mesa redonda com professores do IFSULDEMINAS sobre diversos temas da computação.',
     date: '04 de Novembro',
-    time: '08:30',
+    time: '10:30',
     modalidade: 'Presencial',
+    local: 'Auditório',
     instituto: 'IFSULDEMINAS - Campus Passos'
   },
 ];
@@ -120,7 +124,9 @@ const Speakers = () => {
                 <div className="space-y-1 mt-auto pt-3 border-t border-encomp-green/20">
                   <p className="text-encomp-green text-sm font-medium">{speaker.date}</p>
                   <p className="text-gray-400 text-sm">Início: {speaker.time}</p>
-                  <p className="text-gray-400 text-xs">{speaker.modalidade}</p>
+                  <p className="text-gray-400 text-xs">
+                    {speaker.modalidade}{speaker.local ? ` (${speaker.local})` : ''}
+                  </p>
                 </div>
               </div>
             </div>

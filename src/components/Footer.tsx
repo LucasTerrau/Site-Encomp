@@ -38,7 +38,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-encomp-green/20 mt-8 pt-8 text-center text-gray-500">
-          <p className="mt-2 text-sm mb-2">Desenvolvido com 💚 pelos alunos do curso de Ciência da Computação</p>
+          <p className="mt-2 text-sm mb-2">Coloque pelos alunos do 6º período do Curso Bacharelado em Ciência da Computação</p>
           <p>© 2025 ENCOMP - Encontro de Computação IFSULDEMINAS. Todos os direitos reservados.</p>
         </div>
       </div>
