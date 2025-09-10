@@ -58,6 +58,13 @@ const programacao: ProgramacaoPorDia = {
   ],
 
   "05/11/2025": [
+    // Adicionando evento das 8h para quarta-feira
+    { 
+      titulo: "Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (JOSIF)", 
+      formato: "Palestra", 
+      inicio: "08:00", 
+      local: "Auditório" 
+    },
     { titulo: "Blender para iniciantes", formato: "Presencial", inicio: "13:30", local: "Lab. 4" },
     { titulo: "Inglês voltado para a computação", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
     { titulo: "Javascript", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
@@ -83,6 +90,13 @@ const programacao: ProgramacaoPorDia = {
   ],
 
   "06/11/2025": [
+    // Adicionando evento das 8h para quinta-feira
+    { 
+      titulo: "Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (JOSIF)", 
+      formato: "Palestra", 
+      inicio: "08:00", 
+      local: "Auditório" 
+    },
     { titulo: "Blender para iniciantes", formato: "Presencial", inicio: "13:30", local: "Lab. 4" },
     { titulo: "HTML e CSS", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
     {
@@ -111,12 +125,19 @@ const programacao: ProgramacaoPorDia = {
   ],
 
   "07/11/2025": [
+    // Adicionando evento das 8h para sexta-feira
+    { 
+      titulo: "Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (JOSIF)", 
+      formato: "Palestra", 
+      inicio: "08:00", 
+      local: "Auditório" 
+    },
     { titulo: ".Net e Angular", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
     { titulo: "Blender para iniciantes", formato: "Presencial", inicio: "13:30", local: "Lab. 4" },
-    { titulo: "Campeonato de Jogos", formato: "Presencial", inicio: "13:30", local: "Lab. de Jogos / LAN" },
     { titulo: "Docker", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
     { titulo: "HTML e CSS", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
     { titulo: "Linux aplicado à prática de programação", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
+    { titulo: "Campeonato de Jogos", formato: "Palestra", inicio: "13:30", local: "Lab. de Jogos / LAN" },
   ],
 };
 
@@ -249,6 +270,7 @@ const Programacao: React.FC = () => {
                                 return (
                                   <li key={idx} className="flex flex-wrap items-center gap-2">
                                     <span>{titleText}</span>
+                                    {ev.local && <span className="text-sm text-gray-400">({ev.local})</span>}
                                   </li>
                                 );
                               })}

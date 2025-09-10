@@ -19,7 +19,7 @@ const Faq = () => {
     },
     {
       pergunta: "Onde será realizado?",
-      resposta: "No Instituto Federal do Sul de Minas - Campus Passos, R. da Penha, 290 - Penha II, Passos - MG, 37903-070. O evento também será realizado online com transmissão das principais atividades."
+      resposta: "No Instituto Federal do Sul de Minas - Campus Passos, R. da Penha, 290 - Penha II, Passos - MG, 37903-070. O evento também terá momentos online com minicursos pra você fazer da sua casa.."
     },
     {
       pergunta: "Preciso me inscrever com antecedência?",
