@@ -60,7 +60,7 @@ const programacao: ProgramacaoPorDia = {
   "05/11/2025": [
     // Adicionando evento das 8h para quarta-feira
     { 
-      titulo: "Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (JOSIF)", 
+      titulo: "Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (JOSIF), EM BREVE MAIS INFORMAÇÕES", 
       formato: "Palestra", 
       inicio: "08:00", 
       local: "Auditório" 
@@ -92,7 +92,7 @@ const programacao: ProgramacaoPorDia = {
   "06/11/2025": [
     // Adicionando evento das 8h para quinta-feira
     { 
-      titulo: "Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (JOSIF)", 
+      titulo: "Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (JOSIF),EM BREVE MAIS INFORMAÇÕES", 
       formato: "Palestra", 
       inicio: "08:00", 
       local: "Auditório" 
@@ -127,7 +127,7 @@ const programacao: ProgramacaoPorDia = {
   "07/11/2025": [
     // Adicionando evento das 8h para sexta-feira
     { 
-      titulo: "Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (JOSIF)", 
+      titulo: "Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (JOSIF),EM BREVE MAIS INFORMAÇÕES", 
       formato: "Palestra", 
       inicio: "08:00", 
       local: "Auditório" 
