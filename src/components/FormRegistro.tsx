@@ -420,13 +420,14 @@ const FormRegistro: React.FC = () => {
                 name="nivel"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-encomp-green">
-                      Selecione seu nível para filtrar os cursos disponíveis
-                    </FormLabel>
+                    <FormLabel className="text-encomp-green">Nível</FormLabel>
                     <FormControl>
                       <RadioGroup
                         value={field.value || ""} 
-                        onValueChange={field.onChange}
+                        onValueChange={(v) => {
+                          field.onChange(v as NivelForm);
+                          form.setValue("curso", ""); // Reset course when level changes
+                        }}
                         className="grid grid-cols-2 gap-2 md:grid-cols-4"
                       >
                         {NIVEIS.map(n => (
@@ -447,29 +448,38 @@ const FormRegistro: React.FC = () => {
                 name="curso"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-encomp-green">Curso/Área de Interesse (minicurso)</FormLabel>
+                    <FormLabel className="text-encomp-green">
+                      Curso de interesse {nivelSelecionado && `(${nivelSelecionado})`}
+                    </FormLabel>
                     <FormControl>
-                      <RadioGroup value={field.value || ""} onValueChange={field.onChange} className="grid grid-cols-1 gap-2 md:grid-cols-2">
-                        {CURSOS
-                          .slice()
-                          .sort((a, b) => a.localeCompare(b)) 
-                          .map((c) => {
-                            const disabled = isCourseDisabled(c);
-                            const id = safeId(`curso-${c}`);
-                            const exclusivoPartiuIF = c === PARTIU_IF_ONLY;
-                            return (
-                              <div key={c} className={`flex items-center space-x-2 rounded-md border p-2 ${disabled ? "border-encomp-green/10 opacity-50 pointer-events-none" : "border-encomp-green/20"}`}>
-                                <RadioGroupItem value={c} id={id} disabled={disabled} />
-                                <label htmlFor={id} className="text-sm text-gray-200">
-                                  {c}{exclusivoPartiuIF ? " — Exclusivo PartiuIF" : ""}
-                                </label>
-                                {form.getValues("nivel") && (
-                                  <span className="ml-auto text-[11px] text-gray-400">Nível mínimo: {COURSE_LEVELS[c]}</span>
-                                )}
-                              </div>
-                            );
-                          })}
-                      </RadioGroup>
+                      <div className="space-y-2 max-h-64 overflow-y-auto border border-encomp-green/20 rounded-md p-2">
+                        {!nivelSelecionado ? (
+                          <p className="text-gray-400 text-sm p-2">Selecione um nível primeiro</p>
+                        ) : (
+                          <RadioGroup value={field.value || ""} onValueChange={field.onChange}>
+                            {CURSOS
+                              .filter(curso => {
+                                if (curso === PARTIU_IF_ONLY && publicoSelecionado !== "partiuif") return false;
+                                return COURSE_LEVELS[curso] === nivelSelecionado;
+                              })
+                              .sort((a, b) => a.localeCompare(b))
+                              .map(curso => (
+                                <div
+                                  key={curso}
+                                  className="flex items-start space-x-2 p-2 rounded-md border border-encomp-green/20 hover:border-encomp-green/40"
+                                >
+                                  <RadioGroupItem value={curso} id={safeId(`curso-${curso}`)} />
+                                  <label 
+                                    htmlFor={safeId(`curso-${curso}`)} 
+                                    className="text-sm leading-relaxed cursor-pointer text-gray-200"
+                                  >
+                                    {curso}{curso === PARTIU_IF_ONLY ? " — Exclusivo PartiuIF" : ""}
+                                  </label>
+                                </div>
+                              ))}
+                          </RadioGroup>
+                        )}
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

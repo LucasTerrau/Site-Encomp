@@ -19,7 +19,7 @@ const Faq = () => {
     },
     {
       pergunta: "Onde será realizado?",
-      resposta: "No Instituto Federal do Sul de Minas - Campus Passos, localizado na cidade de Passos, Minas Gerais."
+      resposta: "No Instituto Federal do Sul de Minas - Campus Passos, R. da Penha, 290 - Penha II, Passos - MG, 37903-070. O evento também será realizado online com transmissão das principais atividades."
     },
     {
       pergunta: "Preciso me inscrever com antecedência?",
@@ -31,7 +31,7 @@ const Faq = () => {
     },
     {
       pergunta: "Posso participar remotamente?",
-      resposta: "Para esta edição, estamos planejando transmitir algumas palestras principais online, mas a maioria das atividades será presencial no Campus Passos do IFSULDEMINAS."
+      resposta: "Sim! Teremos atividades online, minicursos e palestras. Basta se inscrever!"
     }
   ];
 

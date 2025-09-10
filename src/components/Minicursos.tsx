@@ -20,10 +20,8 @@ type Minicurso = {
 
 const formatSessao = (iso: string) => {
   const d = new Date(iso);
-  const dia = d.toLocaleDateString("pt-BR", { weekday: "short" });
-  const data = d.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" });
-  const hora = d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" });
-  return `${dia} • ${data} • ${hora}`;
+  const dia = d.toLocaleDateString("pt-BR", { weekday: "long" });
+  return dia.charAt(0).toUpperCase() + dia.slice(1);
 };
 
 const minicursosData: Minicurso[] = [
@@ -33,7 +31,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Adonis Gabriel Gonçalves Vinuto",
     imagem: "/imagens/Externo (Adonis) - Workshop de LangChain para desenvolvimento de aplicativos LLM para iniciantes em programação.png",
     descricao: "Orquestração de prompts, memória e ferramentas com LangChain para criar apps com modelos de linguagem — foco em iniciantes.",
-    objectPosition: "center 50%",
+    objectPosition: "center 30%",
     instituto: "Empresa Statum",
     vagas: 20,
     nivel: "Avançado",
@@ -46,7 +44,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Maria Clara Batista e Stanley Melo Costa",
     imagem: "/imagens/Modelagem_3D_Blender.jpg",
     descricao: "Versão online do curso de Blender: pipeline básico e exercícios guiados para praticar de casa.",
-    objectPosition: "center 40%",
+    objectPosition: "center 30%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: "ilimitado",
     nivel: "Intermediário",
@@ -59,7 +57,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Gabriel Silva Xavier e Richard Rodrigues Abreu",
     imagem: "/imagens/Informatica_Basica.jpg",
     descricao: "Fundamentos práticos: sistemas operacionais, organização de arquivos, segurança básica e produtividade no computador.",
-    objectPosition: "center 40%",
+    objectPosition: "center 30%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 20,
     nivel: "Iniciante",
@@ -72,7 +70,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Rafael de Pádua e Rômulo Rocha Vargas",
     imagem: "/imagens/Chatbot_Python.jpg",
     descricao: "Construa um chatbot do zero com Python. Conceitos de NLP, integração com APIs e bibliotecas úteis para conversação.",
-    objectPosition: "center 45%",
+    objectPosition: "center 35%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 15,
     nivel: "Intermediário",
@@ -85,7 +83,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Lucas Terra Wachsmuth e Matheus Terra Wachsmuth",
     imagem: "/imagens/Como_Adquirir_um_Computador.jpg",
     descricao: "Guia prático para escolher peças e configurações para estudo, trabalho ou jogos — custo/benefício e upgrade futuro.",
-    objectPosition: "center 20%",
+    objectPosition: "center 15%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: "ilimitado",
     nivel: "Iniciante",
@@ -98,7 +96,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Mariana Eliane Teixeira",
     imagem: "/imagens/Cerebro.png",
     descricao: "Neurociência aplicada ao estudo e à vida online: atenção, memória, foco e práticas para aprender melhor.",
-    objectPosition: "center 45%",
+    objectPosition: "center 40%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 25,
     nivel: "Básico",
@@ -111,7 +109,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Helen Enes Dessa e Kaiki Alvarenga de Souza",
     imagem: "/imagens/Computacao_Forense.jpg",
     descricao: "Coleta, preservação e análise de evidências digitais. Técnicas e ferramentas para investigações em sistemas e redes.",
-    objectPosition: "center 40%",
+    objectPosition: "center 35%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: "ilimitado",
     nivel: "Avançado",
@@ -124,7 +122,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Gabriel Teixeira Bernardes e Pedro Gabriel dos Santos Barros",
     imagem: "/imagens/Deep_Learning.jpg",
     descricao: "Bases de redes neurais, treino e avaliação. Construindo modelos simples para visão e texto com bibliotecas populares.",
-    objectPosition: "center 55%",
+    objectPosition: "center 45%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 15,
     nivel: "Intermediário",
@@ -137,7 +135,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Gabriel Martins e Yago Gabriel",
     imagem: "/imagens/API.png",
     descricao: "Ação especial voltada à divulgação e integração com a comunidade — oficinas rápidas e bate-papos com alunos.",
-    objectPosition: "center 40%",
+    objectPosition: "center 25%",
     instituto: "IFSULDEMINAS Campus Passos",
     vagas: "Exclusivo PartiuIF",
     nivel: "Iniciante",
@@ -150,7 +148,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Ricardo Morsoleto",
     imagem: "/imagens/PowerBI.jpg",
     descricao: "Modelagem simples, criação de dashboards, DAX introdutório e publicação de relatórios.",
-    objectPosition: "center 40%",
+    objectPosition: "center 30%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 15,
     nivel: "Básico",
@@ -163,7 +161,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Jean Francisco da Silva, Max Mohamed Freitas e Pedro Santana Miranda",
     imagem: "/imagens/ReactNative.jpg",
     descricao: "Do zero ao app: componentes nativos, navegação, chamadas HTTP e publicação inicial.",
-    objectPosition: "center 45%",
+    objectPosition: "center 25%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 20,
     nivel: "Intermediário",
@@ -189,7 +187,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Carla Freitas Gonçalves Drummond e João Victor Souza Soares",
     imagem: "/imagens/HTML_e_CSS.png",
     descricao: "Estruturas semânticas, flex/grid, responsividade e boas práticas para criar páginas bem organizadas.",
-    objectPosition: "center 40%",
+    objectPosition: "center 35%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 20,
     nivel: "Básico",
@@ -202,7 +200,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Gabriel Teixeira Bernardes e Rafael de Pádua Oliveira",
     imagem: "/imagens/Computacao_em_Nuvem.jpg",
     descricao: "Primeiros passos com serviços de nuvem: contas, compute, storage, redes e implantação básica de aplicações.",
-    objectPosition: "center 45%",
+    objectPosition: "center 30%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: "ilimitado",
     nivel: "Básico",
@@ -226,9 +224,9 @@ const minicursosData: Minicurso[] = [
     id: "introducao-javascript",
     titulo: "Introdução ao JavaScript",
     speakers: "Gabriel Oliveira Canela e Pedro Santana Miranda",
-    imagem: "/imagens/API.png",
+    imagem: "/imagens/Introducao_ao_java_script.jpeg",
     descricao: "Primeiros passos no JS: sintaxe, DOM, eventos e consumo de APIs — criando páginas web interativas.",
-    objectPosition: "center 30%",
+    objectPosition: "center 25%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 20,
     nivel: "Básico",
@@ -241,7 +239,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Maria Clara Batista e Stanley Melo Costa",
     imagem: "/imagens/Modelagem_3D_Blender.jpg",
     descricao: "Modelagem, materiais, luzes e render. Fundamentos do Blender para criar seus primeiros projetos em 3D.",
-    objectPosition: "center 40%",
+    objectPosition: "center 30%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 12,
     nivel: "Intermediário",
@@ -254,7 +252,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Robson Ribeiro Filho e Tiago Requena Ferreira Sanchez",
     imagem: "/imagens/Montagem_e_Conserto_de_Computadores.jpg",
     descricao: "Identificação de componentes, montagem segura, instalação de SO, diagnóstico e manutenção preventiva.",
-    objectPosition: "center 25%",
+    objectPosition: "center 20%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 10,
     nivel: "Básico",
@@ -267,7 +265,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Davi Henrique Garcia Araújo e Layla Pimenta de Melo",
     imagem: "/imagens/React.jpg",
     descricao: "Componentes, props, estado e efeitos. Construindo interfaces modernas e organizando projetos React.",
-    objectPosition: "center 30%",
+    objectPosition: "center 35%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 15,
     nivel: "Avançado",
@@ -293,7 +291,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Ricardo Morsoleto",
     imagem: "/imagens/Machine_Learning (2).jpg",
     descricao: "Do zero ao recomendador: coleta/limpeza de dados, métricas de similaridade e avaliação simples do modelo.",
-    objectPosition: "center 35%",
+    objectPosition: "center 25%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 15,
     nivel: "Intermediário",
@@ -306,7 +304,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Kaique Gabriel de Silva Souza e Pedro Arthur Faria Costa",
     imagem: "/imagens/Campeonato_de_Jogos.jpg",
     descricao: "Competição organizada de e-sports no campus. Regras, chaveamento e acompanhamento das partidas.",
-    objectPosition: "center 35%",
+    objectPosition: "center 25%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 16,
     nivel: "Básico",
@@ -319,7 +317,7 @@ const minicursosData: Minicurso[] = [
     speakers: "João Fernando",
     imagem: "/imagens/Externo (João Fernando) - Linux.png",
     descricao: "Fundamentos práticos de Linux: estrutura de diretórios, permissões, comandos essenciais, gerenciamento de pacotes e dicas de terminal para o dia a dia.",
-    objectPosition: "center 40%",
+    objectPosition: "center 30%",
     instituto: "Ex Aluno / UFLA São Seb. Paraíso",
     vagas: 20,
     nivel: "Intermediário",
@@ -355,28 +353,50 @@ const minicursosData: Minicurso[] = [
 ];
 
 const Minicursos = () => {
-  const sorted = [...minicursosData].sort((a, b) => {
-    const ta = a.Data.length ? +new Date(a.Data[0]) : Infinity;
-    const tb = b.Data.length ? +new Date(b.Data[0]) : Infinity;
-    return ta - tb;
-  });
+  const [activeLevel, setActiveLevel] = React.useState<Nivel>("Básico");
+  
+  const coursesByLevel = minicursosData.reduce((acc, course) => {
+    if (!acc[course.nivel]) acc[course.nivel] = [];
+    acc[course.nivel].push(course);
+    return acc;
+  }, {} as Record<Nivel, typeof minicursosData>);
+
+  const levelOrder: Nivel[] = ["Iniciante", "Básico", "Intermediário", "Avançado"];
+  const activeCourses = coursesByLevel[activeLevel] || [];
 
   return (
     <section id="minicursos" className="py-16 bg-encomp-dark">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-orbitron">
+        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center font-orbitron">
           <span className="text-encomp-green">&lt;</span>
           Minicursos
           <span className="text-encomp-green">/&gt;</span>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {sorted.map((minicurso) => (
+        {/* Level selector */}
+        <div className="flex flex-wrap justify-center gap-2 mb-12">
+          {levelOrder.map((level) => (
+            <button
+              key={level}
+              onClick={() => setActiveLevel(level)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                activeLevel === level
+                  ? "bg-encomp-green text-black"
+                  : "bg-encomp-green/10 text-encomp-green border border-encomp-green/30 hover:bg-encomp-green/20"
+              }`}
+            >
+              {level} ({coursesByLevel[level]?.length || 0})
+            </button>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {activeCourses.map((minicurso) => (
             <Card
               key={minicurso.id}
               className="bg-encomp-darkGray border border-encomp-green/20 hover:border-encomp-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-encomp-green/20 overflow-hidden group"
             >
-              <div className="h-64 relative overflow-hidden bg-encomp-dark/50">
+              <div className="h-48 md:h-56 relative overflow-hidden bg-encomp-dark/50">
                 <img
                   src={encodeURI(minicurso.imagem)}
                   alt={minicurso.titulo}
@@ -385,7 +405,7 @@ const Minicursos = () => {
                 />
               </div>
 
-              <CardContent className="p-6 flex flex-col justify-between min-h-[430px]">
+              <CardContent className="p-4 md:p-6 flex flex-col justify-between min-h-[350px] md:min-h-[380px]">
                 <h3 className="text-xl font-bold mb-2 text-encomp-green font-orbitron text-center">
                   {minicurso.titulo}
                 </h3>
@@ -402,21 +422,20 @@ const Minicursos = () => {
                     </span>
                   </div>
 
-                  <div className="mt-3 space-y-1 text-sm md:text-base text-gray-300">
-                    <div><span className="text-encomp-green/80 font-semibold">Carga Horária:</span> {minicurso.carga_horaria}h</div>
+                  <div className="mt-3 space-y-1 text-sm text-gray-300">
+                    <div><span className="text-encomp-green/80 font-semibold">Carga:</span> {minicurso.carga_horaria}h</div>
                     <div>
                       <span className="text-encomp-green/80 font-semibold">Vagas:</span>{" "}
                       {minicurso.vagas === "ilimitado" ? "ilimitado" : minicurso.vagas === "Exclusivo PartiuIF" ? "Exclusivo PartiuIF" : minicurso.vagas}
                     </div>
-                    <div><span className="text-encomp-green/80 font-semibold">Nível:</span> {minicurso.nivel}</div>
                   </div>
 
-                  <div className="mt-4">
-                    <p className="text-sm text-gray-400 mb-1">Datas e horários</p>
-                    <div className="flex flex-wrap gap-2 justify-center">
-                      {minicurso.Data.map((s) => (
-                        <span key={s} className="inline-block bg-encomp-green/10 text-gray-200 text-xs md:text-sm px-2 py-1 rounded-full">
-                          {formatSessao(s)}
+                  <div className="mt-3">
+                    <p className="text-xs text-gray-400 mb-1">Dias da semana</p>
+                    <div className="flex flex-wrap gap-1 justify-center">
+                      {[...new Set(minicurso.Data.map(formatSessao))].map((dia) => (
+                        <span key={dia} className="inline-block bg-encomp-green/10 text-gray-200 text-xs px-2 py-1 rounded-full">
+                          {dia}
                         </span>
                       ))}
                     </div>
