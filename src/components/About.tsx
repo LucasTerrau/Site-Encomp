@@ -80,7 +80,7 @@ const About = () => {
               </p>
               
               <p className="text-gray-300">
-                Além disso, o IFSULDEMINAS - Campus Passos está situado em uma localização privilegiada na cidade, com fácil acesso e ampla área para estacionamento.
+                Além disso, o IFSULDEMINAS - Campus Passos está situado em uma localização privilegiada na cidade, com fácil acesso.
               </p>
             </div>
           </div>
