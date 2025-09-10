@@ -270,7 +270,6 @@ const Programacao: React.FC = () => {
                                 return (
                                   <li key={idx} className="flex flex-wrap items-center gap-2">
                                     <span>{titleText}</span>
-                                    {ev.local && <span className="text-sm text-gray-400">({ev.local})</span>}
                                   </li>
                                 );
                               })}
