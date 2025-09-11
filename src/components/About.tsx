@@ -76,7 +76,7 @@ const About = () => {
               </p>
               
               <p className="text-gray-300 mb-4">
-                O campus possui laboratórios equipados com tecnologia de ponta, auditórios modernos e toda a infraestrutura necessária para proporcionar uma experiência enriquecedora aos participantes do evento.
+                O campus possui laboratórios equipados com tecnologia de ponta, auditório modernos e toda a infraestrutura necessária para proporcionar uma experiência enriquecedora aos participantes do evento.
               </p>
               
               <p className="text-gray-300">
