@@ -58,9 +58,8 @@ const programacao: ProgramacaoPorDia = {
   ],
 
   "05/11/2025": [
-    // Adicionando evento das 8h para quarta-feira
     { 
-      titulo: "Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (JOSIF)", 
+      titulo: "JOSIF — Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (EM BREVE MAIS INFORMAÇÕES)", 
       formato: "Palestra", 
       inicio: "08:00", 
       local: "Auditório" 
@@ -90,9 +89,8 @@ const programacao: ProgramacaoPorDia = {
   ],
 
   "06/11/2025": [
-    // Adicionando evento das 8h para quinta-feira
     { 
-      titulo: "Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (JOSIF)", 
+      titulo: "JOSIF — Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (EM BREVE MAIS INFORMAÇÕES)", 
       formato: "Palestra", 
       inicio: "08:00", 
       local: "Auditório" 
@@ -127,7 +125,7 @@ const programacao: ProgramacaoPorDia = {
   "07/11/2025": [
     // Adicionando evento das 8h para sexta-feira
     { 
-      titulo: "Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (JOSIF)", 
+      titulo: "JOSIF — Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (EM BREVE MAIS INFORMAÇÕES)", 
       formato: "Palestra", 
       inicio: "08:00", 
       local: "Auditório" 
@@ -201,16 +199,7 @@ function buildDiaIndices(source: ProgramacaoPorDia) {
 
 const { indexByKey, totalByTitle } = buildDiaIndices(programacao);
 
-function formatPalestraTitulo(raw: string) {
-  const base = normalizeTitle(raw);
-  const m = base.match(/\(([^)]+)\)/);
-  if (m) {
-    const tipo = m[1].trim();
-    const resto = base.replace(/\s*\([^)]+\)\s*/, "").replace(/^Palestra\s*—\s*/i, "").trim();
-    return `${tipo} — ${resto}`;
-  }
-  return base;
-}
+
 
 const Programacao: React.FC = () => {
   return (
@@ -260,7 +249,7 @@ const Programacao: React.FC = () => {
 
                                 let titleText =
                                   ev.formato === "Palestra"
-                                    ? formatPalestraTitulo(ev.titulo)
+                                    ? (ev.titulo)
                                     : `MINICURSO — ${baseTitle}`;
 
                                 if (ev.formato !== "Palestra" && total > 1 && ordem) {
@@ -301,5 +290,6 @@ const Programacao: React.FC = () => {
     </section>
   );
 };
+
 
 export default Programacao;

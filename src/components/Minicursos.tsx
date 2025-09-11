@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 type Nivel = "Básico" | "Intermediário" | "Avançado" | "Iniciante";
-
+//a
 type Minicurso = {
   id: string;
   titulo: string;

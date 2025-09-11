@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { HelpCircle } from 'lucide-react';
-
+//a
 const Faq = () => {
   const faqs = [
     {
@@ -19,7 +19,7 @@ const Faq = () => {
     },
     {
       pergunta: "Onde será realizado?",
-      resposta: "No Instituto Federal do Sul de Minas - Campus Passos, R. da Penha, 290 - Penha II, Passos - MG, 37903-070. O evento também terá momentos online com minicursos pra você fazer da sua casa.."
+      resposta: "No Instituto Federal do Sul de Minas - Campus Passos, R. da Penha, 290 - Penha II, Passos - MG, 37903-070. O evento também terá momentos online com minicursos pra você fazer da sua casa."
     },
     {
       pergunta: "Preciso me inscrever com antecedência?",

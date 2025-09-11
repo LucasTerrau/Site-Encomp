@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Users, Monitor, Gamepad2 } from 'lucide-react';
-
+//a
 const Gallery = () => {
   return (
     <section id="galeria" className="py-16 bg-encomp-black">

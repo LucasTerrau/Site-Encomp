@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { MapPin, History, School } from 'lucide-react';
-
+//a
 const About = () => {
   return (
     <section id="historia" className="py-16 bg-encomp-darkGray">
@@ -33,7 +33,7 @@ const About = () => {
                 <div className="flex items-start">
                   <MapPin className="text-encomp-green mr-3 mt-1 flex-shrink-0" />
                   <p className="text-gray-300">
-                     Para 2025, o ENCOMP chega à sua 11ª edição com uma programação especial, trazendo temas inovadores como Inteligência Artificial, Cloud Computing, Edição de Vídeo e muito mais, além de um campeonato oficial de League of Legends.
+                     Para 2025, o ENCOMP chega à sua 11ª edição com uma programação especial, trazendo temas inovadores como Inteligência Artificial, Cloud Computing, Edição de Vídeo e muito mais, além de um campeonato de League of Legends.
                   </p>
                 </div>
               </div>
@@ -80,7 +80,7 @@ const About = () => {
               </p>
               
               <p className="text-gray-300">
-                Além disso, o IFSULDEMINAS - Campus Passos está situado em uma localização privilegiada na cidade, com fácil acesso e ampla área para estacionamento.
+                Além disso, o IFSULDEMINAS - Campus Passos está situado em uma localização privilegiada na cidade, com fácil acesso.
               </p>
             </div>
           </div>
@@ -91,3 +91,4 @@ const About = () => {
 };
 
 export default About;
+

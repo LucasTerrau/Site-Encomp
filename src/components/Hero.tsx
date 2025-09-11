@@ -10,7 +10,7 @@ const Hero = () => {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
-
+//a
   return (
     <section id="hero" className="min-h-screen flex flex-col justify-center items-center pt-20 pb-16 px-4 relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80')] bg-cover bg-center opacity-10"></div>

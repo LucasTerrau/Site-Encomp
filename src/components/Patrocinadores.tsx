@@ -1,5 +1,5 @@
 import React from 'react';
-
+//a
 const Sponsors = () => {
   return (
     <section className="py-16 bg-encomp-black relative overflow-hidden">

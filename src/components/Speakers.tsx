@@ -77,7 +77,7 @@ const Speakers = () => {
     window.addEventListener('hashchange', handleHashChange);
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
-
+//a
   return (
     <section id="speakers" className="py-16 bg-encomp-dark">
       <div className="container mx-auto text-center">
