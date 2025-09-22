@@ -38,6 +38,7 @@ const CURSOS = [
   "Cérebro, Aprendizado e Mundo Digital",
   "Machine Learning descomplicado: sistema de recomendação de jogos",
   "Desenvolvimento de uma página de jogos com API",
+   "A importância da privacidade na Internet e a Regulamentação do Uso de IA nos ambientes Virtuais",
 ] as const;
 type CursoNome = (typeof CURSOS)[number];
 
@@ -120,6 +121,7 @@ const COURSE_LEVELS: Record<CursoNome, NivelForm> = {
   "Virtualização e Introdução ao Kali Linux com foco em Pentest": "Avançado",
   "Visualização de Dados em Power BI": "Básico",
   "Workshop de LangChain": "Avançado",
+  "A importância da privacidade na Internet e a Regulamentação do Uso de IA nos ambientes Virtuais": "Iniciante",
 };
 
 const PARTIU_IF_ONLY: CursoNome = "Desenvolvimento de uma página de jogos com API";
