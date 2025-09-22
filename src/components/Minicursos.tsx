@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
 type Nivel = "Básico" | "Intermediário" | "Avançado" | "Iniciante";
-//a
+
 type Minicurso = {
   id: string;
   titulo: string;
@@ -15,7 +15,7 @@ type Minicurso = {
   vagas?: number | "ilimitado" | "Exclusivo PartiuIF";
   nivel: Nivel;
   carga_horaria: number;
-  Data: string[]; 
+  Data: string[];
 };
 
 const formatSessao = (iso: string) => {
@@ -24,13 +24,33 @@ const formatSessao = (iso: string) => {
   return dia.charAt(0).toUpperCase() + dia.slice(1);
 };
 
+const uniqueWeekdaysInOrder = (isos: string[]) => {
+  const ordered = [...isos]
+    .map((s) => new Date(s))
+    .sort((a, b) => a.getTime() - b.getTime());
+  const seen = new Set<string>();
+  const result: string[] = [];
+  ordered.forEach((d) => {
+    const label = d
+      .toLocaleDateString("pt-BR", { weekday: "long" })
+      .replace(/^(.)/, (m) => m.toUpperCase());
+    if (!seen.has(label)) {
+      seen.add(label);
+      result.push(label);
+    }
+  });
+  return result;
+};
+
 const minicursosData: Minicurso[] = [
   {
     id: "externo-langchain",
     titulo: "Workshop de LangChain",
     speakers: "Adonis Gabriel Gonçalves Vinuto",
-    imagem: "/imagens/Externo (Adonis) - Workshop de LangChain para desenvolvimento de aplicativos LLM para iniciantes em programação.png",
-    descricao: "Orquestração de prompts, memória e ferramentas com LangChain para criar apps com modelos de linguagem — foco em iniciantes.",
+    imagem:
+      "/imagens/Externo (Adonis) - Workshop de LangChain para desenvolvimento de aplicativos LLM para iniciantes em programação.png",
+    descricao:
+      "Orquestração de prompts, memória e ferramentas com LangChain para criar apps com modelos de linguagem — foco em iniciantes.",
     objectPosition: "center 30%",
     instituto: "Empresa Statum",
     vagas: 20,
@@ -40,23 +60,29 @@ const minicursosData: Minicurso[] = [
   },
   {
     id: "blender-online",
-    titulo: "Blender para iniciantes (Online)",
+    titulo: "Blender para iniciantes",
     speakers: "Maria Clara Batista e Stanley Melo Costa",
     imagem: "/imagens/Modelagem_3D_Blender.jpg",
-    descricao: "Versão online do curso de Blender: pipeline básico e exercícios guiados para praticar de casa.",
+    descricao:
+      "Versão online do curso de Blender: pipeline básico e exercícios guiados para praticar de casa.",
     objectPosition: "center 30%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: "ilimitado",
     nivel: "Intermediário",
     carga_horaria: 9,
-    Data: ["2025-11-03T19:00:00", "2025-11-04T19:00:00", "2025-11-05T19:00:00"],
+    Data: [
+      "2025-11-03T19:00:00",
+      "2025-11-04T19:00:00",
+      "2025-11-05T19:00:00",
+    ],
   },
   {
     id: "introducao-informatica",
     titulo: "Informática Básica",
     speakers: "Gabriel Silva Xavier e Richard Rodrigues Abreu",
     imagem: "/imagens/Informatica_Basica.jpg",
-    descricao: "Fundamentos práticos: sistemas operacionais, organização de arquivos, segurança básica e produtividade no computador.",
+    descricao:
+      "Fundamentos práticos: sistemas operacionais, organização de arquivos, segurança básica e produtividade no computador.",
     objectPosition: "center 30%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 20,
@@ -69,7 +95,8 @@ const minicursosData: Minicurso[] = [
     titulo: "Criação de Chatbots com Python",
     speakers: "Rafael de Pádua e Rômulo Rocha Vargas",
     imagem: "/imagens/Chatbot_Python.jpg",
-    descricao: "Construa um chatbot do zero com Python. Conceitos de NLP, integração com APIs e bibliotecas úteis para conversação.",
+    descricao:
+      "Construa um chatbot do zero com Python. Conceitos de NLP, integração com APIs e bibliotecas úteis para conversação.",
     objectPosition: "center 35%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 15,
@@ -82,7 +109,8 @@ const minicursosData: Minicurso[] = [
     titulo: "Como adquirir um computador",
     speakers: "Lucas Terra Wachsmuth e Matheus Terra Wachsmuth",
     imagem: "/imagens/Como_Adquirir_um_Computador.jpg",
-    descricao: "Guia prático para escolher peças e configurações para estudo, trabalho ou jogos — custo/benefício e upgrade futuro.",
+    descricao:
+      "Guia prático para escolher peças e configurações para estudo, trabalho ou jogos — custo/benefício e upgrade futuro.",
     objectPosition: "center 15%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: "ilimitado",
@@ -95,7 +123,8 @@ const minicursosData: Minicurso[] = [
     titulo: "Cérebro, Aprendizado e Mundo Digital",
     speakers: "Mariana Eliane Teixeira",
     imagem: "/imagens/Cerebro.png",
-    descricao: "Neurociência aplicada ao estudo e à vida online: atenção, memória, foco e práticas para aprender melhor.",
+    descricao:
+      "Neurociência aplicada ao estudo e à vida online: atenção, memória, foco e práticas para aprender melhor.",
     objectPosition: "center 40%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 25,
@@ -108,20 +137,26 @@ const minicursosData: Minicurso[] = [
     titulo: "Computação Forense",
     speakers: "Helen Enes Dessa e Kaiki Alvarenga de Souza",
     imagem: "/imagens/Computacao_Forense.jpg",
-    descricao: "Coleta, preservação e análise de evidências digitais. Técnicas e ferramentas para investigações em sistemas e redes.",
+    descricao:
+      "Coleta, preservação e análise de evidências digitais. Técnicas e ferramentas para investigações em sistemas e redes.",
     objectPosition: "center 35%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: "ilimitado",
     nivel: "Avançado",
     carga_horaria: 6,
-    Data: ["2025-11-03T19:00:00", "2025-11-05T19:00:00", "2025-11-06T19:00:00"],
+    Data: [
+      "2025-11-03T19:00:00",
+      "2025-11-05T19:00:00",
+      "2025-11-06T19:00:00",
+    ],
   },
   {
     id: "deep-learning",
     titulo: "Introdução a Deep Learning em Python",
     speakers: "Gabriel Teixeira Bernardes e Pedro Gabriel dos Santos Barros",
     imagem: "/imagens/Deep_Learning.jpg",
-    descricao: "Bases de redes neurais, treino e avaliação. Construindo modelos simples para visão e texto com bibliotecas populares.",
+    descricao:
+      "Bases de redes neurais, treino e avaliação. Construindo modelos simples para visão e texto com bibliotecas populares.",
     objectPosition: "center 45%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 15,
@@ -134,7 +169,8 @@ const minicursosData: Minicurso[] = [
     titulo: "Desenvolvimento de uma página de jogos com API",
     speakers: "Gabriel Martins e Yago Gabriel",
     imagem: "/imagens/API.png",
-    descricao: "Ação especial voltada à divulgação e integração com a comunidade — oficinas rápidas e bate-papos com alunos.",
+    descricao:
+      "Ação especial voltada à divulgação e integração com a comunidade — oficinas rápidas e bate-papos com alunos.",
     objectPosition: "center 25%",
     instituto: "IFSULDEMINAS Campus Passos",
     vagas: "Exclusivo PartiuIF",
@@ -147,7 +183,8 @@ const minicursosData: Minicurso[] = [
     titulo: "Visualização de Dados em Power BI",
     speakers: "Ricardo Morsoleto",
     imagem: "/imagens/PowerBI.jpg",
-    descricao: "Modelagem simples, criação de dashboards, DAX introdutório e publicação de relatórios.",
+    descricao:
+      "Modelagem simples, criação de dashboards, DAX introdutório e publicação de relatórios.",
     objectPosition: "center 30%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 15,
@@ -160,7 +197,8 @@ const minicursosData: Minicurso[] = [
     titulo: "Introdução ao React Native",
     speakers: "Jean Francisco da Silva, Max Mohamed Freitas e Pedro Santana Miranda",
     imagem: "/imagens/ReactNative.jpg",
-    descricao: "Do zero ao app: componentes nativos, navegação, chamadas HTTP e publicação inicial.",
+    descricao:
+      "Do zero ao app: componentes nativos, navegação, chamadas HTTP e publicação inicial.",
     objectPosition: "center 25%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 20,
@@ -172,21 +210,29 @@ const minicursosData: Minicurso[] = [
     id: "edicao-video",
     titulo: "Edição de Vídeo com DaVinci Resolve",
     speakers: "Matheus Terra Wachsmuth e Lucas Terra Wachsmuth",
-    imagem: "/imagens/Edicao_de_video_com_DaVinci_Resolve.jpg",
-    descricao: "Fluxo de edição no DaVinci: corte, áudio, correção de cor e exportação. Dicas para vídeos acadêmicos e profissionais.",
+    imagem:
+      "/imagens/Edicao_de_video_com_DaVinci_Resolve.jpg",
+    descricao:
+      "Fluxo de edição no DaVinci: corte, áudio, correção de cor e exportação. Dicas para vídeos acadêmicos e profissionais.",
     objectPosition: "center 40%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: "ilimitado",
     nivel: "Intermediário",
     carga_horaria: 8,
-    Data: ["2025-11-04T19:00:00", "2025-11-05T19:00:00", "2025-11-06T19:00:00"],
+    Data: [
+      "2025-11-04T19:00:00",
+      "2025-11-05T19:00:00",
+      "2025-11-06T19:00:00",
+    ],
   },
   {
     id: "html-css",
     titulo: "HTML e CSS",
-    speakers: "Carla Freitas Gonçalves Drummond e João Victor Souza Soares",
+    speakers:
+      "Carla Freitas Gonçalves Drummond e João Victor Souza Soares",
     imagem: "/imagens/HTML_e_CSS.png",
-    descricao: "Estruturas semânticas, flex/grid, responsividade e boas práticas para criar páginas bem organizadas.",
+    descricao:
+      "Estruturas semânticas, flex/grid, responsividade e boas práticas para criar páginas bem organizadas.",
     objectPosition: "center 35%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 20,
@@ -199,7 +245,8 @@ const minicursosData: Minicurso[] = [
     titulo: "Introdução à Computação em Nuvem",
     speakers: "Gabriel Teixeira Bernardes e Rafael de Pádua Oliveira",
     imagem: "/imagens/Computacao_em_Nuvem.jpg",
-    descricao: "Primeiros passos com serviços de nuvem: contas, compute, storage, redes e implantação básica de aplicações.",
+    descricao:
+      "Primeiros passos com serviços de nuvem: contas, compute, storage, redes e implantação básica de aplicações.",
     objectPosition: "center 30%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: "ilimitado",
@@ -212,7 +259,8 @@ const minicursosData: Minicurso[] = [
     titulo: "Inglês voltado para a Computação",
     speakers: "Enzo Lessa e Vitor Hugo Souza Silva",
     imagem: "/imagens/Ingles.jpg",
-    descricao: "Leitura de documentação, vocabulário técnico, comunicação em times e boas práticas para estudo contínuo do idioma.",
+    descricao:
+      "Leitura de documentação, vocabulário técnico, comunicação em times e boas práticas para estudo contínuo do idioma.",
     objectPosition: "center 25%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 15,
@@ -225,7 +273,8 @@ const minicursosData: Minicurso[] = [
     titulo: "Introdução ao JavaScript",
     speakers: "Gabriel Oliveira Canela e Pedro Santana Miranda",
     imagem: "/imagens/Introducao_ao_java_script.jpeg",
-    descricao: "Primeiros passos no JS: sintaxe, DOM, eventos e consumo de APIs — criando páginas web interativas.",
+    descricao:
+      "Primeiros passos no JS: sintaxe, DOM, eventos e consumo de APIs — criando páginas web interativas.",
     objectPosition: "center 25%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 20,
@@ -238,33 +287,44 @@ const minicursosData: Minicurso[] = [
     titulo: "Blender para iniciantes (Presencial)",
     speakers: "Maria Clara Batista e Stanley Melo Costa",
     imagem: "/imagens/Modelagem_3D_Blender.jpg",
-    descricao: "Modelagem, materiais, luzes e render. Fundamentos do Blender para criar seus primeiros projetos em 3D.",
+    descricao:
+      "Modelagem, materiais, luzes e render. Fundamentos do Blender para criar seus primeiros projetos em 3D.",
     objectPosition: "center 30%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 12,
     nivel: "Intermediário",
     carga_horaria: 12,
-    Data: ["2025-11-05T13:30:00", "2025-11-06T13:30:00", "2025-11-07T13:30:00"],
+    Data: [
+      "2025-11-05T13:30:00",
+      "2025-11-06T13:30:00",
+      "2025-11-07T13:30:00",
+    ],
   },
   {
     id: "montagem-computadores",
     titulo: "Montagem e Funcionamento de Computadores",
     speakers: "Robson Ribeiro Filho e Tiago Requena Ferreira Sanchez",
     imagem: "/imagens/Montagem_e_Conserto_de_Computadores.jpg",
-    descricao: "Identificação de componentes, montagem segura, instalação de SO, diagnóstico e manutenção preventiva.",
+    descricao:
+      "Identificação de componentes, montagem segura, instalação de SO, diagnóstico e manutenção preventiva.",
     objectPosition: "center 20%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 10,
     nivel: "Básico",
     carga_horaria: 7,
-    Data: ["2025-11-03T13:30:00", "2025-11-04T13:30:00", "2025-11-05T13:30:00"],
+    Data: [
+      "2025-11-03T13:30:00",
+      "2025-11-04T13:30:00",
+      "2025-11-05T13:30:00",
+    ],
   },
   {
     id: "react-basico",
     titulo: "React",
     speakers: "Davi Henrique Garcia Araújo e Layla Pimenta de Melo",
     imagem: "/imagens/React.jpg",
-    descricao: "Componentes, props, estado e efeitos. Construindo interfaces modernas e organizando projetos React.",
+    descricao:
+      "Componentes, props, estado e efeitos. Construindo interfaces modernas e organizando projetos React.",
     objectPosition: "center 35%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 15,
@@ -275,9 +335,11 @@ const minicursosData: Minicurso[] = [
   {
     id: "kali-pentest",
     titulo: "Virtualização e Introdução ao Kali Linux com foco em Pentest",
-    speakers: "Felipe Augusto Felicio Ignácio e Vitor Henrique Nascimento Almeida",
+    speakers:
+      "Felipe Augusto Felicio Ignácio e Vitor Henrique Nascimento Almeida",
     imagem: "/imagens/Hacking_com_Kali_Linux.jpg",
-    descricao: "Ambiente de laboratório com VirtualBox, instalação do Kali e execução de testes básicos de intrusão.",
+    descricao:
+      "Ambiente de laboratório com VirtualBox, instalação do Kali e execução de testes básicos de intrusão.",
     objectPosition: "center 45%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 20,
@@ -290,7 +352,8 @@ const minicursosData: Minicurso[] = [
     titulo: "Machine Learning descomplicado: sistema de recomendação de jogos",
     speakers: "Ricardo Morsoleto",
     imagem: "/imagens/Machine_Learning (2).jpg",
-    descricao: "Do zero ao recomendador: coleta/limpeza de dados, métricas de similaridade e avaliação simples do modelo.",
+    descricao:
+      "Do zero ao recomendador: coleta/limpeza de dados, métricas de similaridade e avaliação simples do modelo.",
     objectPosition: "center 25%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 15,
@@ -303,7 +366,8 @@ const minicursosData: Minicurso[] = [
     titulo: "Campeonato de Jogos",
     speakers: "Kaique Gabriel de Silva Souza e Pedro Arthur Faria Costa",
     imagem: "/imagens/Campeonato_de_Jogos.jpg",
-    descricao: "Competição organizada de e-sports no campus. Regras, chaveamento e acompanhamento das partidas.",
+    descricao:
+      "Competição organizada de e-sports no campus. Regras, chaveamento e acompanhamento das partidas.",
     objectPosition: "center 25%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 16,
@@ -316,7 +380,8 @@ const minicursosData: Minicurso[] = [
     titulo: "Linux aplicado à prática de programação",
     speakers: "João Fernando",
     imagem: "/imagens/Externo (João Fernando) - Linux.png",
-    descricao: "Fundamentos práticos de Linux: estrutura de diretórios, permissões, comandos essenciais, gerenciamento de pacotes e dicas de terminal para o dia a dia.",
+    descricao:
+      "Fundamentos práticos de Linux: estrutura de diretórios, permissões, comandos essenciais, gerenciamento de pacotes e dicas de terminal para o dia a dia.",
     objectPosition: "center 30%",
     instituto: "Ex Aluno / UFLA São Seb. Paraíso",
     vagas: 20,
@@ -329,7 +394,8 @@ const minicursosData: Minicurso[] = [
     titulo: "Docker",
     speakers: "Luciano Montanha",
     imagem: "/imagens/Externo (Luciano) - Docker.png",
-    descricao: "Containerização na prática: imagens, containers, volumes e redes. Entenda como empacotar e distribuir aplicações de forma portátil e escalável.",
+    descricao:
+      "Containerização na prática: imagens, containers, volumes e redes. Entenda como empacotar e distribuir aplicações de forma portátil e escalável.",
     objectPosition: "center 55%",
     instituto: "IBM",
     vagas: 25,
@@ -342,7 +408,8 @@ const minicursosData: Minicurso[] = [
     titulo: ".NET e Angular",
     speakers: "Gabriel Reis de Bragança Oliveira",
     imagem: "/imagens/Externo (Gabriel) - .NET e Angular.png",
-    descricao: "Construindo aplicações web modernas com back-end .NET e front-end Angular: rotas, componentes, APIs e integração.",
+    descricao:
+      "Construindo aplicações web modernas com back-end .NET e front-end Angular: rotas, componentes, APIs e integração.",
     objectPosition: "center 40%",
     instituto: "Inatel",
     vagas: 15,
@@ -350,11 +417,27 @@ const minicursosData: Minicurso[] = [
     carga_horaria: 3,
     Data: ["2025-11-07T13:30:00"],
   },
+  {
+    id: "privacidade-ia-online",
+    titulo:
+      "A importância da privacidade na Internet e a Regulamentação do Uso de IA nos ambientes Virtuais",
+    speakers: "Gabriel Oliveira Canela",
+    imagem:
+      "/imagens/Interno (Gabriel Canela) - A importância da privacidade na Internet e a Regulamentação do Uso de IA nos ambientes Virtuais.jpg",
+    descricao:
+      "Entenda por que a privacidade importa, boas práticas para navegar com segurança e um panorama da regulamentação do uso de IA em ambientes virtuais.",
+    objectPosition: "center 0%",
+    instituto: "Público Geral",
+    vagas: "ilimitado",
+    nivel: "Iniciante",
+    carga_horaria: 2,
+    Data: ["2025-11-06T19:00:00"],
+  },
 ];
 
-const Minicursos = () => {
+const Minicursos: React.FC = () => {
   const [activeLevel, setActiveLevel] = React.useState<Nivel>("Básico");
-  
+
   const coursesByLevel = minicursosData.reduce((acc, course) => {
     if (!acc[course.nivel]) acc[course.nivel] = [];
     acc[course.nivel].push(course);
@@ -373,8 +456,7 @@ const Minicursos = () => {
           <span className="text-encomp-green">/&gt;</span>
         </h2>
 
-        {/* Level selector */}
-        <div className="flex flex-wrap justify-center gap-2 mb-12">
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
           {levelOrder.map((level) => (
             <button
               key={level}
@@ -391,83 +473,117 @@ const Minicursos = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {activeCourses.map((minicurso) => (
-            <Card
-              key={minicurso.id}
-              className="bg-encomp-darkGray border border-encomp-green/20 hover:border-encomp-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-encomp-green/20 overflow-hidden group"
-            >
-              <div className="h-48 md:h-56 relative overflow-hidden bg-encomp-dark/50">
-                <img
-                  src={encodeURI(minicurso.imagem)}
-                  alt={minicurso.titulo}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  style={{ width: "100%", height: "100%", objectPosition: minicurso.objectPosition || "center" }}
-                />
-              </div>
+          {activeCourses.map((minicurso) => {
+            const isOnline = minicurso.vagas === "ilimitado";
+            const badgeClass = isOnline
+              ? "bg-sky-500 text-white border-sky-300"
+              : "bg-amber-400 text-black border-amber-200";
+            const diasSemana = uniqueWeekdaysInOrder(minicurso.Data);
 
-              <CardContent className="p-4 md:p-6 flex flex-col justify-between min-h-[350px] md:min-h-[380px]">
-                <h3 className="text-xl font-bold mb-2 text-encomp-green font-orbitron text-center">
-                  {minicurso.titulo}
-                </h3>
-
-                <div className="text-center mb-3">
-                  <p className="text-sm text-gray-400 mb-1">
-                    {minicurso.speakers.includes(" e ") || minicurso.speakers.includes(",") ? "Ministrantes:" : "Ministrante:"}
-                  </p>
-                  <p className="text-white font-medium">{minicurso.speakers}</p>
-
-                  <div className="mt-2 flex items-center justify-center gap-2 flex-wrap">
-                    <span className="inline-block bg-encomp-green/10 text-encomp-green text-xs px-2 py-1 rounded-full">
-                      {minicurso.instituto}
-                    </span>
-                  </div>
-
-                  <div className="mt-3 space-y-1 text-sm text-gray-300">
-                    <div><span className="text-encomp-green/80 font-semibold">Carga:</span> {minicurso.carga_horaria}h</div>
-                    <div>
-                      <span className="text-encomp-green/80 font-semibold">Vagas:</span>{" "}
-                      {minicurso.vagas === "ilimitado" ? "ilimitado" : minicurso.vagas === "Exclusivo PartiuIF" ? "Exclusivo PartiuIF" : minicurso.vagas}
-                    </div>
-                  </div>
-
-                  <div className="mt-3">
-                    <p className="text-xs text-gray-400 mb-1">Dias da semana</p>
-                    <div className="flex flex-wrap gap-1 justify-center">
-                      {[...new Set(minicurso.Data.map(formatSessao))].map((dia) => (
-                        <span key={dia} className="inline-block bg-encomp-green/10 text-gray-200 text-xs px-2 py-1 rounded-full">
-                          {dia}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <p className="text-gray-300 text-sm leading-relaxed mb-4 text-center">
-                  {minicurso.descricao}
-                </p>
-
-                <div className="flex justify-center">
-                  <Button
-                    variant="outline"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const curso = minicurso.titulo;
-                      const nivel = minicurso.nivel as string;
-                      const url = new URL(window.location.href);
-                      url.searchParams.set("curso", curso);
-                      url.searchParams.set("nivel", nivel);
-                      window.history.replaceState({}, "", `${url.pathname}${url.search}#inscricao`);
-                      window.dispatchEvent(new CustomEvent("prefill-inscricao", { detail: { curso, nivel } }));
-                      document.getElementById("inscricao")?.scrollIntoView({ behavior: "smooth", block: "start" });
+            return (
+              <Card
+                key={minicurso.id}
+                className="bg-encomp-darkGray border border-encomp-green/20 hover:border-encomp-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-encomp-green/20 overflow-hidden group"
+              >
+                <div className="relative h-64 md:h-80 overflow-hidden bg-encomp-dark/50">
+                  <img
+                    src={encodeURI(minicurso.imagem)}
+                    alt={minicurso.titulo}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectPosition: minicurso.objectPosition || "center",
                     }}
-                    className="bg-encomp-green/10 text-encomp-green border-encomp-green/30 hover:bg-encomp-green hover:text-black transition-all font-semibold"
+                  />
+                  <span
+                    className={`absolute top-3 left-3 px-3 py-1 rounded-md text-[11px] font-bold border ${badgeClass} shadow`}
+                    title={isOnline ? "Este curso é online" : "Este curso é presencial"}
                   >
-                    Inscreva-se já!
-                  </Button>
+                    {isOnline ? "ONLINE" : "PRESENCIAL"}
+                  </span>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
+
+                <CardContent className="p-3 md:p-4 flex flex-col justify-between min-h-[290px] md:min-h-[320px]">
+                  <h3 className="text-lg md:text-xl font-bold mb-1 text-encomp-green font-orbitron text-center leading-snug">
+                    {minicurso.titulo}
+                  </h3>
+
+                  <div className="text-center mb-2">
+                    <p className="text-[13px] text-gray-300">
+                      <span className="text-gray-400 mr-1">
+                        {minicurso.speakers.includes(" e ") || minicurso.speakers.includes(",")
+                          ? "Ministrantes:"
+                          : "Ministrante:"}
+                      </span>
+                      <span className="font-medium text-white">{minicurso.speakers}</span>
+                    </p>
+
+                    <div className="mt-1 flex items-center justify-center gap-2 flex-wrap">
+                      <span className="inline-block bg-encomp-green/10 text-encomp-green text-[11px] px-2 py-0.5 rounded-full">
+                        {minicurso.instituto}
+                      </span>
+                    </div>
+
+                    <div className="mt-2 text-[13px] text-gray-300">
+                      <span className="text-encomp-green/80 font-semibold">Carga:</span>{" "}
+                      {minicurso.carga_horaria}h
+                      <span className="mx-2 opacity-50">•</span>
+                      <span className="text-encomp-green/80 font-semibold">Vagas:</span>{" "}
+                      {minicurso.vagas === "ilimitado"
+                        ? "ilimitado"
+                        : minicurso.vagas === "Exclusivo PartiuIF"
+                        ? "Exclusivo PartiuIF"
+                        : minicurso.vagas}
+                    </div>
+
+                    <div className="mt-2">
+                      <p className="text-[11px] text-gray-400 mb-1">Dias da semana</p>
+                      <div className="flex flex-wrap gap-1 justify-center">
+                        {diasSemana.map((dia) => (
+                          <span
+                            key={dia}
+                            className="inline-block bg-encomp-green/10 text-gray-200 text-[11px] px-2 py-0.5 rounded-full"
+                          >
+                            {dia}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <p className="text-gray-300 text-[13px] leading-relaxed mb-3 text-center line-clamp-3">
+                    {minicurso.descricao}
+                  </p>
+
+                  <div className="flex justify-center">
+                    <Button
+                      variant="outline"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const curso = minicurso.titulo;
+                        const nivel = minicurso.nivel as string;
+                        const url = new URL(window.location.href);
+                        url.searchParams.set("curso", curso);
+                        url.searchParams.set("nivel", nivel);
+                        window.history.replaceState({}, "", `${url.pathname}${url.search}#inscricao`);
+                        window.dispatchEvent(
+                          new CustomEvent("prefill-inscricao", { detail: { curso, nivel } })
+                        );
+                        document.getElementById("inscricao")?.scrollIntoView({
+                          behavior: "smooth",
+                          block: "start",
+                        });
+                      }}
+                      className="bg-encomp-green/10 text-encomp-green border-encomp-green/30 hover:bg-encomp-green hover:text-black transition-all font-semibold py-1.5 px-3 text-sm"
+                    >
+                      Inscreva-se já!
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </section>

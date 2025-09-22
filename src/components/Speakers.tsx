@@ -15,8 +15,8 @@ export const speakersData = [
     instituto: 'IFSULDEMINAS - Campus Poços de Caldas '
   },
   {
-    id: "vinicius-otavio",
-    name: 'Vinicius Otavio de Lima Moreira',
+    id: "vinicius-otávio",
+    name: 'Vinicius Otávio de Lima Moreira',
     title: 'Palestrante',
     imageUrl: '/imagens/Palestra3.png',
     description: 'Do Zero ao Futuro - Como entrar no mercado de trabalho com IA no radar e o impacto das escolhas.',

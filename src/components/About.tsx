@@ -33,7 +33,7 @@ const About = () => {
                 <div className="flex items-start">
                   <MapPin className="text-encomp-green mr-3 mt-1 flex-shrink-0" />
                   <p className="text-gray-300">
-                     Para 2025, o ENCOMP chega à sua 11ª edição com uma programação especial, trazendo temas inovadores como Inteligência Artificial, Cloud Computing, Edição de Vídeo e muito mais, além de um campeonato de League of Legends.
+                     Para 2025, o ENCOMP chega à sua 11ª edição com uma programação especial, trazendo temas inovadores como Inteligência Artificial, Cloud Computing, Edição de Vídeo e muito mais.
                   </p>
                 </div>
               </div>
@@ -72,11 +72,11 @@ const About = () => {
               </h2>
               
               <p className="text-gray-300 mb-4">
-                O Instituto Federal de Educação, Ciência e Tecnologia do Sul de Minas Gerais - Campus Passos é referência na área de computação, com professores dedicados e estrutura moderna. Será o anfitrião do ENCOMP 2025, oferecendo espaço, tecnologia e acolhimento aos participantes.
+                O Instituto Federal de Educação, Ciência e Tecnologia do Sul de Minas Gerais - Campus Passos é referência na área de computação, com professores dedicados e estrutura moderna. Fiel à sua tradição como anfitrião do ENCOMP, segue oferecendo estrutura, tecnologia e acolhimento aos participantes.
               </p>
               
               <p className="text-gray-300 mb-4">
-                O campus possui laboratórios equipados com tecnologia de ponta, auditório modernos e toda a infraestrutura necessária para proporcionar uma experiência enriquecedora aos participantes do evento.
+                O campus possui laboratórios modernos, auditório modernos e toda a infraestrutura necessária para proporcionar uma experiência enriquecedora aos participantes do evento.
               </p>
               
               <p className="text-gray-300">
