@@ -19,7 +19,7 @@ const About = () => {
                 <div className="flex items-start">
                   <History className="text-encomp-green mr-3 mt-1 flex-shrink-0" />
                   <p className="text-gray-300">
-                    O Encontro de Computação (ENCOMP) surgiu em 2015 como uma iniciativa dos estudantes e professores do curso de Ciência da Computação do IFSULDEMINAS - Campus Passos, com o objetivo de aproximar a comunidade acadêmica do mercado de trabalho e das tendências tecnológicas.
+                    O Encontro de Computação (ENCOMP) surgiu em 2015 como uma iniciativa dos estudantes e professores do curso Bacharelado em Ciência da Computação do IFSULDEMINAS - Campus Passos, com o objetivo de aproximar a comunidade acadêmica do mercado de trabalho e das tendências tecnológicas.
                   </p>
                 </div>
                 
@@ -76,7 +76,7 @@ const About = () => {
               </p>
               
               <p className="text-gray-300 mb-4">
-                O campus possui laboratórios modernos, auditório modernos e toda a infraestrutura necessária para proporcionar uma experiência enriquecedora aos participantes do evento.
+                O campus possui laboratórios e auditório modernos e toda a infraestrutura necessária para proporcionar uma experiência enriquecedora aos participantes do evento.
               </p>
               
               <p className="text-gray-300">

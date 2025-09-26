@@ -18,27 +18,52 @@ type Minicurso = {
   Data: string[];
 };
 
-const formatSessao = (iso: string) => {
-  const d = new Date(iso);
-  const dia = d.toLocaleDateString("pt-BR", { weekday: "long" });
-  return dia.charAt(0).toUpperCase() + dia.slice(1);
-};
-
+// retorna labels no formato "Segunda-feira (03/nov)" e é tolerante a datas inválidas
 const uniqueWeekdaysInOrder = (isos: string[]) => {
+  if (!Array.isArray(isos) || isos.length === 0) return [];
+
+  const monthAbbr = [
+    "jan",
+    "fev",
+    "mar",
+    "abr",
+    "mai",
+    "jun",
+    "jul",
+    "ago",
+    "set",
+    "out",
+    "nov",
+    "dez",
+  ];
+
   const ordered = [...isos]
-    .map((s) => new Date(s))
+    .map((s) => {
+      const d = new Date(s);
+      return isNaN(d.getTime()) ? null : d;
+    })
+    .filter((d): d is Date => d !== null)
     .sort((a, b) => a.getTime() - b.getTime());
+
   const seen = new Set<string>();
   const result: string[] = [];
+
   ordered.forEach((d) => {
-    const label = d
+    const weekday = d
       .toLocaleDateString("pt-BR", { weekday: "long" })
       .replace(/^(.)/, (m) => m.toUpperCase());
+
+    const day = String(d.getDate()).padStart(2, "0");
+    const month = monthAbbr[d.getMonth()];
+
+    const label = `${weekday} (${day}/${month})`;
+
     if (!seen.has(label)) {
       seen.add(label);
       result.push(label);
     }
   });
+
   return result;
 };
 
@@ -436,15 +461,19 @@ const minicursosData: Minicurso[] = [
 ];
 
 const Minicursos: React.FC = () => {
-  const [activeLevel, setActiveLevel] = React.useState<Nivel>("Básico");
+  const levelOrder: Nivel[] = ["Iniciante", "Básico", "Intermediário", "Avançado"];
 
+  // agrupa por nível
   const coursesByLevel = minicursosData.reduce((acc, course) => {
     if (!acc[course.nivel]) acc[course.nivel] = [];
     acc[course.nivel].push(course);
     return acc;
-  }, {} as Record<Nivel, typeof minicursosData>);
+  }, {} as Record<Nivel, Minicurso[]>);
 
-  const levelOrder: Nivel[] = ["Iniciante", "Básico", "Intermediário", "Avançado"];
+  // inicializa o nível ativo no primeiro nível que tiver cursos (evita tela vazia)
+  const firstLevelWithCourses = levelOrder.find((l) => (coursesByLevel[l]?.length || 0) > 0) || "Básico";
+  const [activeLevel, setActiveLevel] = React.useState<Nivel>(firstLevelWithCourses);
+
   const activeCourses = coursesByLevel[activeLevel] || [];
 
   return (
@@ -498,7 +527,11 @@ const Minicursos: React.FC = () => {
                   />
                   <span
                     className={`absolute top-3 left-3 px-3 py-1 rounded-md text-[11px] font-bold border ${badgeClass} shadow`}
-                    title={isOnline ? "Este curso é online" : "Este curso é presencial"}
+                    title={
+                      isOnline
+                        ? "Este curso é online"
+                        : "Este curso é presencial"
+                    }
                   >
                     {isOnline ? "ONLINE" : "PRESENCIAL"}
                   </span>

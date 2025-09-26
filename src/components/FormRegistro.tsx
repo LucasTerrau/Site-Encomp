@@ -236,7 +236,7 @@ const FormRegistro: React.FC = () => {
     form.setValue("telefone", f);
   };
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+ const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const fd = new FormData();
     fd.append(FORM_ENTRY_IDS.nome, values.nome);
     fd.append(FORM_ENTRY_IDS.email, values.email);
@@ -264,8 +264,28 @@ const FormRegistro: React.FC = () => {
       : false;
   const safeId = (s: string) => s.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-_:.]/g, "");
 
+  // Checagem de data: zera as horas para comparar somente a data (independente do horário)
+  const hoje = new Date();
+  hoje.setHours(0, 0, 0, 0);
+  const dataLiberacao = new Date(2025, 8, 30); // 20/09/2025 (mês 0-based)
+  dataLiberacao.setHours(0, 0, 0, 0);
+
+  if (hoje < dataLiberacao) {
+    return (
+      <section id="inscricao" className="py-16 bg-encomp-darkGray">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+            <span className="text-encomp-green">&lt;</span>
+            Inscrições somente a partir de 30 de setembro.
+            <span className="text-encomp-green">/&gt;</span>
+          </h2>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section id="inscricao" className="py-16 bg-encomp-dark">
+    <section id="inscricao" className="py-16 bg-encomp-darkGray">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
           <span className="text-encomp-green">&lt;</span>
