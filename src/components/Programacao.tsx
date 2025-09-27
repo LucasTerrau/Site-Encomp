@@ -14,75 +14,342 @@ type ProgramacaoPorDia = Record<string, Evento[]>;
 
 const programacao: ProgramacaoPorDia = {
   "03/11/2025": [
-    { titulo: "Algoritmos de destruição em massa: Big Techs, Big Data, IA e seus aspectos socioambientais.", formato: "Palestra", inicio: "08:30", local: "Auditório" },
-    { titulo: "Do Zero ao Futuro - Como entrar no mercado de trabalho com IA no radar e o impacto das escolhas.", formato: "Palestra", inicio: "10:30", local: "Auditório" },
+    {
+      titulo:
+        "Algoritmos de destruição em massa: Big Techs, Big Data, IA e seus aspectos socioambientais.",
+      formato: "Palestra",
+      inicio: "08:30",
+      local: "Auditório",
+    },
+    {
+      titulo:
+        "Do Zero ao Futuro - Como entrar no mercado de trabalho com IA no radar e o impacto das escolhas.",
+      formato: "Palestra",
+      inicio: "10:30",
+      local: "Auditório",
+    },
 
-    { titulo: "Cérebro, Aprendizado e Mundo Digital", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
-    { titulo: "Criação de um Chat Bot com Python", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
-    { titulo: "Informática Básica", formato: "Presencial", inicio: "13:30", local: "Lab. 1" },
-    { titulo: "Montagem e Funcionamento de Computadores", formato: "Presencial", inicio: "13:30", local: "Lab. Hardware" },
-    { titulo: "Workshop de LangChain para desenvolvimento de aplicativos LLM para iniciantes em programação", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
+    {
+      titulo: "Cérebro, Aprendizado e Mundo Digital",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
+    {
+      titulo: "Criação de um Chat Bot com Python",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
+    {
+      titulo: "Informática Básica",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Lab. 1",
+    },
+    {
+      titulo: "Montagem e Funcionamento de Computadores",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Lab. Hardware",
+    },
+    {
+      titulo:
+        "Workshop de LangChain para desenvolvimento de aplicativos LLM para iniciantes em programação",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
 
-    { titulo: "Blender para iniciantes (Online)", formato: "Online", inicio: "19:00", local: "YouTube" },
-    { titulo: "Como adquirir um computador", formato: "Online", inicio: "19:00", local: "YouTube" },
-    { titulo: "Computação Forense", formato: "Online", inicio: "19:00", local: "YouTube" },
-    { titulo: "Introdução a Deep learning em Python", formato: "Online", inicio: "19:00", local: "YouTube" },
+    {
+      titulo: "Blender para iniciantes (Online)",
+      formato: "Online",
+      inicio: "19:00",
+      local: "YouTube",
+    },
+    {
+      titulo: "Como adquirir um computador",
+      formato: "Online",
+      inicio: "19:00",
+      local: "YouTube",
+    },
+    {
+      titulo: "Computação Forense",
+      formato: "Online",
+      inicio: "19:00",
+      local: "YouTube",
+    },
+    {
+      titulo: "Introdução a Deep learning em Python",
+      formato: "Online",
+      inicio: "19:00",
+      local: "YouTube",
+    },
   ],
 
   "04/11/2025": [
-    { titulo: "Do Campus ao Mundo: Navegando décadas de transformações de carreira.", formato: "Palestra", inicio: "08:30", local: "Auditório" },
-    { titulo: "Mesa redonda com professores do IFSULDEMINAS sobre diversos temas da computação.", formato: "Palestra", inicio: "10:30", local: "Auditório" },
+    {
+      titulo:
+        "Do Campus ao Mundo: Navegando décadas de transformações de carreira.",
+      formato: "Palestra",
+      inicio: "08:30",
+      local: "Auditório",
+    },
+    {
+      titulo:
+        "Mesa redonda com professores do IFSULDEMINAS sobre diversos temas da computação.",
+      formato: "Palestra",
+      inicio: "10:30",
+      local: "Auditório",
+    },
 
-    { titulo: "Cérebro, Aprendizado e Mundo Digital", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
-    { titulo: "Criação de um Chat Bot com Python", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
-    { titulo: "Informática Básica", formato: "Presencial", inicio: "13:30", local: "Lab. 1" },
-    { titulo: "Introdução ao React Native", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
-    { titulo: "Montagem e Funcionamento de Computadores", formato: "Presencial", inicio: "13:30", local: "Lab. Hardware" },
-    { titulo: "Visualização de Dados em Power BI", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
-    { titulo: "Criando uma página de catálogo de jogos dinâmica com API (PartiuIF)", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
+    {
+      titulo: "Cérebro, Aprendizado e Mundo Digital",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
+    {
+      titulo: "Criação de um Chat Bot com Python",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
+    {
+      titulo: "Informática Básica",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Lab. 1",
+    },
+    {
+      titulo: "Introdução ao React Native",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
+    {
+      titulo: "Montagem e Funcionamento de Computadores",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Lab. Hardware",
+    },
+    {
+      titulo: "Visualização de Dados em Power BI",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
+    {
+      titulo:
+        "Criando uma página de catálogo de jogos dinâmica com API (PartiuIF)",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
 
-    { titulo: "Blender para iniciantes (Online)", formato: "Online", inicio: "19:00", local: "YouTube" },
-    { titulo: "Edição de Vídeos com DaVinci", formato: "Online", inicio: "19:00", local: "YouTube" },
-    { titulo: "Introdução a Deep learning em Python", formato: "Online", inicio: "19:00", local: "YouTube" },
+    {
+      titulo: "Blender para iniciantes (Online)",
+      formato: "Online",
+      inicio: "19:00",
+      local: "YouTube",
+    },
+    {
+      titulo: "Edição de Vídeos com DaVinci",
+      formato: "Online",
+      inicio: "19:00",
+      local: "YouTube",
+    },
+    {
+      titulo: "Introdução a Deep learning em Python",
+      formato: "Online",
+      inicio: "19:00",
+      local: "YouTube",
+    },
   ],
 
   "05/11/2025": [
-    { titulo: "JOSIF — Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (EM BREVE MAIS INFORMAÇÕES)", formato: "Palestra", inicio: "08:00", local: "Auditório" },
-    { titulo: "Blender para iniciantes", formato: "Presencial", inicio: "13:30", local: "Lab. 4" },
-    { titulo: "Inglês voltado para a computação", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
-    { titulo: "Javascript", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
-    { titulo: "Montagem e Funcionamento de Computadores", formato: "Presencial", inicio: "13:30", local: "Lab. Hardware" },
-    { titulo: "React", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
-    { titulo: "Virtualização e Introdução ao Kali Linux com foco em Pentest", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
-    { titulo: "Criando uma página de catálogo de jogos dinâmica com API (PartiuIF)", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
+    {
+      titulo:
+        "JOSIF — Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (EM BREVE MAIS INFORMAÇÕES)",
+      formato: "Palestra",
+      inicio: "08:00",
+      local: "Auditório",
+    },
+    {
+      titulo: "Blender para iniciantes",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Lab. 4",
+    },
+    {
+      titulo: "Inglês voltado para a computação",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
+    {
+      titulo: "Javascript",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
+    {
+      titulo: "Montagem e Funcionamento de Computadores",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Lab. Hardware",
+    },
+    {
+      titulo: "React",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
+    {
+      titulo: "Virtualização e Introdução ao Kali Linux com foco em Pentest",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
+    {
+      titulo:
+        "Criando uma página de catálogo de jogos dinâmica com API (PartiuIF)",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
 
-    { titulo: "Blender para iniciantes (Online)", formato: "Online", inicio: "19:00", local: "YouTube" },
-    { titulo: "Computação Forense", formato: "Online", inicio: "19:00", local: "YouTube" },
-    { titulo: "Edição de Vídeos com DaVinci", formato: "Online", inicio: "19:00", local: "YouTube" },
-    { titulo: "Introdução à Computação em Nuvem", formato: "Online", inicio: "19:00", local: "YouTube" },
+    {
+      titulo: "Blender para iniciantes (Online)",
+      formato: "Online",
+      inicio: "19:00",
+      local: "YouTube",
+    },
+    {
+      titulo: "Computação Forense",
+      formato: "Online",
+      inicio: "19:00",
+      local: "YouTube",
+    },
+    {
+      titulo: "Edição de Vídeos com DaVinci",
+      formato: "Online",
+      inicio: "19:00",
+      local: "YouTube",
+    },
+    {
+      titulo: "Introdução à Computação em Nuvem",
+      formato: "Online",
+      inicio: "19:00",
+      local: "YouTube",
+    },
   ],
 
   "06/11/2025": [
-    { titulo: "JOSIF — Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (EM BREVE MAIS INFORMAÇÕES)", formato: "Palestra", inicio: "08:00", local: "Auditório" },
-    { titulo: "Blender para iniciantes", formato: "Presencial", inicio: "13:30", local: "Lab. 4" },
-    { titulo: "HTML e CSS", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
-    { titulo: "Machine Learning totalmente descomplicado: Criando um sistema de recomendação de jogos", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
-    { titulo: "React", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
-    { titulo: "Virtualização e Introdução ao Kali Linux com foco em Pentest", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
+    {
+      titulo:
+        "JOSIF — Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (EM BREVE MAIS INFORMAÇÕES)",
+      formato: "Palestra",
+      inicio: "08:00",
+      local: "Auditório",
+    },
+    {
+      titulo: "Blender para iniciantes",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Lab. 4",
+    },
+    {
+      titulo: "HTML e CSS",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
+    {
+      titulo:
+        "Machine Learning totalmente descomplicado: Criando um sistema de recomendação de jogos",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
+    {
+      titulo: "React",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
+    {
+      titulo: "Virtualização e Introdução ao Kali Linux com foco em Pentest",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
 
-    { titulo: "A importância da privacidade na Internet e a Regulamentação do Uso de IA nos ambientes Virtuais", formato: "Online", inicio: "19:00", local: "YouTube" },
-    { titulo: "Computação Forense", formato: "Online", inicio: "19:00", local: "YouTube" },
-    { titulo: "Edição de Vídeos com DaVinci", formato: "Online", inicio: "19:00", local: "YouTube" },
+    {
+      titulo:
+        "A importância da privacidade na Internet e a Regulamentação do Uso de IA nos ambientes Virtuais",
+      formato: "Online",
+      inicio: "19:00",
+      local: "YouTube",
+    },
+    {
+      titulo: "Computação Forense",
+      formato: "Online",
+      inicio: "19:00",
+      local: "YouTube",
+    },
+    {
+      titulo: "Edição de Vídeos com DaVinci",
+      formato: "Online",
+      inicio: "19:00",
+      local: "YouTube",
+    },
   ],
 
   "07/11/2025": [
-    { titulo: "JOSIF — Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (EM BREVE MAIS INFORMAÇÕES)", formato: "Palestra", inicio: "08:00", local: "Auditório" },
-    { titulo: ".Net e Angular", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
-    { titulo: "Blender para iniciantes", formato: "Presencial", inicio: "13:30", local: "Lab. 4" },
-    { titulo: "Docker", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
-    { titulo: "HTML e CSS", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
-    { titulo: "Linux aplicado à prática de programação", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
-    { titulo: "Campeonato de Jogos", formato: "Palestra", inicio: "13:30", local: "Lab. de Jogos / LAN" },
+    {
+      titulo:
+        "JOSIF — Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (EM BREVE MAIS INFORMAÇÕES)",
+      formato: "Palestra",
+      inicio: "08:00",
+      local: "Auditório",
+    },
+    {
+      titulo: ".Net e Angular",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
+    {
+      titulo: "Blender para iniciantes",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Lab. 4",
+    },
+    {
+      titulo: "Docker",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
+    {
+      titulo: "HTML e CSS",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
+    {
+      titulo: "Linux aplicado à prática de programação",
+      formato: "Presencial",
+      inicio: "13:30",
+      local: "Sala de aula",
+    },
+    {
+      titulo: "Campeonato de Jogos",
+      formato: "Palestra",
+      inicio: "13:30",
+      local: "Lab. de Jogos / LAN",
+    },
   ],
 };
 
@@ -111,7 +378,11 @@ function groupByHora(eventos: Evento[]) {
 
 const normalizeTitle = (t: string) => t.replace(/\(dia\s*\d+\)/i, "").trim();
 
-const ATIVIDADES_FIXAS: ReadonlyArray<{ hora: string; titulo: string; formato: Formato }> = [
+const ATIVIDADES_FIXAS: ReadonlyArray<{
+  hora: string;
+  titulo: string;
+  formato: Formato;
+}> = [
   { hora: "08:00", titulo: "Credenciamento", formato: "Presencial" },
   { hora: "08:15", titulo: "Apresentação musical", formato: "Presencial" },
   { hora: "09:45", titulo: "Intervalo", formato: "Presencial" },
@@ -143,7 +414,9 @@ function injectExtras(eventos: Evento[]): Evento[] {
 function buildDiaIndices(source: ProgramacaoPorDia) {
   type Flat = { data: string; ev: Evento };
   const flat: Flat[] = [];
-  Object.entries(source).forEach(([data, arr]) => arr.forEach((ev) => flat.push({ data, ev })));
+  Object.entries(source).forEach(([data, arr]) =>
+    arr.forEach((ev) => flat.push({ data, ev }))
+  );
   const byTitle = new Map<string, Flat[]>();
   flat.forEach((f) => {
     const key = normalizeTitle(f.ev.titulo);
@@ -171,7 +444,11 @@ function buildDiaIndices(source: ProgramacaoPorDia) {
 const { indexByKey, totalByTitle } = buildDiaIndices(programacao);
 
 const tipoDoEvento = (ev: Evento) =>
-  ATIVIDADES_SET.has(ev.titulo) ? "Atividade" : ev.formato === "Palestra" ? "Palestra" : "Minicurso";
+  ATIVIDADES_SET.has(ev.titulo)
+    ? "Atividade"
+    : ev.formato === "Palestra"
+    ? "Palestra"
+    : "Minicurso";
 
 const toDate = (d: string) => {
   const [dd, mm, yy] = d.split("/").map(Number);
@@ -179,7 +456,10 @@ const toDate = (d: string) => {
 };
 
 const Programacao: React.FC = () => {
-  const dias = React.useMemo(() => Object.keys(programacao).sort((a, b) => toDate(a) - toDate(b)), []);
+  const dias = React.useMemo(
+    () => Object.keys(programacao).sort((a, b) => toDate(a) - toDate(b)),
+    []
+  );
   const [diaAtivo, setDiaAtivo] = React.useState<string>(dias[0]);
 
   const eventosDoDia = programacao[diaAtivo];
@@ -198,68 +478,80 @@ const Programacao: React.FC = () => {
         </h2>
 
         <div className="sticky top-14 z-30 mb-4 bg-encomp-darkGray/90 backdrop-blur border-b border-encomp-green/20">
-        <div className="max-w-[1100px] mx-auto">
-          <div className="flex items-center justify-center gap-2 py-3 px-2">
-            {/* Prev */}
-            <button
-              onClick={() => {
-                const i = dias.indexOf(diaAtivo);
-                const prev = i <= 0 ? dias[dias.length - 1] : dias[i - 1];
-                setDiaAtivo(prev);
-              }}
-              aria-label="Dia anterior"
-              className="hidden xs:inline-flex h-8 w-8 items-center justify-center rounded-full border border-encomp-green/30 text-encomp-green hover:bg-encomp-green/15"
-            >
-              ◀
-            </button>
+          <div className="max-w-[1100px] mx-auto">
+            <div className="flex items-center justify-center gap-2 py-3 px-2">
+              {/* Prev */}
+              <button
+                onClick={() => {
+                  const i = dias.indexOf(diaAtivo);
+                  const prev = i <= 0 ? dias[dias.length - 1] : dias[i - 1];
+                  setDiaAtivo(prev);
+                }}
+                aria-label="Dia anterior"
+                className="hidden xs:inline-flex h-8 w-8 items-center justify-center rounded-full border border-encomp-green/30 text-encomp-green hover:bg-encomp-green/15"
+              >
+                ◀
+              </button>
 
-            {/* Chips centralizados e com quebra de linha */}
-            <div className="flex flex-wrap justify-center gap-2">
-              {dias.map((d) => {
-                const wday = weekdayPtBr(d);
-                const label = `${wday.charAt(0).toUpperCase() + wday.slice(1)} • ${d}`;
-                const active = d === diaAtivo;
-                return (
-                  <button
-                    key={d}
-                    onClick={() => setDiaAtivo(d)}
-                    className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition
-                      ${active
-                        ? "bg-encomp-green text-black"
-                        : "bg-encomp-green/10 text-encomp-green border border-encomp-green/30 hover:bg-encomp-green/20"}`}
-                    aria-pressed={active}
-                  >
-                    {label}
-                  </button>
-                );
-              })}
+              {/* Chips centralizados e com quebra de linha */}
+              <div className="flex flex-wrap justify-center gap-2">
+                {dias.map((d) => {
+                  const wday = weekdayPtBr(d);
+                  const label = `${
+                    wday.charAt(0).toUpperCase() + wday.slice(1)
+                  } • ${d}`;
+                  const active = d === diaAtivo;
+                  return (
+                    <button
+                      key={d}
+                      onClick={() => setDiaAtivo(d)}
+                      className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition
+                      ${
+                        active
+                          ? "bg-encomp-green text-black"
+                          : "bg-encomp-green/10 text-encomp-green border border-encomp-green/30 hover:bg-encomp-green/20"
+                      }`}
+                      aria-pressed={active}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Next */}
+              <button
+                onClick={() => {
+                  const i = dias.indexOf(diaAtivo);
+                  const next = i >= dias.length - 1 ? dias[0] : dias[i + 1];
+                  setDiaAtivo(next);
+                }}
+                aria-label="Próximo dia"
+                className="hidden xs:inline-flex h-8 w-8 items-center justify-center rounded-full border border-encomp-green/30 text-encomp-green hover:bg-encomp-green/15"
+              >
+                ▶
+              </button>
             </div>
-
-            {/* Next */}
-            <button
-              onClick={() => {
-                const i = dias.indexOf(diaAtivo);
-                const next = i >= dias.length - 1 ? dias[0] : dias[i + 1];
-                setDiaAtivo(next);
-              }}
-              aria-label="Próximo dia"
-              className="hidden xs:inline-flex h-8 w-8 items-center justify-center rounded-full border border-encomp-green/30 text-encomp-green hover:bg-encomp-green/15"
-            >
-              ▶
-            </button>
           </div>
         </div>
-      </div>
         <div className="bg-encomp-dark-grey rounded-lg p-4 md:p-6 border border-encomp-green/30">
-          <h3 className="text-lg md:text-xl font-bold mb-4 text-encomp-green font-orbitron">{titulo}</h3>
+          <h3 className="text-lg md:text-xl font-bold mb-4 text-encomp-green font-orbitron">
+            {titulo}
+          </h3>
 
           {/* Desktop/Tablet: tabela */}
           <table className="hidden md:table min-w-full bg-encomp-dark border border-encomp-green/30 text-gray-200 rounded-lg">
             <thead>
               <tr className="bg-encomp-dark text-encomp-green">
-                <th className="p-3 border border-encomp-green/30 w-24 text-left">Horário</th>
-                <th className="p-3 border border-encomp-green/30 text-left">Atividades</th>
-                <th className="p-3 border border-encomp-green/30 w-32 text-left">Formato</th>
+                <th className="p-3 border border-encomp-green/30 w-24 text-left">
+                  Horário
+                </th>
+                <th className="p-3 border border-encomp-green/30 text-left">
+                  Atividades
+                </th>
+                <th className="p-3 border border-encomp-green/30 w-32 text-left">
+                  Formato
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -268,16 +560,29 @@ const Programacao: React.FC = () => {
                   new Set(
                     itens
                       .filter((i) => !ATIVIDADES_SET.has(i.titulo))
-                      .map((i) => (i.formato === "Online" ? "Online" : "Presencial"))
+                      .map((i) =>
+                        i.formato === "Online" ? "Online" : "Presencial"
+                      )
                   )
                 );
                 if (formatosUnicos.length === 0) {
-                  formatosUnicos = Array.from(new Set(itens.map((i) => (i.formato === "Online" ? "Online" : "Presencial"))));
+                  formatosUnicos = Array.from(
+                    new Set(
+                      itens.map((i) =>
+                        i.formato === "Online" ? "Online" : "Presencial"
+                      )
+                    )
+                  );
                 }
 
                 return (
-                  <tr key={`${diaAtivo}-${hora}`} className="hover:bg-encomp-dark transition align-top">
-                    <td className="p-3 border border-encomp-green/20 font-semibold">{hora}</td>
+                  <tr
+                    key={`${diaAtivo}-${hora}`}
+                    className="hover:bg-encomp-dark transition align-top"
+                  >
+                    <td className="p-3 border border-encomp-green/20 font-semibold">
+                      {hora}
+                    </td>
                     <td className="p-3 border border-encomp-green/20">
                       <ul className="space-y-2">
                         {itens.map((ev, idx) => {
@@ -288,12 +593,18 @@ const Programacao: React.FC = () => {
                           const labelTipo = tipoDoEvento(ev);
                           const base = `${hora} - ${labelTipo} - ${baseTitle}`;
                           const text =
-                            ev.formato !== "Palestra" && !ATIVIDADES_SET.has(ev.titulo) && total > 1 && ordem
+                            ev.formato !== "Palestra" &&
+                            !ATIVIDADES_SET.has(ev.titulo) &&
+                            total > 1 &&
+                            ordem
                               ? `${base} — Dia ${ordem}`
                               : base;
 
                           return (
-                            <li key={idx} className="flex flex-wrap items-center gap-2">
+                            <li
+                              key={idx}
+                              className="flex flex-wrap items-center gap-2"
+                            >
                               <span>{text}</span>
                             </li>
                           );
@@ -303,7 +614,12 @@ const Programacao: React.FC = () => {
                     <td className="p-3 border border-encomp-green/20">
                       <div className="flex flex-wrap gap-2">
                         {formatosUnicos.map((f) => (
-                          <span key={f} className={`px-2 py-1 rounded-full text-xs ${badgeByFormato[f as "Presencial" | "Online"]}`}>
+                          <span
+                            key={f}
+                            className={`px-2 py-1 rounded-full text-xs ${
+                              badgeByFormato[f as "Presencial" | "Online"]
+                            }`}
+                          >
                             {f}
                           </span>
                         ))}
@@ -320,16 +636,28 @@ const Programacao: React.FC = () => {
             {grupos.map(({ hora, itens }) => {
               const formatosUnicos = Array.from(
                 new Set(
-                  itens.map((i) => (i.formato === "Online" ? "Online" : "Presencial"))
+                  itens.map((i) =>
+                    i.formato === "Online" ? "Online" : "Presencial"
+                  )
                 )
               );
               return (
-                <li key={`${diaAtivo}-${hora}`} className="border border-encomp-green/30 rounded-xl p-3 bg-encomp-dark">
+                <li
+                  key={`${diaAtivo}-${hora}`}
+                  className="border border-encomp-green/30 rounded-xl p-3 bg-encomp-dark"
+                >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-semibold text-encomp-green">{hora}</span>
+                    <span className="font-semibold text-encomp-green">
+                      {hora}
+                    </span>
                     <div className="flex gap-1">
                       {formatosUnicos.map((f) => (
-                        <span key={f} className={`px-2 py-0.5 rounded-full text-[10px] ${badgeByFormato[f as "Presencial" | "Online"]}`}>
+                        <span
+                          key={f}
+                          className={`px-2 py-0.5 rounded-full text-[10px] ${
+                            badgeByFormato[f as "Presencial" | "Online"]
+                          }`}
+                        >
                           {f}
                         </span>
                       ))}
@@ -344,14 +672,23 @@ const Programacao: React.FC = () => {
                       const ordem = indexByKey.get(key);
                       const labelTipo = tipoDoEvento(ev);
                       const text =
-                        ev.formato !== "Palestra" && !ATIVIDADES_SET.has(ev.titulo) && total > 1 && ordem
+                        ev.formato !== "Palestra" &&
+                        !ATIVIDADES_SET.has(ev.titulo) &&
+                        total > 1 &&
+                        ordem
                           ? `${labelTipo} — ${baseTitle} (Dia ${ordem})`
                           : `${labelTipo} — ${baseTitle}`;
 
                       return (
                         <div key={idx} className="text-sm leading-5">
-                          <div className="text-gray-100 line-clamp-3">{text}</div>
-                          {ev.local && <div className="text-[11px] text-gray-400 mt-0.5">{ev.local}</div>}
+                          <div className="text-gray-100 line-clamp-3">
+                            {text}
+                          </div>
+                          {ev.local && (
+                            <div className="text-[11px] text-gray-400 mt-0.5">
+                              {ev.local}
+                            </div>
+                          )}
                         </div>
                       );
                     })}

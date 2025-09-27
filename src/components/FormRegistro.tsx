@@ -3,7 +3,12 @@ import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-  Form, FormControl, FormField, FormItem, FormLabel, FormMessage,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -38,7 +43,7 @@ const CURSOS = [
   "Cérebro, Aprendizado e Mundo Digital",
   "Machine Learning descomplicado: sistema de recomendação de jogos",
   "Desenvolvimento de uma página de jogos com API",
-   "A importância da privacidade na Internet e a Regulamentação do Uso de IA nos ambientes Virtuais",
+  "A importância da privacidade na Internet e a Regulamentação do Uso de IA nos ambientes Virtuais",
 ] as const;
 type CursoNome = (typeof CURSOS)[number];
 
@@ -48,13 +53,11 @@ const PUBLICOS = [
   { value: "partiuif", label: "PartiuIF" },
   { value: "comunidade", label: "Comunidade/Outros (N/A)" },
 ] as const;
-type PublicoValue = typeof PUBLICOS[number]["value"];
+type PublicoValue = (typeof PUBLICOS)[number]["value"];
 
 const PUBLICO_LABEL_BY_VALUE: Record<PublicoValue, string> = Object.fromEntries(
-  PUBLICOS.map(p => [p.value, p.label] as const)
+  PUBLICOS.map((p) => [p.value, p.label] as const)
 ) as Record<PublicoValue, string>;
-
-
 
 const TECNICOS_EM = [
   "Técnico em Design Gráfico Integrado ao Ensino Médio",
@@ -72,7 +75,16 @@ const GRADUACOES = [
 
 const periodosByPublico: Record<PublicoValue, string[]> = {
   "ensino-medio": ["1º Ano", "2º Ano", "3º Ano"],
-  graduacao: ["1º período","2º período","3º período","4º período","5º período","6º período","7º período","8º período"],
+  graduacao: [
+    "1º período",
+    "2º período",
+    "3º período",
+    "4º período",
+    "5º período",
+    "6º período",
+    "7º período",
+    "8º período",
+  ],
   partiuif: ["N/A"],
   comunidade: ["N/A"],
 };
@@ -85,7 +97,7 @@ const vinculoByPublico: Record<PublicoValue, string[]> = {
 };
 
 const NIVEIS = ["Iniciante", "Básico", "Intermediário", "Avançado"] as const;
-export type NivelForm = typeof NIVEIS[number];
+export type NivelForm = (typeof NIVEIS)[number];
 
 const LEVEL_ORDER: Record<NivelForm, number> = {
   Iniciante: 0,
@@ -104,7 +116,7 @@ const COURSE_LEVELS: Record<CursoNome, NivelForm> = {
   "Como adquirir um computador": "Iniciante",
   "Computação Forense": "Avançado",
   "Criação de Chatbots com Python": "Intermediário",
-  "Docker": "Avançado",
+  Docker: "Avançado",
   "Desenvolvimento de uma página de jogos com API": "Iniciante",
   "Edição de Vídeo com DaVinci Resolve": "Intermediário",
   "HTML e CSS": "Básico",
@@ -115,30 +127,47 @@ const COURSE_LEVELS: Record<CursoNome, NivelForm> = {
   "Introdução ao React Native": "Intermediário",
   "Introdução à Computação em Nuvem": "Básico",
   "Linux aplicado à prática de programação": "Intermediário",
-  "Machine Learning descomplicado: sistema de recomendação de jogos": "Intermediário",
+  "Machine Learning descomplicado: sistema de recomendação de jogos":
+    "Intermediário",
   "Montagem e Funcionamento de Computadores": "Básico",
-  "React": "Avançado",
+  React: "Avançado",
   "Virtualização e Introdução ao Kali Linux com foco em Pentest": "Avançado",
   "Visualização de Dados em Power BI": "Básico",
   "Workshop de LangChain": "Avançado",
-  "A importância da privacidade na Internet e a Regulamentação do Uso de IA nos ambientes Virtuais": "Iniciante",
+  "A importância da privacidade na Internet e a Regulamentação do Uso de IA nos ambientes Virtuais":
+    "Iniciante",
 };
 
-const PARTIU_IF_ONLY: CursoNome = "Desenvolvimento de uma página de jogos com API";
+const PARTIU_IF_ONLY: CursoNome =
+  "Desenvolvimento de uma página de jogos com API";
 
 const formSchema = z.object({
-  cpf: z.string().regex(/^(\d{3})\.(\d{3})\.(\d{3})-(\d{2})$/u, { message: "CPF deve estar no formato 000.000.000-00" }),
-  nome: z.string().min(3, { message: "Nome deve ter pelo menos 3 caracteres." }),
+  cpf: z
+    .string()
+    .regex(/^(\d{3})\.(\d{3})\.(\d{3})-(\d{2})$/u, {
+      message: "CPF deve estar no formato 000.000.000-00",
+    }),
+  nome: z
+    .string()
+    .min(3, { message: "Nome deve ter pelo menos 3 caracteres." }),
   email: z.string().email({ message: "Email inválido." }),
-  telefone: z.string().refine(v => {
-    const d = v.replace(/\D/g, "");
-    return d.length >= 10 && d.length <= 11;
-  }, { message: "Telefone deve ter 10 ou 11 dígitos (com DDD)." }),
-  publico: z.enum(PUBLICOS.map(p => p.value) as [PublicoValue, ...PublicoValue[]], { required_error: "Selecione o público." }),
+  telefone: z.string().refine(
+    (v) => {
+      const d = v.replace(/\D/g, "");
+      return d.length >= 10 && d.length <= 11;
+    },
+    { message: "Telefone deve ter 10 ou 11 dígitos (com DDD)." }
+  ),
+  publico: z.enum(
+    PUBLICOS.map((p) => p.value) as [PublicoValue, ...PublicoValue[]],
+    { required_error: "Selecione o público." }
+  ),
   vinculo: z.string().min(1, { message: "Selecione seu curso/programa." }),
   periodo: z.string().min(1, { message: "Selecione o período." }),
   nivel: z.enum(NIVEIS, { required_error: "Selecione seu nível." }),
-  curso: z.string().min(1, { message: "Selecione um curso/área de interesse." }),
+  curso: z
+    .string()
+    .min(1, { message: "Selecione um curso/área de interesse." }),
 });
 
 const GOOGLE_FORM_URL =
@@ -166,10 +195,10 @@ const FormRegistro: React.FC = () => {
       nome: "",
       email: "",
       telefone: "",
-      publico: "" as unknown as PublicoValue,  
+      publico: "" as unknown as PublicoValue,
       vinculo: "",
       periodo: "",
-      nivel: "" as unknown as NivelForm,      
+      nivel: "" as unknown as NivelForm,
       curso: "",
     },
   });
@@ -186,8 +215,10 @@ const FormRegistro: React.FC = () => {
     }
     const periodos = periodosByPublico[publicoSelecionado];
     const vinculos = vinculoByPublico[publicoSelecionado];
-    if (!periodos.includes(form.getValues("periodo"))) form.setValue("periodo", periodos[0]);
-    if (!vinculos.includes(form.getValues("vinculo"))) form.setValue("vinculo", vinculos[0]);
+    if (!periodos.includes(form.getValues("periodo")))
+      form.setValue("periodo", periodos[0]);
+    if (!vinculos.includes(form.getValues("vinculo")))
+      form.setValue("vinculo", vinculos[0]);
   }, [publicoSelecionado]);
 
   useEffect(() => {
@@ -211,10 +242,13 @@ const FormRegistro: React.FC = () => {
       if (nivel && (NIVEIS as readonly string[]).includes(nivel)) {
         form.setValue("nivel", nivel, { shouldValidate: true });
       }
-      document.getElementById("inscricao")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      document
+        .getElementById("inscricao")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
     };
     window.addEventListener("prefill-inscricao", handler as EventListener);
-    return () => window.removeEventListener("prefill-inscricao", handler as EventListener);
+    return () =>
+      window.removeEventListener("prefill-inscricao", handler as EventListener);
   }, [form]);
 
   const handleCpfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -222,7 +256,8 @@ const FormRegistro: React.FC = () => {
     if (v.length > 11) v = v.slice(0, 11);
     if (v.length > 0) v = v.replace(/^(\d{3})(\d)/, "$1.$2");
     if (v.length > 3) v = v.replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3");
-    if (v.length > 6) v = v.replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, "$1.$2.$3-$4");
+    if (v.length > 6)
+      v = v.replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, "$1.$2.$3-$4");
     form.setValue("cpf", v);
   };
   const handleTelefoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -231,12 +266,13 @@ const FormRegistro: React.FC = () => {
     let f = d;
     if (d.length <= 2) f = d;
     else if (d.length <= 6) f = `(${d.slice(0, 2)}) ${d.slice(2)}`;
-    else if (d.length <= 10) f = `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+    else if (d.length <= 10)
+      f = `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
     else f = `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
     form.setValue("telefone", f);
   };
 
- const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const fd = new FormData();
     fd.append(FORM_ENTRY_IDS.nome, values.nome);
     fd.append(FORM_ENTRY_IDS.email, values.email);
@@ -249,20 +285,38 @@ const FormRegistro: React.FC = () => {
     fd.append(FORM_ENTRY_IDS.curso, values.curso);
 
     try {
-      await fetch(GOOGLE_FORM_URL, { method: "POST", mode: "no-cors", body: fd });
-      toast({ title: "Inscrição enviada com sucesso!", description: "Em breve enviaremos um email com mais informações." });
+      await fetch(GOOGLE_FORM_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: fd,
+      });
+      toast({
+        title: "Inscrição enviada com sucesso!",
+        description: "Em breve enviaremos um email com mais informações.",
+      });
       form.reset();
     } catch {
-      toast({ title: "Erro ao enviar.", description: "Por favor, tente novamente.", variant: "destructive" });
+      toast({
+        title: "Erro ao enviar.",
+        description: "Por favor, tente novamente.",
+        variant: "destructive",
+      });
     }
   };
 
-  const periodoOptions = publicoSelecionado ? periodosByPublico[publicoSelecionado] : [];
+  const periodoOptions = publicoSelecionado
+    ? periodosByPublico[publicoSelecionado]
+    : [];
   const isCourseDisabled = (c: CursoNome) =>
     form.getValues("nivel")
-      ? LEVEL_ORDER[COURSE_LEVELS[c]] > LEVEL_ORDER[form.getValues("nivel") as NivelForm]
+      ? LEVEL_ORDER[COURSE_LEVELS[c]] >
+        LEVEL_ORDER[form.getValues("nivel") as NivelForm]
       : false;
-  const safeId = (s: string) => s.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-_:.]/g, "");
+  const safeId = (s: string) =>
+    s
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9-_:.]/g, "");
 
   // Checagem de data: zera as horas para comparar somente a data (independente do horário)
   const hoje = new Date();
@@ -303,9 +357,12 @@ const FormRegistro: React.FC = () => {
                   <FormItem>
                     <FormLabel className="text-encomp-green">CPF</FormLabel>
                     <FormControl>
-                      <Input placeholder="000.000.000-00" {...field}
+                      <Input
+                        placeholder="000.000.000-00"
+                        {...field}
                         onChange={handleCpfChange}
-                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green" />
+                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -319,8 +376,11 @@ const FormRegistro: React.FC = () => {
                   <FormItem>
                     <FormLabel className="text-encomp-green">Nome</FormLabel>
                     <FormControl>
-                      <Input placeholder="Seu nome completo" {...field}
-                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green" />
+                      <Input
+                        placeholder="Seu nome completo"
+                        {...field}
+                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -334,8 +394,12 @@ const FormRegistro: React.FC = () => {
                   <FormItem>
                     <FormLabel className="text-encomp-green">E-mail</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="seu.email@exemplo.com" {...field}
-                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green" />
+                      <Input
+                        type="email"
+                        placeholder="seu.email@exemplo.com"
+                        {...field}
+                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -347,11 +411,16 @@ const FormRegistro: React.FC = () => {
                 name="telefone"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-encomp-green">Telefone</FormLabel>
+                    <FormLabel className="text-encomp-green">
+                      Telefone
+                    </FormLabel>
                     <FormControl>
-                      <Input placeholder="(99) 99999-9999" {...field}
+                      <Input
+                        placeholder="(99) 99999-9999"
+                        {...field}
                         onChange={handleTelefoneChange}
-                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green" />
+                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -366,14 +435,22 @@ const FormRegistro: React.FC = () => {
                     <FormLabel className="text-encomp-green">Público</FormLabel>
                     <FormControl>
                       <RadioGroup
-                        value={field.value || ""} 
+                        value={field.value || ""}
                         onValueChange={(v) => field.onChange(v as PublicoValue)}
                         className="grid grid-cols-1 gap-2 md:grid-cols-2"
                       >
-                        {PUBLICOS.map(p => (
-                          <div key={p.value} className="flex items-center space-x-2 rounded-md border border-encomp-green/20 p-2">
+                        {PUBLICOS.map((p) => (
+                          <div
+                            key={p.value}
+                            className="flex items-center space-x-2 rounded-md border border-encomp-green/20 p-2"
+                          >
                             <RadioGroupItem value={p.value} id={p.value} />
-                            <label htmlFor={p.value} className="text-sm text-gray-200 cursor-pointer">{p.label}</label>
+                            <label
+                              htmlFor={p.value}
+                              className="text-sm text-gray-200 cursor-pointer"
+                            >
+                              {p.label}
+                            </label>
                           </div>
                         ))}
                       </RadioGroup>
@@ -389,7 +466,9 @@ const FormRegistro: React.FC = () => {
                   name="vinculo"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-encomp-green">Curso/Programa (vínculo)</FormLabel>
+                      <FormLabel className="text-encomp-green">
+                        Curso/Programa (vínculo)
+                      </FormLabel>
                       <FormControl>
                         <select
                           disabled={!publicoSelecionado}
@@ -397,11 +476,17 @@ const FormRegistro: React.FC = () => {
                           {...field}
                         >
                           {!publicoSelecionado ? (
-                            <option value="">Selecione o público primeiro</option>
+                            <option value="">
+                              Selecione o público primeiro
+                            </option>
                           ) : (
-                            (vinculoByPublico[publicoSelecionado] || []).map(opt => (
-                              <option key={opt} value={opt}>{opt}</option>
-                            ))
+                            (vinculoByPublico[publicoSelecionado] || []).map(
+                              (opt) => (
+                                <option key={opt} value={opt}>
+                                  {opt}
+                                </option>
+                              )
+                            )
                           )}
                         </select>
                       </FormControl>
@@ -415,7 +500,9 @@ const FormRegistro: React.FC = () => {
                   name="periodo"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-encomp-green">Período</FormLabel>
+                      <FormLabel className="text-encomp-green">
+                        Período
+                      </FormLabel>
                       <FormControl>
                         <select
                           disabled={!publicoSelecionado}
@@ -423,10 +510,14 @@ const FormRegistro: React.FC = () => {
                           {...field}
                         >
                           {!publicoSelecionado ? (
-                            <option value="">Selecione o público primeiro</option>
+                            <option value="">
+                              Selecione o público primeiro
+                            </option>
                           ) : (
-                            periodosByPublico[publicoSelecionado].map(opt => (
-                              <option key={opt} value={opt}>{opt}</option>
+                            periodosByPublico[publicoSelecionado].map((opt) => (
+                              <option key={opt} value={opt}>
+                                {opt}
+                              </option>
                             ))
                           )}
                         </select>
@@ -445,17 +536,25 @@ const FormRegistro: React.FC = () => {
                     <FormLabel className="text-encomp-green">Nível</FormLabel>
                     <FormControl>
                       <RadioGroup
-                        value={field.value || ""} 
+                        value={field.value || ""}
                         onValueChange={(v) => {
                           field.onChange(v as NivelForm);
                           form.setValue("curso", ""); // Reset course when level changes
                         }}
                         className="grid grid-cols-2 gap-2 md:grid-cols-4"
                       >
-                        {NIVEIS.map(n => (
-                          <div key={n} className="flex items-center space-x-2 rounded-md border border-encomp-green/20 p-2">
+                        {NIVEIS.map((n) => (
+                          <div
+                            key={n}
+                            className="flex items-center space-x-2 rounded-md border border-encomp-green/20 p-2"
+                          >
                             <RadioGroupItem value={n} id={`nivel-${n}`} />
-                            <label htmlFor={`nivel-${n}`} className="text-sm text-gray-200 cursor-pointer">{n}</label>
+                            <label
+                              htmlFor={`nivel-${n}`}
+                              className="text-sm text-gray-200 cursor-pointer"
+                            >
+                              {n}
+                            </label>
                           </div>
                         ))}
                       </RadioGroup>
@@ -471,31 +570,46 @@ const FormRegistro: React.FC = () => {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-encomp-green">
-                      Curso de interesse {nivelSelecionado && `(${nivelSelecionado})`}
+                      Curso de interesse{" "}
+                      {nivelSelecionado && `(${nivelSelecionado})`}
                     </FormLabel>
                     <FormControl>
                       <div className="space-y-2 max-h-64 overflow-y-auto border border-encomp-green/20 rounded-md p-2">
                         {!nivelSelecionado ? (
-                          <p className="text-gray-400 text-sm p-2">Selecione um nível primeiro</p>
+                          <p className="text-gray-400 text-sm p-2">
+                            Selecione um nível primeiro
+                          </p>
                         ) : (
-                          <RadioGroup value={field.value || ""} onValueChange={field.onChange}>
-                            {CURSOS
-                              .filter(curso => {
-                                if (curso === PARTIU_IF_ONLY && publicoSelecionado !== "partiuif") return false;
-                                return COURSE_LEVELS[curso] === nivelSelecionado;
-                              })
+                          <RadioGroup
+                            value={field.value || ""}
+                            onValueChange={field.onChange}
+                          >
+                            {CURSOS.filter((curso) => {
+                              if (
+                                curso === PARTIU_IF_ONLY &&
+                                publicoSelecionado !== "partiuif"
+                              )
+                                return false;
+                              return COURSE_LEVELS[curso] === nivelSelecionado;
+                            })
                               .sort((a, b) => a.localeCompare(b))
-                              .map(curso => (
+                              .map((curso) => (
                                 <div
                                   key={curso}
                                   className="flex items-start space-x-2 p-2 rounded-md border border-encomp-green/20 hover:border-encomp-green/40"
                                 >
-                                  <RadioGroupItem value={curso} id={safeId(`curso-${curso}`)} />
-                                  <label 
-                                    htmlFor={safeId(`curso-${curso}`)} 
+                                  <RadioGroupItem
+                                    value={curso}
+                                    id={safeId(`curso-${curso}`)}
+                                  />
+                                  <label
+                                    htmlFor={safeId(`curso-${curso}`)}
                                     className="text-sm leading-relaxed cursor-pointer text-gray-200"
                                   >
-                                    {curso}{curso === PARTIU_IF_ONLY ? " — Exclusivo PartiuIF" : ""}
+                                    {curso}
+                                    {curso === PARTIU_IF_ONLY
+                                      ? " — Exclusivo PartiuIF"
+                                      : ""}
                                   </label>
                                 </div>
                               ))}
@@ -507,9 +621,19 @@ const FormRegistro: React.FC = () => {
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={isSubmitting}
-                className="w-full bg-encomp-green text-black font-bold gap-2">
-                {isSubmitting ? "Enviando..." : (<><SendIcon size={18} />Enviar Inscrição</>)}
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-encomp-green text-black font-bold gap-2"
+              >
+                {isSubmitting ? (
+                  "Enviando..."
+                ) : (
+                  <>
+                    <SendIcon size={18} />
+                    Enviar Inscrição
+                  </>
+                )}
               </Button>
             </form>
           </Form>

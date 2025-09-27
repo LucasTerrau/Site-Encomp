@@ -1,37 +1,36 @@
-
-import React from 'react';
+import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Users, Monitor, Gamepad2 } from 'lucide-react';
+import { Users, Monitor, Gamepad2 } from "lucide-react";
 //a
 const Gallery = () => {
   return (
     <section id="galeria" className="py-16 bg-encomp-black">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center font-orbitron">
-          <span className="text-encomp-green">&lt;</span>
-          O que te espera no ENCOMP
+          <span className="text-encomp-green">&lt;</span>O que te espera no
+          ENCOMP
           <span className="text-encomp-green">/&gt;</span>
         </h2>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <ActivityCard 
-            title="Palestras" 
+          <ActivityCard
+            title="Palestras"
             description="Assista palestras com profissionais renomados da área de tecnologia e inovação."
-            icon={<Users className="text-encomp-green w-12 h-12" />} 
+            icon={<Users className="text-encomp-green w-12 h-12" />}
             image="https://images.unsplash.com/photo-1495465798138-718f86d1a4bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80"
           />
-          
-          <ActivityCard 
-            title="Minicursos" 
+
+          <ActivityCard
+            title="Minicursos"
             description="Participe de cursos práticos em áreas como Cloud, Edição de Vídeo e Inteligência Artificial."
-            icon={<Monitor className="text-encomp-green w-12 h-12" />} 
+            icon={<Monitor className="text-encomp-green w-12 h-12" />}
             image="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80"
           />
-          
-          <ActivityCard 
-            title="Campeonato de LoL" 
+
+          <ActivityCard
+            title="Campeonato de LoL"
             description="Mostre suas habilidades no torneio de League of Legends e dispute com outras equipes!"
-            icon={<Gamepad2 className="text-encomp-green w-12 h-12" />} 
+            icon={<Gamepad2 className="text-encomp-green w-12 h-12" />}
             image="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1650&q=80"
           />
         </div>
@@ -47,14 +46,19 @@ interface ActivityCardProps {
   image: string;
 }
 
-const ActivityCard: React.FC<ActivityCardProps> = ({ title, description, icon, image }) => {
+const ActivityCard: React.FC<ActivityCardProps> = ({
+  title,
+  description,
+  icon,
+  image,
+}) => {
   return (
     <Card className="overflow-hidden bg-transparent border border-encomp-green/20 group hover:border-encomp-green/50 transition-all hover:shadow-md hover:shadow-encomp-green/20">
       <div className="h-48 relative overflow-hidden">
-        <img 
-          src={image} 
-          alt={title} 
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+        <img
+          src={image}
+          alt={title}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
         />
       </div>
       <CardContent className="pt-8 pb-8 relative bg-encomp-black bg-opacity-90">

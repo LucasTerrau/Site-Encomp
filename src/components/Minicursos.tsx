@@ -95,11 +95,7 @@ const minicursosData: Minicurso[] = [
     vagas: "ilimitado",
     nivel: "Intermediário",
     carga_horaria: 9,
-    Data: [
-      "2025-11-03T19:00:00",
-      "2025-11-04T19:00:00",
-      "2025-11-05T19:00:00",
-    ],
+    Data: ["2025-11-03T19:00:00", "2025-11-04T19:00:00", "2025-11-05T19:00:00"],
   },
   {
     id: "introducao-informatica",
@@ -169,11 +165,7 @@ const minicursosData: Minicurso[] = [
     vagas: "ilimitado",
     nivel: "Avançado",
     carga_horaria: 6,
-    Data: [
-      "2025-11-03T19:00:00",
-      "2025-11-05T19:00:00",
-      "2025-11-06T19:00:00",
-    ],
+    Data: ["2025-11-03T19:00:00", "2025-11-05T19:00:00", "2025-11-06T19:00:00"],
   },
   {
     id: "deep-learning",
@@ -220,7 +212,8 @@ const minicursosData: Minicurso[] = [
   {
     id: "react-native",
     titulo: "Introdução ao React Native",
-    speakers: "Jean Francisco da Silva, Max Mohamed Freitas e Pedro Santana Miranda",
+    speakers:
+      "Jean Francisco da Silva, Max Mohamed Freitas e Pedro Santana Miranda",
     imagem: "/imagens/ReactNative.jpg",
     descricao:
       "Do zero ao app: componentes nativos, navegação, chamadas HTTP e publicação inicial.",
@@ -235,8 +228,7 @@ const minicursosData: Minicurso[] = [
     id: "edicao-video",
     titulo: "Edição de Vídeo com DaVinci Resolve",
     speakers: "Matheus Terra Wachsmuth e Lucas Terra Wachsmuth",
-    imagem:
-      "/imagens/Edicao_de_video_com_DaVinci_Resolve.jpg",
+    imagem: "/imagens/Edicao_de_video_com_DaVinci_Resolve.jpg",
     descricao:
       "Fluxo de edição no DaVinci: corte, áudio, correção de cor e exportação. Dicas para vídeos acadêmicos e profissionais.",
     objectPosition: "center 40%",
@@ -244,17 +236,12 @@ const minicursosData: Minicurso[] = [
     vagas: "ilimitado",
     nivel: "Intermediário",
     carga_horaria: 8,
-    Data: [
-      "2025-11-04T19:00:00",
-      "2025-11-05T19:00:00",
-      "2025-11-06T19:00:00",
-    ],
+    Data: ["2025-11-04T19:00:00", "2025-11-05T19:00:00", "2025-11-06T19:00:00"],
   },
   {
     id: "html-css",
     titulo: "HTML e CSS",
-    speakers:
-      "Carla Freitas Gonçalves Drummond e João Victor Souza Soares",
+    speakers: "Carla Freitas Gonçalves Drummond e João Victor Souza Soares",
     imagem: "/imagens/HTML_e_CSS.png",
     descricao:
       "Estruturas semânticas, flex/grid, responsividade e boas práticas para criar páginas bem organizadas.",
@@ -319,11 +306,7 @@ const minicursosData: Minicurso[] = [
     vagas: 12,
     nivel: "Intermediário",
     carga_horaria: 12,
-    Data: [
-      "2025-11-05T13:30:00",
-      "2025-11-06T13:30:00",
-      "2025-11-07T13:30:00",
-    ],
+    Data: ["2025-11-05T13:30:00", "2025-11-06T13:30:00", "2025-11-07T13:30:00"],
   },
   {
     id: "montagem-computadores",
@@ -337,11 +320,7 @@ const minicursosData: Minicurso[] = [
     vagas: 10,
     nivel: "Básico",
     carga_horaria: 7,
-    Data: [
-      "2025-11-03T13:30:00",
-      "2025-11-04T13:30:00",
-      "2025-11-05T13:30:00",
-    ],
+    Data: ["2025-11-03T13:30:00", "2025-11-04T13:30:00", "2025-11-05T13:30:00"],
   },
   {
     id: "react-basico",
@@ -461,7 +440,12 @@ const minicursosData: Minicurso[] = [
 ];
 
 const Minicursos: React.FC = () => {
-  const levelOrder: Nivel[] = ["Iniciante", "Básico", "Intermediário", "Avançado"];
+  const levelOrder: Nivel[] = [
+    "Iniciante",
+    "Básico",
+    "Intermediário",
+    "Avançado",
+  ];
 
   // agrupa por nível
   const coursesByLevel = minicursosData.reduce((acc, course) => {
@@ -471,8 +455,11 @@ const Minicursos: React.FC = () => {
   }, {} as Record<Nivel, Minicurso[]>);
 
   // inicializa o nível ativo no primeiro nível que tiver cursos (evita tela vazia)
-  const firstLevelWithCourses = levelOrder.find((l) => (coursesByLevel[l]?.length || 0) > 0) || "Básico";
-  const [activeLevel, setActiveLevel] = React.useState<Nivel>(firstLevelWithCourses);
+  const firstLevelWithCourses =
+    levelOrder.find((l) => (coursesByLevel[l]?.length || 0) > 0) || "Básico";
+  const [activeLevel, setActiveLevel] = React.useState<Nivel>(
+    firstLevelWithCourses
+  );
 
   const activeCourses = coursesByLevel[activeLevel] || [];
 
@@ -484,6 +471,16 @@ const Minicursos: React.FC = () => {
           Minicursos
           <span className="text-encomp-green">/&gt;</span>
         </h2>
+
+        <div className="max-w-2xl mx-auto mb-8 bg-encomp-darkGray border border-encomp-green/30 rounded-lg shadow-md shadow-encomp-green/10 p-4 text-center">
+          <p className="text-sm md:text-base text-gray-200 font-medium leading-relaxed">
+            <span className="text-encomp-green font-semibold"></span> Cursos{" "}
+            <span className="text-amber-400 font-semibold">presenciais</span>{" "}
+            sempre começam às <span className="font-bold">13:30</span> e os{" "}
+            <span className="text-sky-400 font-semibold">online</span> às{" "}
+            <span className="font-bold">19:30</span>.
+          </p>
+        </div>
 
         <div className="flex flex-wrap justify-center gap-2 mb-10">
           {levelOrder.map((level) => (
@@ -545,11 +542,14 @@ const Minicursos: React.FC = () => {
                   <div className="text-center mb-2">
                     <p className="text-[13px] text-gray-300">
                       <span className="text-gray-400 mr-1">
-                        {minicurso.speakers.includes(" e ") || minicurso.speakers.includes(",")
+                        {minicurso.speakers.includes(" e ") ||
+                        minicurso.speakers.includes(",")
                           ? "Ministrantes:"
                           : "Ministrante:"}
                       </span>
-                      <span className="font-medium text-white">{minicurso.speakers}</span>
+                      <span className="font-medium text-white">
+                        {minicurso.speakers}
+                      </span>
                     </p>
 
                     <div className="mt-1 flex items-center justify-center gap-2 flex-wrap">
@@ -559,10 +559,14 @@ const Minicursos: React.FC = () => {
                     </div>
 
                     <div className="mt-2 text-[13px] text-gray-300">
-                      <span className="text-encomp-green/80 font-semibold">Carga:</span>{" "}
+                      <span className="text-encomp-green/80 font-semibold">
+                        Carga:
+                      </span>{" "}
                       {minicurso.carga_horaria}h
                       <span className="mx-2 opacity-50">•</span>
-                      <span className="text-encomp-green/80 font-semibold">Vagas:</span>{" "}
+                      <span className="text-encomp-green/80 font-semibold">
+                        Vagas:
+                      </span>{" "}
                       {minicurso.vagas === "ilimitado"
                         ? "ilimitado"
                         : minicurso.vagas === "Exclusivo PartiuIF"
@@ -571,7 +575,9 @@ const Minicursos: React.FC = () => {
                     </div>
 
                     <div className="mt-2">
-                      <p className="text-[11px] text-gray-400 mb-1">Dias da semana</p>
+                      <p className="text-[11px] text-gray-400 mb-1">
+                        Dias da semana
+                      </p>
                       <div className="flex flex-wrap gap-1 justify-center">
                         {diasSemana.map((dia) => (
                           <span
@@ -599,9 +605,15 @@ const Minicursos: React.FC = () => {
                         const url = new URL(window.location.href);
                         url.searchParams.set("curso", curso);
                         url.searchParams.set("nivel", nivel);
-                        window.history.replaceState({}, "", `${url.pathname}${url.search}#inscricao`);
+                        window.history.replaceState(
+                          {},
+                          "",
+                          `${url.pathname}${url.search}#inscricao`
+                        );
                         window.dispatchEvent(
-                          new CustomEvent("prefill-inscricao", { detail: { curso, nivel } })
+                          new CustomEvent("prefill-inscricao", {
+                            detail: { curso, nivel },
+                          })
                         );
                         document.getElementById("inscricao")?.scrollIntoView({
                           behavior: "smooth",

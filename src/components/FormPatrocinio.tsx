@@ -76,7 +76,9 @@ const FormPatrocinio = () => {
   };
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     setFormData({
       ...formData,
@@ -85,7 +87,10 @@ const FormPatrocinio = () => {
   };
 
   return (
-    <section id="patrocinio" className="py-16 bg-encomp-black relative overflow-hidden">
+    <section
+      id="patrocinio"
+      className="py-16 bg-encomp-black relative overflow-hidden"
+    >
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 font-orbitron">
@@ -100,8 +105,8 @@ const FormPatrocinio = () => {
             </p>
           </div>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            Tenha sua marca associada ao ENCOMP 2025 e alcance centenas de estudantes, profissionais e empresas da
-            área de tecnologia.
+            Tenha sua marca associada ao ENCOMP 2025 e alcance centenas de
+            estudantes, profissionais e empresas da área de tecnologia.
           </p>
         </div>
 
@@ -110,19 +115,27 @@ const FormPatrocinio = () => {
           <div className="space-y-6">
             <Card className="bg-encomp-darkGray border border-encomp-green/20">
               <CardHeader>
-                <CardTitle className="text-encomp-green font-orbitron">Formas de Patrocínio</CardTitle>
+                <CardTitle className="text-encomp-green font-orbitron">
+                  Formas de Patrocínio
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="p-4 border border-encomp-green/30 rounded-lg">
-                  <h4 className="font-bold text-encomp-green mb-2">🏪 Produtos e Serviços</h4>
+                  <h4 className="font-bold text-encomp-green mb-2">
+                    🏪 Produtos e Serviços
+                  </h4>
                   <p className="text-sm text-gray-400">
-                    Fornecimento de produtos ou serviços próprios da sua empresa.
+                    Fornecimento de produtos ou serviços próprios da sua
+                    empresa.
                   </p>
                 </div>
                 <div className="p-4 border border-encomp-green/30 rounded-lg">
-                  <h4 className="font-bold text-encomp-green mb-2">💰 Pagamento Direto</h4>
+                  <h4 className="font-bold text-encomp-green mb-2">
+                    💰 Pagamento Direto
+                  </h4>
                   <p className="text-sm text-gray-400">
-                    Patrocínio financeiro para produtos/serviços específicos (ex: R$ 300 para 100 lanches).
+                    Patrocínio financeiro para produtos/serviços específicos
+                    (ex: R$ 300 para 100 lanches).
                   </p>
                 </div>
               </CardContent>
@@ -130,7 +143,9 @@ const FormPatrocinio = () => {
 
             <Card className="bg-encomp-darkGray border border-encomp-green/20">
               <CardHeader>
-                <CardTitle className="text-encomp-green font-orbitron">Cotas de Patrocínio</CardTitle>
+                <CardTitle className="text-encomp-green font-orbitron">
+                  Cotas de Patrocínio
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="p-4 border border-yellow-500/30 rounded-lg">
@@ -139,7 +154,9 @@ const FormPatrocinio = () => {
                     <h4 className="font-bold text-yellow-500">Ouro</h4>
                   </div>
                   <ul className="text-sm text-gray-400 space-y-1">
-                    <li>• Logotipo em destaque (maior tamanho) nos materiais.</li>
+                    <li>
+                      • Logotipo em destaque (maior tamanho) nos materiais.
+                    </li>
                     <li>• Postagens personalizadas nas redes sociais.</li>
                     <li>• Espaço para estande.</li>
                     <li>• Direito a apresentação institucional.</li>
@@ -181,7 +198,9 @@ const FormPatrocinio = () => {
                     <h4 className="font-bold text-green-600">Apoio</h4>
                   </div>
                   <ul className="text-sm text-gray-400 space-y-1">
-                    <li>• Tudo oferecido na cota correspondente com o valor.</li>
+                    <li>
+                      • Tudo oferecido na cota correspondente com o valor.
+                    </li>
                     <li>• Agradecimento nas palestras e coffee break.</li>
                     <li>• Banner visível durante as palestras.</li>
                   </ul>
@@ -193,7 +212,9 @@ const FormPatrocinio = () => {
           {/* ---- Direita ---- */}
           <Card className="bg-encomp-darkGray border border-encomp-green/20">
             <CardHeader>
-              <CardTitle className="text-encomp-green font-orbitron">Formulário de Interesse</CardTitle>
+              <CardTitle className="text-encomp-green font-orbitron">
+                Formulário de Interesse
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -247,7 +268,9 @@ const FormPatrocinio = () => {
                 </div>
 
                 <div>
-                  <Label className="text-encomp-green">Interesse em Patrocínio</Label>
+                  <Label className="text-encomp-green">
+                    Interesse em Patrocínio
+                  </Label>
                   <select
                     name="tipoPatrocinio"
                     value={formData.tipoPatrocinio}
@@ -266,7 +289,9 @@ const FormPatrocinio = () => {
                 </div>
 
                 <div>
-                  <Label className="text-encomp-green">Mensagem (opcional)</Label>
+                  <Label className="text-encomp-green">
+                    Mensagem (opcional)
+                  </Label>
                   <Textarea
                     name="mensagem"
                     value={formData.mensagem}
