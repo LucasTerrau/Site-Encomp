@@ -176,7 +176,7 @@ const minicursosData: Minicurso[] = [
       "Bases de redes neurais, treino e avaliação. Construindo modelos simples para visão e texto com bibliotecas populares.",
     objectPosition: "center 45%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
-    vagas: ilimitado,
+    vagas: "ilimitado",
     nivel: "Intermediário",
     carga_horaria: 6,
     Data: ["2025-11-03T19:00:00", "2025-11-04T19:00:00"],
