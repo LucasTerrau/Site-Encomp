@@ -18,7 +18,6 @@ type Minicurso = {
   Data: string[];
 };
 
-// retorna labels no formato "Segunda-feira (03/nov)" e é tolerante a datas inválidas
 const uniqueWeekdaysInOrder = (isos: string[]) => {
   if (!Array.isArray(isos) || isos.length === 0) return [];
 
@@ -463,15 +462,14 @@ const minicursosData: Minicurso[] = [
 const Minicursos: React.FC = () => {
   const levelOrder: Nivel[] = ["Iniciante", "Básico", "Intermediário", "Avançado"];
 
-  // agrupa por nível
   const coursesByLevel = minicursosData.reduce((acc, course) => {
     if (!acc[course.nivel]) acc[course.nivel] = [];
     acc[course.nivel].push(course);
     return acc;
   }, {} as Record<Nivel, Minicurso[]>);
 
-  // inicializa o nível ativo no primeiro nível que tiver cursos (evita tela vazia)
-  const firstLevelWithCourses = levelOrder.find((l) => (coursesByLevel[l]?.length || 0) > 0) || "Básico";
+  const firstLevelWithCourses =
+    levelOrder.find((l) => (coursesByLevel[l]?.length || 0) > 0) || "Básico";
   const [activeLevel, setActiveLevel] = React.useState<Nivel>(firstLevelWithCourses);
 
   const activeCourses = coursesByLevel[activeLevel] || [];
@@ -504,9 +502,11 @@ const Minicursos: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {activeCourses.map((minicurso) => {
             const isOnline = minicurso.vagas === "ilimitado";
+            const isBlenderPresencialFull = minicurso.id === "modelagem-3d-blender";
             const badgeClass = isOnline
               ? "bg-sky-500 text-white border-sky-300"
               : "bg-amber-400 text-black border-amber-200";
+            const badgeTopClass = isBlenderPresencialFull ? "top-10 md:top-12" : "top-3";
             const diasSemana = uniqueWeekdaysInOrder(minicurso.Data);
 
             return (
@@ -515,6 +515,19 @@ const Minicursos: React.FC = () => {
                 className="bg-encomp-darkGray border border-encomp-green/20 hover:border-encomp-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-encomp-green/20 overflow-hidden group"
               >
                 <div className="relative h-64 md:h-80 overflow-hidden bg-encomp-dark/50">
+                  {/* Banner especial apenas para Blender (Presencial) */}
+                  {isBlenderPresencialFull && (
+                    <div className="absolute inset-x-0 top-0 z-20">
+                      <div
+                        className="bg-rose-600 text-white text-[11px] md:text-xs font-extrabold tracking-wide text-center py-1"
+                        aria-label="Vagas preenchidas — inscreva-se como excedente"
+                        title="Vagas preenchidas — inscreva-se como excedente"
+                      >
+                        VAGAS PREENCHIDAS — INSCREVA-SE COMO EXCEDENTE
+                      </div>
+                    </div>
+                  )}
+
                   <img
                     src={encodeURI(minicurso.imagem)}
                     alt={minicurso.titulo}
@@ -526,12 +539,8 @@ const Minicursos: React.FC = () => {
                     }}
                   />
                   <span
-                    className={`absolute top-3 left-3 px-3 py-1 rounded-md text-[11px] font-bold border ${badgeClass} shadow`}
-                    title={
-                      isOnline
-                        ? "Este curso é online"
-                        : "Este curso é presencial"
-                    }
+                    className={`absolute ${badgeTopClass} left-3 px-3 py-1 rounded-md text-[11px] font-bold border ${badgeClass} shadow`}
+                    title={isOnline ? "Este curso é online" : "Este curso é presencial"}
                   >
                     {isOnline ? "ONLINE" : "PRESENCIAL"}
                   </span>
