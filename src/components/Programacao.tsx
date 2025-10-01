@@ -64,7 +64,7 @@ const programacao: ProgramacaoPorDia = {
     {
       titulo: "Blender para iniciantes (Online)",
       formato: "Online",
-      inicio: "19:00",
+      inicio: "19:30",
       local: "YouTube",
     },
     {
