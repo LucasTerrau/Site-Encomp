@@ -391,7 +391,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Kaique Gabriel de Silva Souza e Pedro Arthur Faria Costa",
     imagem: "/imagens/Campeonato_de_Jogos.jpg",
     descricao:
-      "Campeonato em duplas de League of Legends.",
+      "Campeonato em duplas de League of Legends, regras, chaveamento e acompanhamento de partidas.",
     objectPosition: "center 25%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
     vagas: 16,
