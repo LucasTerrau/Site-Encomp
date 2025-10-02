@@ -387,7 +387,7 @@ const minicursosData: Minicurso[] = [
   },
   {
     id: "campeonato-jogos",
-    titulo: "Campeonato de Jogos",
+    titulo: "Campeonato em duplas de League of Legends",
     speakers: "Kaique Gabriel de Silva Souza e Pedro Arthur Faria Costa",
     imagem: "/imagens/Campeonato_de_Jogos.jpg",
     descricao:
