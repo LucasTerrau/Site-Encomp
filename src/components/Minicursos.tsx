@@ -22,18 +22,7 @@ const uniqueWeekdaysInOrder = (isos: string[]) => {
   if (!Array.isArray(isos) || isos.length === 0) return [];
 
   const monthAbbr = [
-    "jan",
-    "fev",
-    "mar",
-    "abr",
-    "mai",
-    "jun",
-    "jul",
-    "ago",
-    "set",
-    "out",
-    "nov",
-    "dez",
+    "jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez",
   ];
 
   const ordered = [...isos]
@@ -51,12 +40,9 @@ const uniqueWeekdaysInOrder = (isos: string[]) => {
     const weekday = d
       .toLocaleDateString("pt-BR", { weekday: "long" })
       .replace(/^(.)/, (m) => m.toUpperCase());
-
     const day = String(d.getDate()).padStart(2, "0");
     const month = monthAbbr[d.getMonth()];
-
     const label = `${weekday} (${day}/${month})`;
-
     if (!seen.has(label)) {
       seen.add(label);
       result.push(label);
@@ -104,6 +90,459 @@ const minicursosData: Minicurso[] = [
     id: "introducao-informatica",
     titulo: "Informática Básica",
     speakers: "Gabriel Silva Xavier e Richard Rodrigues Abreu",
+    imagem: "/imagens/Informatica_Basica.jpg",
+    descricao:
+      "Fundamentos práticos: sistemas operacionais, organização de arquivos, segurança básica e produtividade no computador.",
+    objectPosition: "center 30%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: 20,
+    nivel: "Iniciante",
+    carga_horaria: 6,
+    Data: ["2025-11-03T13:30:00", "2025-11-04T13:30:00"],
+  },
+  {
+    id: "chatbot-python",
+    titulo: "Criação de Chatbots com Python",
+    speakers: "Rafael de Pádua e Rômulo Rocha Vargas",
+    imagem: "/imagens/Chatbot_Python.jpg",
+    descricao:
+      "Construa um chatbot do zero com Python. Conceitos de NLP, integração com APIs e bibliotecas úteis para conversação.",
+    objectPosition: "center 35%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: 15,
+    nivel: "Intermediário",
+    carga_horaria: 6,
+    Data: ["2025-11-03T13:30:00", "2025-11-04T13:30:00"],
+  },
+  {
+    id: "como-adquirir-computador",
+    titulo: "Como adquirir um computador",
+    speakers: "Lucas Terra Wachsmuth e Matheus Terra Wachsmuth",
+    imagem: "/imagens/Como_Adquirir_um_Computador.jpg",
+    descricao:
+      "Guia prático para escolher peças e configurações para estudo, trabalho ou jogos — custo/benefício e upgrade futuro.",
+    objectPosition: "center 15%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: "ilimitado",
+    nivel: "Iniciante",
+    carga_horaria: 3,
+    Data: ["2025-11-03T19:00:00"],
+  },
+  {
+    id: "cerebro-aprendizado-mundo-digital",
+    titulo: "Cérebro, Aprendizado e Mundo Digital",
+    speakers: "Mariana Eliane Teixeira",
+    imagem: "/imagens/Cerebro.png",
+    descricao:
+      "Neurociência aplicada ao estudo e à vida online: atenção, memória, foco e práticas para aprender melhor.",
+    objectPosition: "center 40%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: 25,
+    nivel: "Básico",
+    carga_horaria: 6,
+    Data: ["2025-11-03T13:30:00", "2025-11-04T13:30:00"],
+  },
+  {
+    id: "computacao-forense",
+    titulo: "Computação Forense",
+    speakers: "Helen Enes Dessa e Kaiki Alvarenga de Souza",
+    imagem: "/imagens/Computacao_Forense.jpg",
+    descricao:
+      "Coleta, preservação e análise de evidências digitais. Técnicas e ferramentas para investigações em sistemas e redes.",
+    objectPosition: "center 35%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: "ilimitado",
+    nivel: "Avançado",
+    carga_horaria: 6,
+    Data: [
+      "2025-11-03T19:00:00",
+      "2025-11-05T19:00:00",
+      "2025-11-06T19:00:00",
+    ],
+  },
+  {
+    id: "deep-learning",
+    titulo: "Introdução a Deep Learning em Python",
+    speakers: "Gabriel Teixeira Bernardes e Pedro Gabriel dos Santos Barros",
+    imagem: "/imagens/Deep_Learning.jpg",
+    descricao:
+      "Bases de redes neurais, treino e avaliação. Construindo modelos simples para visão e texto com bibliotecas populares.",
+    objectPosition: "center 45%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: 15,
+    nivel: "Intermediário",
+    carga_horaria: 6,
+    Data: ["2025-11-03T19:00:00", "2025-11-04T19:00:00"],
+  },
+  {
+    id: "criar-jogos-api",
+    titulo: "Desenvolvimento de uma página de jogos com API",
+    speakers: "Gabriel Martins e Yago Gabriel",
+    imagem: "/imagens/API.png",
+    descricao:
+      "Ação especial voltada à divulgação e integração com a comunidade — oficinas rápidas e bate-papos com alunos.",
+    objectPosition: "center 25%",
+    instituto: "IFSULDEMINAS Campus Passos",
+    vagas: "Exclusivo PartiuIF",
+    nivel: "Iniciante",
+    carga_horaria: 6,
+    Data: ["2025-11-04T13:30:00", "2025-11-05T13:30:00"],
+  },
+  {
+    id: "power-bi",
+    titulo: "Visualização de Dados em Power BI",
+    speakers: "Ricardo Morsoleto",
+    imagem: "/imagens/PowerBI.jpg",
+    descricao:
+      "Modelagem simples, criação de dashboards, DAX introdutório e publicação de relatórios.",
+    objectPosition: "center 30%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: 15,
+    nivel: "Básico",
+    carga_horaria: 3,
+    Data: ["2025-11-04T13:30:00"],
+  },
+  {
+    id: "react-native",
+    titulo: "Introdução ao React Native",
+    speakers: "Jean Francisco da Silva, Max Mohamed Freitas e Pedro Santana Miranda",
+    imagem: "/imagens/ReactNative.jpg",
+    descricao:
+      "Do zero ao app: componentes nativos, navegação, chamadas HTTP e publicação inicial.",
+    objectPosition: "center 25%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: 20,
+    nivel: "Intermediário",
+    carga_horaria: 4,
+    Data: ["2025-11-04T13:30:00"],
+  },
+  {
+    id: "edicao-video",
+    titulo: "Edição de Vídeo com DaVinci Resolve",
+    speakers: "Matheus Terra Wachsmuth e Lucas Terra Wachsmuth",
+    imagem: "/imagens/Edicao_de_video_com_DaVinci_Resolve.jpg",
+    descricao:
+      "Fluxo de edição no DaVinci: corte, áudio, correção de cor e exportação. Dicas para vídeos acadêmicos e profissionais.",
+    objectPosition: "center 40%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: "ilimitado",
+    nivel: "Intermediário",
+    carga_horaria: 8,
+    Data: [
+      "2025-11-04T19:00:00",
+      "2025-11-05T19:00:00",
+      "2025-11-06T19:00:00",
+    ],
+  },
+  {
+    id: "html-css",
+    titulo: "HTML e CSS",
+    speakers:
+      "Carla Freitas Gonçalves Drummond e João Victor Souza Soares",
+    imagem: "/imagens/HTML_e_CSS.png",
+    descricao:
+      "Estruturas semânticas, flex/grid, responsividade e boas práticas para criar páginas bem organizadas.",
+    objectPosition: "center 35%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: 20,
+    nivel: "Básico",
+    carga_horaria: 6,
+    Data: ["2025-11-06T13:30:00", "2025-11-07T13:30:00"],
+  },
+  {
+    id: "computacao-nuvem",
+    titulo: "Introdução à Computação em Nuvem",
+    speakers: "Gabriel Teixeira Bernardes e Rafael de Pádua Oliveira",
+    imagem: "/imagens/Computacao_em_Nuvem.jpg",
+    descricao:
+      "Primeiros passos com serviços de nuvem: contas, compute, storage, redes e implantação básica de aplicações.",
+    objectPosition: "center 30%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: "ilimitado",
+    nivel: "Básico",
+    carga_horaria: 3,
+    Data: ["2025-11-05T19:00:00"],
+  },
+  {
+    id: "ingles-computacao",
+    titulo: "Inglês voltado para a Computação",
+    speakers: "Enzo Lessa e Vitor Hugo Souza Silva",
+    imagem: "/imagens/Ingles.jpg",
+    descricao:
+      "Leitura de documentação, vocabulário técnico, comunicação em times e boas práticas para estudo contínuo do idioma.",
+    objectPosition: "center 25%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: 15,
+    nivel: "Básico",
+    carga_horaria: 3,
+    Data: ["2025-11-05T13:30:00"],
+  },
+  {
+    id: "introducao-javascript",
+    titulo: "Introdução ao JavaScript",
+    speakers: "Gabriel Oliveira Canela e Pedro Santana Miranda",
+    imagem: "/imagens/Introducao_ao_java_script.jpeg",
+    descricao:
+      "Primeiros passos no JS: sintaxe, DOM, eventos e consumo de APIs — criando páginas web interativas.",
+    objectPosition: "center 25%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: 20,
+    nivel: "Básico",
+    carga_horaria: 3,
+    Data: ["2025-11-05T13:30:00"],
+  },
+  {
+    id: "modelagem-3d-blender",
+    titulo: "Blender para iniciantes (Presencial)",
+    speakers: "Maria Clara Batista e Stanley Melo Costa",
+    imagem: "/imagens/Modelagem_3D_Blender.jpg",
+    descricao:
+      "Modelagem, materiais, luzes e render. Fundamentos do Blender para criar seus primeiros projetos em 3D.",
+    objectPosition: "center 30%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: 12,
+    nivel: "Intermediário",
+    carga_horaria: 12,
+    Data: [
+      "2025-11-05T13:30:00",
+      "2025-11-06T13:30:00",
+      "2025-11-07T13:30:00",
+    ],
+  },
+  {
+    id: "montagem-computadores",
+    titulo: "Montagem e Funcionamento de Computadores",
+    speakers: "Robson Ribeiro Filho e Tiago Requena Ferreira Sanchez",
+    imagem: "/imagens/Montagem_e_Conserto_de_Computadores.jpg",
+    descricao:
+      "Identificação de componentes, montagem segura, instalação de SO, diagnóstico e manutenção preventiva.",
+    objectPosition: "center 20%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: 10,
+    nivel: "Básico",
+    carga_horaria: 7,
+    Data: [
+      "2025-11-03T13:30:00",
+      "2025-11-04T13:30:00",
+      "2025-11-05T13:30:00",
+    ],
+  },
+  {
+    id: "react-basico",
+    titulo: "React",
+    speakers: "Davi Henrique Garcia Araújo e Layla Pimenta de Melo",
+    imagem: "/imagens/React.jpg",
+    descricao:
+      "Componentes, props, estado e efeitos. Construindo interfaces modernas e organizando projetos React.",
+    objectPosition: "center 35%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: 15,
+    nivel: "Avançado",
+    carga_horaria: 8,
+    Data: ["2025-11-05T13:30:00", "2025-11-06T13:30:00"],
+  },
+  {
+    id: "kali-pentest",
+    titulo: "Virtualização e Introdução ao Kali Linux com foco em Pentest",
+    speakers:
+      "Felipe Augusto Felicio Ignácio e Vitor Henrique Nascimento Almeida",
+    imagem: "/imagens/Hacking_com_Kali_Linux.jpg",
+    descricao:
+      "Ambiente de laboratório com VirtualBox, instalação do Kali e execução de testes básicos de intrusão.",
+    objectPosition: "center 45%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: 20,
+    nivel: "Avançado",
+    carga_horaria: 6,
+    Data: ["2025-11-05T13:30:00", "2025-11-06T13:30:00"],
+  },
+  {
+    id: "recomendacao-jogos-ml",
+    titulo: "Machine Learning descomplicado: sistema de recomendação de jogos",
+    speakers: "Ricardo Morsoleto",
+    imagem: "/imagens/Machine_Learning (2).jpg",
+    descricao:
+      "Do zero ao recomendador: coleta/limpeza de dados, métricas de similaridade e avaliação simples do modelo.",
+    objectPosition: "center 25%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: 15,
+    nivel: "Intermediário",
+    carga_horaria: 3,
+    Data: ["2025-11-06T13:30:00"],
+  },
+  {
+    id: "campeonato-jogos",
+    titulo: "Campeonato de Jogos",
+    speakers: "Kaique Gabriel de Silva Souza e Pedro Arthur Faria Costa",
+    imagem: "/imagens/Campeonato_de_Jogos.jpg",
+    descricao:
+      "Campeonato em duplas de League of Legends, regras, chaveamento e acompanhamento de partidas.",
+    objectPosition: "center 25%",
+    instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
+    vagas: 16,
+    nivel: "Básico",
+    carga_horaria: 6,
+    Data: ["2025-11-07T13:30:00"],
+  },
+  {
+    id: "externo-linux",
+    titulo: "Linux aplicado à prática de programação",
+    speakers: "João Fernando",
+    imagem: "/imagens/Externo (João Fernando) - Linux.png",
+    descricao:
+      "Fundamentos práticos de Linux: estrutura de diretórios, permissões, comandos essenciais, gerenciamento de pacotes e dicas de terminal para o dia a dia.",
+    objectPosition: "center 30%",
+    instituto: "Ex Aluno / UFLA São Seb. Paraíso",
+    vagas: 20,
+    nivel: "Intermediário",
+    carga_horaria: 3,
+    Data: ["2025-11-07T13:30:00"],
+  },
+  {
+    id: "externo-docker",
+    titulo: "Docker",
+    speakers: "Luciano Montanha",
+    imagem: "/imagens/Externo (Luciano) - Docker.png",
+    descricao:
+      "Containerização na prática: imagens, containers, volumes e redes. Entenda como empacotar e distribuir aplicações de forma portátil e escalável.",
+    objectPosition: "center 55%",
+    instituto: "IBM",
+    vagas: 25,
+    nivel: "Avançado",
+    carga_horaria: 3,
+    Data: ["2025-11-07T13:30:00"],
+  },
+  {
+    id: "externo-dotnet-angular",
+    titulo: ".NET e Angular",
+    speakers: "Gabriel Reis de Bragança Oliveira",
+    imagem: "/imagens/Externo (Gabriel) - .NET e Angular.png",
+    descricao:
+      "Construindo aplicações web modernas com back-end .NET e front-end Angular: rotas, componentes, APIs e integração.",
+    objectPosition: "center 40%",
+    instituto: "Inatel",
+    vagas: 15,
+    nivel: "Avançado",
+    carga_horaria: 3,
+    Data: ["2025-11-07T13:30:00"],
+  },
+  {
+    id: "privacidade-ia-online",
+    titulo:
+      "A importância da privacidade na Internet e a Regulamentação do Uso de IA nos ambientes Virtuais",
+    speakers: "Gabriel Oliveira Canela",
+    imagem:
+      "/imagens/Interno (Gabriel Canela) - A importância da privacidade na Internet e a Regulamentação do Uso de IA nos ambientes Virtuais.jpg",
+    descricao:
+      "Entenda por que a privacidade importa, boas práticas para navegar com segurança e um panorama da regulamentação do uso de IA em ambientes virtuais.",
+    objectPosition: "center 0%",
+    instituto: "Público Geral",
+    vagas: "ilimitado",
+    nivel: "Iniciante",
+    carga_horaria: 2,
+    Data: ["2025-11-06T19:00:00"],
+  },
+];
+
+const Minicursos: React.FC = () => {
+  const levelOrder: Nivel[] = ["Iniciante", "Básico", "Intermediário", "Avançado"];
+
+  // IDs dos cursos que devem exibir o banner de excedente
+  const excedenteIds = React.useMemo(
+    () =>
+      new Set<string>([
+        "modelagem-3d-blender",       // Blender Presencial (já tinha)
+        "html-css",                   // HTML e CSS
+        "introducao-javascript",      // JavaScript
+        "introducao-informatica",     // Informática Básica
+        "ingles-computacao",          // Inglês
+        "montagem-computadores",      // Montagem de PC
+      ]),
+    []
+  );
+
+  const coursesByLevel = minicursosData.reduce((acc, course) => {
+    if (!acc[course.nivel]) acc[course.nivel] = [];
+    acc[course.nivel].push(course);
+    return acc;
+  }, {} as Record<Nivel, Minicurso[]>);
+
+  const firstLevelWithCourses =
+    levelOrder.find((l) => (coursesByLevel[l]?.length || 0) > 0) || "Básico";
+  const [activeLevel, setActiveLevel] = React.useState<Nivel>(firstLevelWithCourses);
+
+  const activeCourses = coursesByLevel[activeLevel] || [];
+
+  return (
+    <section id="minicursos" className="py-16 bg-encomp-dark">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center font-orbitron">
+          <span className="text-encomp-green">&lt;</span>
+          Minicursos
+          <span className="text-encomp-green">/&gt;</span>
+        </h2>
+
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
+          {levelOrder.map((level) => (
+            <button
+              key={level}
+              onClick={() => setActiveLevel(level)}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                activeLevel === level
+                  ? "bg-encomp-green text-black"
+                  : "bg-encomp-green/10 text-encomp-green border border-encomp-green/30 hover:bg-encomp-green/20"
+              }`}
+            >
+              {level} ({coursesByLevel[level]?.length || 0})
+            </button>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {activeCourses.map((minicurso) => {
+            const isOnline = minicurso.vagas === "ilimitado";
+            const isExcedente = excedenteIds.has(minicurso.id);
+            const badgeClass = isOnline
+              ? "bg-sky-500 text-white border-sky-300"
+              : "bg-amber-400 text-black border-amber-200";
+            // Quando há banner de excedente, abaixa um pouco o selo ONLINE/PRESENCIAL
+            const badgeTopClass = isExcedente ? "top-10 md:top-12" : "top-3";
+            const diasSemana = uniqueWeekdaysInOrder(minicurso.Data);
+
+            return (
+              <Card
+                key={minicurso.id}
+                className="bg-encomp-darkGray border border-encomp-green/20 hover:border-encomp-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-encomp-green/20 overflow-hidden group"
+              >
+                <div className="relative h-64 md:h-80 overflow-hidden bg-encomp-dark/50">
+                  {/* Banner de EXCEDENTE para cursos com vagas preenchidas */}
+                  {isExcedente && (
+                    <div className="absolute inset-x-0 top-0 z-20">
+                      <div
+                        className="bg-rose-600 text-white text-[11px] md:text-xs font-extrabold tracking-wide text-center py-1"
+                        aria-label="Vagas preenchidas — inscreva-se como excedente"
+                        title="Vagas preenchidas — inscreva-se como excedente"
+                      >
+                        VAGAS PREENCHIDAS — INSCREVA-SE COMO EXCEDENTE
+                      </div>
+                    </div>
+                  )}
+
+                  <img
+                    src={encodeURI(minicurso.imagem)}
+                    alt={minicurso.titulo}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectPosition: minicurso.objectPosition || "center",
+                    }}
+                  />
+
+                  <span
+                    className={`absolute ${badgeTopClass} left-3 px-3 py-1 rounded-md text-[11px] font-bold border ${badgeClass} shadow`}
+                    title={isOnline ? "Este curso é online" : "Este curso é presencial"}
+                    speakers: "Gabriel Silva Xavier e Richard Rodrigues Abreu",
     imagem: "/imagens/Informatica_Basica.jpg",
     descricao:
       "Fundamentos práticos: sistemas operacionais, organização de arquivos, segurança básica e produtividade no computador.",
