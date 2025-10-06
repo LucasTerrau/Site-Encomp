@@ -22,7 +22,18 @@ const uniqueWeekdaysInOrder = (isos: string[]) => {
   if (!Array.isArray(isos) || isos.length === 0) return [];
 
   const monthAbbr = [
-    "jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez",
+    "jan",
+    "fev",
+    "mar",
+    "abr",
+    "mai",
+    "jun",
+    "jul",
+    "ago",
+    "set",
+    "out",
+    "nov",
+    "dez",
   ];
 
   const ordered = [...isos]
@@ -40,9 +51,12 @@ const uniqueWeekdaysInOrder = (isos: string[]) => {
     const weekday = d
       .toLocaleDateString("pt-BR", { weekday: "long" })
       .replace(/^(.)/, (m) => m.toUpperCase());
+
     const day = String(d.getDate()).padStart(2, "0");
     const month = monthAbbr[d.getMonth()];
+
     const label = `${weekday} (${day}/${month})`;
+
     if (!seen.has(label)) {
       seen.add(label);
       result.push(label);
@@ -445,20 +459,19 @@ const minicursosData: Minicurso[] = [
   },
 ];
 
-// Componente
 const Minicursos: React.FC = () => {
   const levelOrder: Nivel[] = ["Iniciante", "Básico", "Intermediário", "Avançado"];
 
-  // IDs dos cursos que devem exibir o banner de excedente
+  // Cursos com vagas preenchidas (excedentes) — exibem banner e abaixam badge
   const excedenteIds = React.useMemo(
     () =>
       new Set<string>([
-        "modelagem-3d-blender",       // Blender Presencial
-        "html-css",                   // HTML e CSS
-        "introducao-javascript",      // JavaScript
-        "introducao-informatica",     // Informática Básica
-        "ingles-computacao",          // Inglês
-        "montagem-computadores",      // Montagem de PC
+        "modelagem-3d-blender",   // Blender Presencial
+        "html-css",               // HTML e CSS
+        "introducao-javascript",  // JavaScript
+        "introducao-informatica", // Informática Básica
+        "ingles-computacao",      // Inglês
+        "montagem-computadores",  // Montagem de PC
       ]),
     []
   );
@@ -510,7 +523,7 @@ const Minicursos: React.FC = () => {
               ? "bg-sky-500 text-white border-sky-300"
               : "bg-amber-400 text-black border-amber-200";
 
-            // Abaixa o badge quando houver banner (Excedente) ou for Blender presencial
+            // Abaixar badge quando há banner (excedente) ou no Blender presencial
             const badgeTopClass = (isExcedente || isBlenderPresencialFull)
               ? "top-10 md:top-12"
               : "top-3";
@@ -548,4 +561,4 @@ const Minicursos: React.FC = () => {
                   />
 
                   <span
-                    className={`absolute ${badgeTopClass} left-3 px-3 py-1 rounded-md text-[11px] font-bold border ${badge
+                    className={`absolute ${badgeTopClass} left-3 px-3 py-1 rounded-md te
