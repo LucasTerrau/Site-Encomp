@@ -1,3 +1,4 @@
+ 
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -546,4 +547,71 @@ const Minicursos: React.FC = () => {
 
                   <span
                     className={`absolute ${badgeTopClass} left-3 px-3 py-1 rounded-md text-[11px] font-bold border ${badgeClass} shadow`}
-                    title={isOnline ? "Este curso é online" 
+                    title={isOnline ? "Este curso é online" : "Este curso é presencial"}
+                  >
+                    {isOnline ? "ONLINE" : "PRESENCIAL"}
+                  </span>
+                </div>
+
+                <CardContent className="p-3 md:p-4 flex flex-col justify-between min-h-[290px] md:min-h-[320px]">
+                  <div>
+                    <h3 className="text-lg md:text-xl font-bold mb-2 text-encomp-green font-orbitron text-center leading-snug">
+                      {minicurso.titulo}
+                    </h3>
+
+                    <div className="text-center mb-2">
+                      <p className="text-[12px] md:text-sm text-encomp-muted">
+                        <span className="font-semibold">Instrutores:</span> {minicurso.speakers}
+                      </p>
+                      <p className="text-[12px] md:text-sm text-encomp-muted">
+                        <span className="font-semibold">Instituto:</span> {minicurso.instituto}
+                      </p>
+                    </div>
+
+                    <p className="text-sm md:text-[15px] text-gray-200 text-center mb-3">
+                      {minicurso.descricao}
+                    </p>
+
+                    <div className="flex flex-wrap justify-center gap-2 text-[11px] md:text-xs mb-3">
+                      <span className="px-2 py-1 rounded bg-encomp-green/10 text-encomp-green border border-encomp-green/30">
+                        Nível: {minicurso.nivel}
+                      </span>
+                      <span className="px-2 py-1 rounded bg-encomp-green/10 text-encomp-green border border-encomp-green/30">
+                        Carga horária: {minicurso.carga_horaria}h
+                      </span>
+                      {typeof minicurso.vagas === "number" && (
+                        <span className="px-2 py-1 rounded bg-encomp-green/10 text-encomp-green border border-encomp-green/30">
+                          Vagas: {minicurso.vagas}
+                        </span>
+                      )}
+                      {minicurso.vagas === "Exclusivo PartiuIF" && (
+                        <span className="px-2 py-1 rounded bg-yellow-400/20 text-yellow-300 border border-yellow-300/30">
+                          Exclusivo PartiuIF
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="text-center">
+                      <p className="text-[12px] md:text-sm text-encomp-muted">
+                        {diasSemana.length > 0 ? diasSemana.join(" • ") : "Datas a confirmar"}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* 🔁 Botão voltou ao padrão original */}
+                  <div className="mt-4 flex items-center justify-center">
+                    <Button className="bg-encomp-green hover:bg-encomp-green/90 text-black font-bold">
+                      Inscrever-se
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Minicursos;
