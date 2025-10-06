@@ -220,7 +220,8 @@ const minicursosData: Minicurso[] = [
     id: "edicao-video",
     titulo: "Edição de Vídeo com DaVinci Resolve",
     speakers: "Matheus Terra Wachsmuth e Lucas Terra Wachsmuth",
-    imagem: "/imagens/Edicao_de_video_com_DaVinci_Resolve.jpg",
+    imagem:
+      "/imagens/Edicao_de_video_com_DaVinci_Resolve.jpg",
     descricao:
       "Fluxo de edição no DaVinci: corte, áudio, correção de cor e exportação. Dicas para vídeos acadêmicos e profissionais.",
     objectPosition: "center 40%",
@@ -444,6 +445,7 @@ const minicursosData: Minicurso[] = [
   },
 ];
 
+// Componente
 const Minicursos: React.FC = () => {
   const levelOrder: Nivel[] = ["Iniciante", "Básico", "Intermediário", "Avançado"];
 
@@ -451,7 +453,7 @@ const Minicursos: React.FC = () => {
   const excedenteIds = React.useMemo(
     () =>
       new Set<string>([
-        "modelagem-3d-blender",       // Blender Presencial (já tinha)
+        "modelagem-3d-blender",       // Blender Presencial
         "html-css",                   // HTML e CSS
         "introducao-javascript",      // JavaScript
         "introducao-informatica",     // Informática Básica
@@ -501,12 +503,15 @@ const Minicursos: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {activeCourses.map((minicurso) => {
             const isOnline = minicurso.vagas === "ilimitado";
+            const isBlenderPresencialFull = minicurso.id === "modelagem-3d-blender";
             const isExcedente = excedenteIds.has(minicurso.id);
             const badgeClass = isOnline
               ? "bg-sky-500 text-white border-sky-300"
               : "bg-amber-400 text-black border-amber-200";
-            // Quando há banner de excedente, abaixa um pouco o selo ONLINE/PRESENCIAL
-            const badgeTopClass = isExcedente ? "top-10 md:top-12" : "top-3";
+
+            // 🔁 Voltamos o badge para a lógica original:
+            const badgeTopClass = isBlenderPresencialFull ? "top-10 md:top-12" : "top-3";
+
             const diasSemana = uniqueWeekdaysInOrder(minicurso.Data);
 
             return (
@@ -515,7 +520,7 @@ const Minicursos: React.FC = () => {
                 className="bg-encomp-darkGray border border-encomp-green/20 hover:border-encomp-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-encomp-green/20 overflow-hidden group"
               >
                 <div className="relative h-64 md:h-80 overflow-hidden bg-encomp-dark/50">
-                  {/* Banner de EXCEDENTE para cursos com vagas preenchidas */}
+                  {/* Banner de EXCEDENTE */}
                   {isExcedente && (
                     <div className="absolute inset-x-0 top-0 z-20">
                       <div
@@ -541,79 +546,4 @@ const Minicursos: React.FC = () => {
 
                   <span
                     className={`absolute ${badgeTopClass} left-3 px-3 py-1 rounded-md text-[11px] font-bold border ${badgeClass} shadow`}
-                    title={isOnline ? "Este curso é online" : "Este curso é presencial"}
-                  >
-                    {isOnline ? "ONLINE" : "PRESENCIAL"}
-                  </span>
-                </div>
-
-                <CardContent className="p-3 md:p-4 flex flex-col justify-between min-h-[290px] md:min-h-[320px]">
-                  <div>
-                    <h3 className="text-lg md:text-xl font-bold mb-2 text-encomp-green font-orbitron text-center leading-snug">
-                      {minicurso.titulo}
-                    </h3>
-
-                    <div className="text-center mb-2">
-                      <p className="text-[12px] md:text-sm text-encomp-muted">
-                        <span className="font-semibold">Instrutores:</span> {minicurso.speakers}
-                      </p>
-                      <p className="text-[12px] md:text-sm text-encomp-muted">
-                        <span className="font-semibold">Instituto:</span> {minicurso.instituto}
-                      </p>
-                    </div>
-
-                    <p className="text-sm md:text-[15px] text-gray-200 text-center mb-3">
-                      {minicurso.descricao}
-                    </p>
-
-                    <div className="flex flex-wrap justify-center gap-2 text-[11px] md:text-xs mb-3">
-                      <span className="px-2 py-1 rounded bg-encomp-green/10 text-encomp-green border border-encomp-green/30">
-                        Nível: {minicurso.nivel}
-                      </span>
-                      <span className="px-2 py-1 rounded bg-encomp-green/10 text-encomp-green border border-encomp-green/30">
-                        Carga horária: {minicurso.carga_horaria}h
-                      </span>
-                      {minicurso.vagas !== "ilimitado" && minicurso.vagas !== "Exclusivo PartiuIF" && (
-                        <span className="px-2 py-1 rounded bg-encomp-green/10 text-encomp-green border border-encomp-green/30">
-                          Vagas: {minicurso.vagas}
-                        </span>
-                      )}
-                      {minicurso.vagas === "Exclusivo PartiuIF" && (
-                        <span className="px-2 py-1 rounded bg-yellow-400/20 text-yellow-300 border border-yellow-300/30">
-                          Exclusivo PartiuIF
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="text-center">
-                      <p className="text-[12px] md:text-sm text-encomp-muted">
-                        {diasSemana.length > 0 ? diasSemana.join(" • ") : "Datas a confirmar"}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 flex items-center justify-center gap-2">
-                    {isExcedente ? (
-                      <Button
-                        className="bg-rose-600 hover:bg-rose-700 text-white font-bold"
-                        title="Inscrição como excedente"
-                      >
-                        Inscrever-se como Excedente
-                      </Button>
-                    ) : (
-                      <Button className="bg-encomp-green hover:bg-encomp-green/90 text-black font-bold">
-                        Inscrever-se
-                      </Button>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default Minicursos;
+                    title={isOnline ? "Este curso é online" 
