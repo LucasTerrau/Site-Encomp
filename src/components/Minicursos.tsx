@@ -561,4 +561,99 @@ const Minicursos: React.FC = () => {
                   />
 
                   <span
-                    className={`absolute ${badgeTopClass} left-3 px-3 py-1 rounded-md te
+                    className={`absolute ${badgeTopClass} left-3 px-3 py-1 rounded-md text-[11px] font-bold border ${badgeClass} shadow`}
+                    title={isOnline ? "Este curso é online" : "Este curso é presencial"}
+                  >
+                    {isOnline ? "ONLINE" : "PRESENCIAL"}
+                  </span>
+                </div>
+
+                <CardContent className="p-3 md:p-4 flex flex-col justify-between min-h-[290px] md:min-h-[320px]">
+                  <h3 className="text-lg md:text-xl font-bold mb-1 text-encomp-green font-orbitron text-center leading-snug">
+                    {minicurso.titulo}
+                  </h3>
+
+                  <div className="text-center mb-2">
+                    <p className="text-[13px] text-gray-300">
+                      <span className="text-gray-400 mr-1">
+                        {minicurso.speakers.includes(" e ") || minicurso.speakers.includes(",")
+                          ? "Ministrantes:"
+                          : "Ministrante:"}
+                      </span>
+                      <span className="font-medium text-white">{minicurso.speakers}</span>
+                    </p>
+
+                    <div className="mt-1 flex items-center justify-center gap-2 flex-wrap">
+                      <span className="inline-block bg-encomp-green/10 text-encomp-green text-[11px] px-2 py-0.5 rounded-full">
+                        {minicurso.instituto}
+                      </span>
+                    </div>
+
+                    <div className="mt-2 text-[13px] text-gray-300">
+                      <span className="text-encomp-green/80 font-semibold">Carga:</span>{" "}
+                      {minicurso.carga_horaria}h
+                      <span className="mx-2 opacity-50">•</span>
+                      <span className="text-encomp-green/80 font-semibold">Vagas:</span>{" "}
+                      {minicurso.vagas === "ilimitado"
+                        ? "ilimitado"
+                        : minicurso.vagas === "Exclusivo PartiuIF"
+                        ? "Exclusivo PartiuIF"
+                        : minicurso.vagas}
+                    </div>
+
+                    <div className="mt-2">
+                      <p className="text-[11px] text-gray-400 mb-1">Dias da semana</p>
+                      <div className="flex flex-wrap gap-1 justify-center">
+                        {diasSemana.map((dia) => (
+                          <span
+                            key={dia}
+                            className="inline-block bg-encomp-green/10 text-gray-200 text-[11px] px-2 py-0.5 rounded-full"
+                          >
+                            {dia}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <p className="text-gray-300 text-[13px] leading-relaxed mb-3 text-center line-clamp-3">
+                    {minicurso.descricao}
+                  </p>
+
+                  {/* Botão que navega, seta params e dispara evento de pré-preenchimento */}
+                  <div className="flex justify-center">
+                    <Button
+                      variant="outline"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        const curso = minicurso.titulo;
+                        const nivel = minicurso.nivel as string;
+                        const url = new URL(window.location.href);
+                        url.searchParams.set("curso", curso);
+                        url.searchParams.set("nivel", nivel);
+                        window.history.replaceState({}, "", `${url.pathname}${url.search}#inscricao`);
+                        window.dispatchEvent(
+                          new CustomEvent("prefill-inscricao", { detail: { curso, nivel } })
+                        );
+                        document.getElementById("inscricao")?.scrollIntoView({
+                          behavior: "smooth",
+                          block: "start",
+                        });
+                      }}
+                      className="bg-encomp-green/10 text-encomp-green border-encomp-green/30 hover:bg-encomp-green hover:text-black transition-all font-semibold py-1.5 px-3 text-sm"
+                    >
+                      Inscreva-se já!
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Minicursos;
+export { minicursosData };
