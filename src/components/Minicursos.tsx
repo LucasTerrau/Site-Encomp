@@ -183,7 +183,7 @@ const minicursosData: Minicurso[] = [
       "Bases de redes neurais, treino e avaliação. Construindo modelos simples para visão e texto com bibliotecas populares.",
     objectPosition: "center 45%",
     instituto: "Alunos-BCC IFSULDEMINAS Campus Passos",
-    vagas: 15,
+    vagas: "ilimitado",
     nivel: "Intermediário",
     carga_horaria: 6,
     Data: ["2025-11-03T19:00:00", "2025-11-04T19:00:00"],
@@ -464,17 +464,19 @@ const Minicursos: React.FC = () => {
 
   // Cursos com vagas preenchidas (excedentes) — exibem banner e abaixam badge
   const excedenteIds = React.useMemo(
-    () =>
-      new Set<string>([
-        "modelagem-3d-blender",   // Blender Presencial
-        "html-css",               // HTML e CSS
-        "introducao-javascript",  // JavaScript
-        "introducao-informatica", // Informática Básica
-        "ingles-computacao",      // Inglês
-        "montagem-computadores",  // Montagem de PC
-      ]),
-    []
-  );
+  () =>
+    new Set<string>([
+      "modelagem-3d-blender",   // Blender Presencial
+      "html-css",               // HTML e CSS
+      "introducao-javascript",  // JavaScript
+      "introducao-informatica", // Informática Básica
+      "ingles-computacao",      // Inglês
+      "montagem-computadores",  // Montagem de PC
+      "cerebro-aprendizado-mundo-digital",
+      "recomendacao-jogos-ml",        
+    ]),
+  []
+);
 
   const coursesByLevel = minicursosData.reduce((acc, course) => {
     if (!acc[course.nivel]) acc[course.nivel] = [];
