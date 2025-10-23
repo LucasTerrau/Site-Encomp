@@ -54,7 +54,7 @@ const Footer = () => {
               <li>IFSULDEMINAS - Campus Passos</li>
               <li>Rua da Penha, 290 - Penha II</li>
               <li>Passos - MG, 37903-070</li>
-              <li>encomp@ifsuldeminas.edu.br</li>
+              <li>janaina.leite@ifsuldeminas.edu.br</li>
               <li>(35) 3526-4856</li>
             </ul>
           </div>

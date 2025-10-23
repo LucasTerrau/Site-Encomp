@@ -10,7 +10,8 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { SendIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-//a
+
+// Lista completa de cursos (nomes exatos usados no site)
 const CURSOS = [
   "Linux aplicado à prática de programação",
   "Docker",
@@ -38,9 +39,23 @@ const CURSOS = [
   "Cérebro, Aprendizado e Mundo Digital",
   "Machine Learning descomplicado: sistema de recomendação de jogos",
   "Desenvolvimento de uma página de jogos com API",
-   "A importância da privacidade na Internet e a Regulamentação do Uso de IA nos ambientes Virtuais",
+  "A importância da privacidade na Internet e a Regulamentação do Uso de IA nos ambientes Virtuais",
 ] as const;
 type CursoNome = (typeof CURSOS)[number];
+
+// 🔒 Cursos com vagas preenchidas (bloqueados no formulário)
+const EXCEDENTES = new Set<CursoNome>([
+  "Blender para iniciantes (Presencial)",
+  "HTML e CSS",
+  "Introdução ao JavaScript",
+  "Informática Básica",
+  "Inglês voltado para a Computação",
+  "Montagem e Funcionamento de Computadores",
+  "Cérebro, Aprendizado e Mundo Digital",
+  "Machine Learning descomplicado: sistema de recomendação de jogos",
+  "Desenvolvimento de uma página de jogos com API", // também é Exclusivo PartiuIF
+  "Criação de Chatbots com Python",
+]);
 
 const PUBLICOS = [
   { value: "ensino-medio", label: "Ensino Médio (1º–3º ano)" },
@@ -53,8 +68,6 @@ type PublicoValue = typeof PUBLICOS[number]["value"];
 const PUBLICO_LABEL_BY_VALUE: Record<PublicoValue, string> = Object.fromEntries(
   PUBLICOS.map(p => [p.value, p.label] as const)
 ) as Record<PublicoValue, string>;
-
-
 
 const TECNICOS_EM = [
   "Técnico em Design Gráfico Integrado ao Ensino Médio",
@@ -177,6 +190,11 @@ const FormRegistro: React.FC = () => {
   const isSubmitting = form.formState.isSubmitting;
   const publicoSelecionado = form.watch("publico");
   const nivelSelecionado = form.watch("nivel");
+  const cursoSelecionado = form.watch("curso") as CursoNome | "";
+
+  // Helper para bloquear curso excedente (vagas preenchidas)
+  const isExcedenteCurso = (c: string | null | undefined): c is CursoNome =>
+    !!c && (EXCEDENTES as Set<string>).has(c);
 
   useEffect(() => {
     if (!publicoSelecionado) {
@@ -190,32 +208,52 @@ const FormRegistro: React.FC = () => {
     if (!vinculos.includes(form.getValues("vinculo"))) form.setValue("vinculo", vinculos[0]);
   }, [publicoSelecionado]);
 
+  // Prefill via URL
   useEffect(() => {
     const url = new URL(window.location.href);
     const cursoParam = url.searchParams.get("curso") as CursoNome | null;
     const nivelParam = url.searchParams.get("nivel") as NivelForm | null;
-    if (cursoParam && (CURSOS as readonly string[]).includes(cursoParam)) {
-      form.setValue("curso", cursoParam);
-    }
+
     if (nivelParam && (NIVEIS as readonly string[]).includes(nivelParam)) {
       form.setValue("nivel", nivelParam);
     }
+    if (cursoParam && (CURSOS as readonly string[]).includes(cursoParam)) {
+      if (isExcedenteCurso(cursoParam)) {
+        toast({
+          title: "Inscrições encerradas",
+          description: "Este minicurso está com vagas preenchidas.",
+          variant: "destructive",
+        });
+        // Não seta curso lotado
+      } else {
+        form.setValue("curso", cursoParam);
+      }
+    }
   }, []);
 
+  // Prefill via evento dos cards
   useEffect(() => {
     const handler = (ev: Event) => {
       const { curso, nivel } = (ev as CustomEvent).detail || {};
-      if (curso && (CURSOS as readonly string[]).includes(curso)) {
-        form.setValue("curso", curso, { shouldValidate: true });
-      }
       if (nivel && (NIVEIS as readonly string[]).includes(nivel)) {
         form.setValue("nivel", nivel, { shouldValidate: true });
       }
+      if (curso && (CURSOS as readonly string[]).includes(curso)) {
+        if (isExcedenteCurso(curso)) {
+          toast({
+            title: "Inscrições encerradas",
+            description: "Este minicurso está com vagas preenchidas.",
+            variant: "destructive",
+          });
+        } else {
+          form.setValue("curso", curso, { shouldValidate: true });
+        }
+      }
       document.getElementById("inscricao")?.scrollIntoView({ behavior: "smooth", block: "start" });
     };
-    window.addEventListener("prefill-inscricao", handler as EventListener);
-    return () => window.removeEventListener("prefill-inscricao", handler as EventListener);
-  }, [form]);
+    window.addEventListener("prefill-inscricao" as any, handler as EventListener);
+    return () => window.removeEventListener("prefill-inscricao" as any, handler as EventListener);
+  }, [form, toast]);
 
   const handleCpfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let v = e.target.value.replace(/\D/g, "");
@@ -225,6 +263,7 @@ const FormRegistro: React.FC = () => {
     if (v.length > 6) v = v.replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, "$1.$2.$3-$4");
     form.setValue("cpf", v);
   };
+
   const handleTelefoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let d = e.target.value.replace(/\D/g, "");
     if (d.length > 11) d = d.slice(0, 11);
@@ -236,7 +275,18 @@ const FormRegistro: React.FC = () => {
     form.setValue("telefone", f);
   };
 
- const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  // Submissão
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    // 🚫 Bloqueio adicional no submit (garantia)
+    if (isExcedenteCurso(values.curso)) {
+      toast({
+        title: "Inscrições encerradas",
+        description: "Este minicurso está com vagas preenchidas.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     const fd = new FormData();
     fd.append(FORM_ENTRY_IDS.nome, values.nome);
     fd.append(FORM_ENTRY_IDS.email, values.email);
@@ -258,16 +308,12 @@ const FormRegistro: React.FC = () => {
   };
 
   const periodoOptions = publicoSelecionado ? periodosByPublico[publicoSelecionado] : [];
-  const isCourseDisabled = (c: CursoNome) =>
-    form.getValues("nivel")
-      ? LEVEL_ORDER[COURSE_LEVELS[c]] > LEVEL_ORDER[form.getValues("nivel") as NivelForm]
-      : false;
   const safeId = (s: string) => s.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-_:.]/g, "");
 
   // Checagem de data: zera as horas para comparar somente a data (independente do horário)
   const hoje = new Date();
   hoje.setHours(0, 0, 0, 0);
-  const dataLiberacao = new Date(2025, 8, 30); // 20/09/2025 (mês 0-based)
+  const dataLiberacao = new Date(2025, 8, 30); // 30/09/2025 (mês 0-based)
   dataLiberacao.setHours(0, 0, 0, 0);
 
   if (hoje < dataLiberacao) {
@@ -284,6 +330,9 @@ const FormRegistro: React.FC = () => {
     );
   }
 
+  const isCursoExcedenteSelecionado = isExcedenteCurso(cursoSelecionado);
+  const submitDisabled = isSubmitting || isCursoExcedenteSelecionado;
+
   return (
     <section id="inscricao" className="py-16 bg-encomp-darkGray">
       <div className="container mx-auto px-4">
@@ -292,6 +341,13 @@ const FormRegistro: React.FC = () => {
           Inscrição
           <span className="text-encomp-green">/&gt;</span>
         </h2>
+
+        {/* Aviso quando um curso lotado estiver selecionado (ex: via prefill antigo) */}
+        {isCursoExcedenteSelecionado && (
+          <div className="max-w-2xl mx-auto mb-4 rounded-md border border-rose-500/40 bg-rose-500/10 text-rose-200 p-3 text-sm">
+            Inscrições encerradas para este minicurso (vagas preenchidas). Selecione outro curso.
+          </div>
+        )}
 
         <div className="max-w-2xl mx-auto bg-encomp-black p-8 rounded-xl border border-encomp-green/20 hover:border-encomp-green/40 shadow-xl">
           <Form {...form}>
@@ -448,7 +504,7 @@ const FormRegistro: React.FC = () => {
                         value={field.value || ""} 
                         onValueChange={(v) => {
                           field.onChange(v as NivelForm);
-                          form.setValue("curso", ""); // Reset course when level changes
+                          form.setValue("curso", ""); // reset ao trocar nível
                         }}
                         className="grid grid-cols-2 gap-2 md:grid-cols-4"
                       >
@@ -478,27 +534,61 @@ const FormRegistro: React.FC = () => {
                         {!nivelSelecionado ? (
                           <p className="text-gray-400 text-sm p-2">Selecione um nível primeiro</p>
                         ) : (
-                          <RadioGroup value={field.value || ""} onValueChange={field.onChange}>
+                          <RadioGroup
+                            value={field.value || ""}
+                            onValueChange={(v) => {
+                              if (isExcedenteCurso(v)) {
+                                toast({
+                                  title: "Inscrições encerradas",
+                                  description: "Este minicurso está com vagas preenchidas.",
+                                  variant: "destructive",
+                                });
+                                return; // não permite selecionar
+                              }
+                              // Exclusivo PartiuIF continua filtrado pela lógica de público mais abaixo
+                              field.onChange(v);
+                            }}
+                          >
                             {CURSOS
                               .filter(curso => {
+                                // filtra por nível selecionado
+                                const nivelOk = COURSE_LEVELS[curso] === nivelSelecionado;
+                                if (!nivelOk) return false;
+                                // esconde PartiuIF para quem não é PartiuIF
                                 if (curso === PARTIU_IF_ONLY && publicoSelecionado !== "partiuif") return false;
-                                return COURSE_LEVELS[curso] === nivelSelecionado;
+                                return true;
                               })
                               .sort((a, b) => a.localeCompare(b))
-                              .map(curso => (
-                                <div
-                                  key={curso}
-                                  className="flex items-start space-x-2 p-2 rounded-md border border-encomp-green/20 hover:border-encomp-green/40"
-                                >
-                                  <RadioGroupItem value={curso} id={safeId(`curso-${curso}`)} />
-                                  <label 
-                                    htmlFor={safeId(`curso-${curso}`)} 
-                                    className="text-sm leading-relaxed cursor-pointer text-gray-200"
+                              .map(curso => {
+                                const isExced = EXCEDENTES.has(curso);
+                                const labelExtra =
+                                  (curso === PARTIU_IF_ONLY ? " — Exclusivo PartiuIF" : "") +
+                                  (isExced ? " — (VAGAS PREENCHIDAS)" : "");
+                                return (
+                                  <div
+                                    key={curso}
+                                    className={`flex items-start space-x-2 p-2 rounded-md border ${
+                                      isExced
+                                        ? "border-rose-500/40 bg-rose-500/5 opacity-80"
+                                        : "border-encomp-green/20 hover:border-encomp-green/40"
+                                    }`}
                                   >
-                                    {curso}{curso === PARTIU_IF_ONLY ? " — Exclusivo PartiuIF" : ""}
-                                  </label>
-                                </div>
-                              ))}
+                                    <RadioGroupItem
+                                      value={curso}
+                                      id={safeId(`curso-${curso}`)}
+                                      // visualmente permite ver, mas o onValueChange bloqueia seleção de excedentes
+                                    />
+                                    <label 
+                                      htmlFor={safeId(`curso-${curso}`)} 
+                                      className={`text-sm leading-relaxed cursor-pointer ${
+                                        isExced ? "text-rose-300" : "text-gray-200"
+                                      }`}
+                                    >
+                                      {curso}{labelExtra}
+                                    </label>
+                                  </div>
+                                );
+                              })}
                           </RadioGroup>
                         )}
                       </div>
@@ -507,8 +597,17 @@ const FormRegistro: React.FC = () => {
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={isSubmitting}
-                className="w-full bg-encomp-green text-black font-bold gap-2">
+
+              <Button
+                type="submit"
+                disabled={submitDisabled}
+                className={`w-full font-bold gap-2 ${
+                  submitDisabled
+                    ? "bg-gray-600 text-white cursor-not-allowed"
+                    : "bg-encomp-green text-black hover:opacity-90"
+                }`}
+                aria-disabled={submitDisabled}
+              >
                 {isSubmitting ? "Enviando..." : (<><SendIcon size={18} />Enviar Inscrição</>)}
               </Button>
             </form>

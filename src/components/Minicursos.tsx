@@ -194,7 +194,7 @@ const minicursosData: Minicurso[] = [
     speakers: "Gabriel Martins e Yago Gabriel",
     imagem: "/imagens/API.png",
     descricao:
-      "Ação especial voltada à divulgação e integração com a comunidade — oficinas rápidas e bate-papos com alunos.",
+      "Crie, do zero, uma página que consome uma API pública de jogos: listagem, busca e detalhes. Passo a passo acessível para iniciantes, com boas práticas e integração real com HTTP.",
     objectPosition: "center 25%",
     instituto: "IFSULDEMINAS Campus Passos",
     vagas: "Exclusivo PartiuIF",
@@ -462,21 +462,23 @@ const minicursosData: Minicurso[] = [
 const Minicursos: React.FC = () => {
   const levelOrder: Nivel[] = ["Iniciante", "Básico", "Intermediário", "Avançado"];
 
-  // Cursos com vagas preenchidas (excedentes) — exibem banner e abaixam badge
+  // Cursos com vagas preenchidas — exibem banner, abaixam badge e desativam o botão
   const excedenteIds = React.useMemo(
-  () =>
-    new Set<string>([
-      "modelagem-3d-blender",   // Blender Presencial
-      "html-css",               // HTML e CSS
-      "introducao-javascript",  // JavaScript
-      "introducao-informatica", // Informática Básica
-      "ingles-computacao",      // Inglês
-      "montagem-computadores",  // Montagem de PC
-      "cerebro-aprendizado-mundo-digital",
-      "recomendacao-jogos-ml",        
-    ]),
-  []
-);
+    () =>
+      new Set<string>([
+        "modelagem-3d-blender",   // Blender Presencial
+        "html-css",               // HTML e CSS
+        "introducao-javascript",  // JavaScript
+        "introducao-informatica", // Informática Básica
+        "ingles-computacao",      // Inglês
+        "montagem-computadores",  // Montagem de PC
+        "cerebro-aprendizado-mundo-digital",
+        "recomendacao-jogos-ml",  // Machine Learning (recomendação)
+        "criar-jogos-api",        // Página de jogos com API
+        "chatbot-python",         // Chatbots com Python
+      ]),
+    []
+  );
 
   const coursesByLevel = minicursosData.reduce((acc, course) => {
     if (!acc[course.nivel]) acc[course.nivel] = [];
@@ -493,11 +495,24 @@ const Minicursos: React.FC = () => {
   return (
     <section id="minicursos" className="py-16 bg-encomp-dark">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center font-orbitron">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center font-orbitron">
           <span className="text-encomp-green">&lt;</span>
           Minicursos
           <span className="text-encomp-green">/&gt;</span>
         </h2>
+
+        {/* Seção: Lista de Inscritos (PDF) */}
+        <div className="mb-8 flex items-center justify-center">
+          <a
+            href="https://drive.google.com/file/d/1yNkd7dljfaJlh54_3YN9QuY5Pebn05yL/view?usp=drive_link"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-md border border-encomp-green/40 px-4 py-2 text-sm font-semibold text-encomp-green hover:bg-encomp-green hover:text-black transition-colors"
+            title="Abrir a Lista de Inscritos (PDF)"
+          >
+            📄 Ver Lista de Inscritos (PDF)
+          </a>
+        </div>
 
         <div className="flex flex-wrap justify-center gap-2 mb-10">
           {levelOrder.map((level) => (
@@ -525,7 +540,7 @@ const Minicursos: React.FC = () => {
               ? "bg-sky-500 text-white border-sky-300"
               : "bg-amber-400 text-black border-amber-200";
 
-            // Abaixar badge quando há banner (excedente) ou no Blender presencial
+            // Abaixar badge quando há banner (excedente) ou no Blender presencial (mantido)
             const badgeTopClass = (isExcedente || isBlenderPresencialFull)
               ? "top-10 md:top-12"
               : "top-3";
@@ -538,15 +553,15 @@ const Minicursos: React.FC = () => {
                 className="bg-encomp-darkGray border border-encomp-green/20 hover:border-encomp-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-encomp-green/20 overflow-hidden group"
               >
                 <div className="relative h-64 md:h-80 overflow-hidden bg-encomp-dark/50">
-                  {/* Banner de EXCEDENTE */}
+                  {/* Banner de VAGAS PREENCHIDAS */}
                   {isExcedente && (
                     <div className="absolute inset-x-0 top-0 z-20">
                       <div
                         className="bg-rose-600 text-white text-[11px] md:text-xs font-extrabold tracking-wide text-center py-1"
-                        aria-label="Vagas preenchidas — inscreva-se como excedente"
-                        title="Vagas preenchidas — inscreva-se como excedente"
+                        aria-label="Vagas preenchidas"
+                        title="Vagas preenchidas"
                       >
-                        VAGAS PREENCHIDAS — INSCREVA-SE COMO EXCEDENTE
+                        VAGAS PREENCHIDAS
                       </div>
                     </div>
                   )}
@@ -628,6 +643,7 @@ const Minicursos: React.FC = () => {
                       variant="outline"
                       onClick={(e) => {
                         e.preventDefault();
+                        if (isExcedente) return; // bloqueia ação se estiver cheio
                         const curso = minicurso.titulo;
                         const nivel = minicurso.nivel as string;
                         const url = new URL(window.location.href);
@@ -642,9 +658,14 @@ const Minicursos: React.FC = () => {
                           block: "start",
                         });
                       }}
-                      className="bg-encomp-green/10 text-encomp-green border-encomp-green/30 hover:bg-encomp-green hover:text-black transition-all font-semibold py-1.5 px-3 text-sm"
+                      disabled={isExcedente}
+                      className={`transition-all font-semibold py-1.5 px-3 text-sm ${
+                        isExcedente
+                          ? "bg-gray-600 text-white cursor-not-allowed border border-transparent"
+                          : "bg-encomp-green/10 text-encomp-green border-encomp-green/30 hover:bg-encomp-green hover:text-black"
+                      }`}
                     >
-                      Inscreva-se já!
+                      {isExcedente ? "Inscrições Encerradas" : "Inscreva-se já!"}
                     </Button>
                   </div>
                 </CardContent>
