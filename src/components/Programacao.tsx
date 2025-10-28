@@ -1,6 +1,6 @@
 import React from "react";
 
-type Formato = "Presencial" | "Online" | "Palestra";
+type Formato = "Presencial" | "Online" | "Palestra" | "Atividade";
 
 type Evento = {
   titulo: string;
@@ -47,7 +47,10 @@ const programacao: ProgramacaoPorDia = {
   ],
 
   "05/11/2025": [
-    { titulo: "JOSIF — Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (EM BREVE MAIS INFORMAÇÕES)", formato: "Palestra", inicio: "08:00", local: "Auditório" },
+    { titulo: "Abertura oficial do Josif e Apresentação Artística e Cultural: Coral Novo Tom", formato: "Atividade", inicio: "08:30", local: "Auditório" },
+    { titulo: "Inteligência Artificial, Ética e Pesquisa", formato: "Palestra", inicio: "09:00", local: "Auditório" },
+    { titulo: "Inteligência Artificial aplicada à pesquisa: recursos práticos", formato: "Palestra", inicio: "10:00", local: "Auditório" },
+
     { titulo: "Blender para iniciantes", formato: "Presencial", inicio: "13:30", local: "Lab. 4" },
     { titulo: "Inglês voltado para a computação", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
     { titulo: "Javascript", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
@@ -63,7 +66,10 @@ const programacao: ProgramacaoPorDia = {
   ],
 
   "06/11/2025": [
-    { titulo: "JOSIF — Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (EM BREVE MAIS INFORMAÇÕES)", formato: "Palestra", inicio: "08:00", local: "Auditório" },
+    { titulo: "Abertura do 2º dia do Josif e Apresentação Artística e Cultural: Coral do CAPS", formato: "Atividade", inicio: "08:30", local: "Auditório" },
+    { titulo: "Inteligência Artificial, Ética e Pesquisa", formato: "Palestra", inicio: "09:00", local: "Auditório" },
+    { titulo: "Como aumentar o impacto científico, social e econômico da pesquisa acadêmica?", formato: "Palestra", inicio: "09:00", local: "Auditório" },
+
     { titulo: "Blender para iniciantes", formato: "Presencial", inicio: "13:30", local: "Lab. 4" },
     { titulo: "HTML e CSS", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
     { titulo: "Machine Learning totalmente descomplicado: Criando um sistema de recomendação de jogos", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
@@ -76,7 +82,10 @@ const programacao: ProgramacaoPorDia = {
   ],
 
   "07/11/2025": [
-    { titulo: "JOSIF — Palestras em conjunto com a 17ª Jornada Científica e Tecnológica (EM BREVE MAIS INFORMAÇÕES)", formato: "Palestra", inicio: "08:00", local: "Auditório" },
+    { titulo: "Abertura do 3º dia do Evento e Apresentação Artística e Cultural: Você na cena", formato: "Atividade", inicio: "08:30", local: "Auditório" },
+    { titulo: "Escola e Racismo: Entre o Silêncio e a Ação", formato: "Palestra", inicio: "09:00", local: "Auditório" },
+    { titulo: "O pensar com a Inteligência Artificial", formato: "Palestra", inicio: "10:00", local: "Auditório" },
+
     { titulo: ".Net e Angular", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
     { titulo: "Blender para iniciantes", formato: "Presencial", inicio: "13:30", local: "Lab. 4" },
     { titulo: "Docker", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
@@ -171,7 +180,13 @@ function buildDiaIndices(source: ProgramacaoPorDia) {
 const { indexByKey, totalByTitle } = buildDiaIndices(programacao);
 
 const tipoDoEvento = (ev: Evento) =>
-  ATIVIDADES_SET.has(ev.titulo) ? "Atividade" : ev.formato === "Palestra" ? "Palestra" : "Minicurso";
+  ATIVIDADES_SET.has(ev.titulo)
+    ? "Atividade"
+    : ev.formato === "Palestra"
+    ? "Palestra"
+    : ev.formato === "Atividade"
+    ? "Atividade"
+    : "Minicurso";
 
 const toDate = (d: string) => {
   const [dd, mm, yy] = d.split("/").map(Number);
@@ -198,58 +213,59 @@ const Programacao: React.FC = () => {
         </h2>
 
         <div className="sticky top-14 z-30 mb-4 bg-encomp-darkGray/90 backdrop-blur border-b border-encomp-green/20">
-        <div className="max-w-[1100px] mx-auto">
-          <div className="flex items-center justify-center gap-2 py-3 px-2">
-            {/* Prev */}
-            <button
-              onClick={() => {
-                const i = dias.indexOf(diaAtivo);
-                const prev = i <= 0 ? dias[dias.length - 1] : dias[i - 1];
-                setDiaAtivo(prev);
-              }}
-              aria-label="Dia anterior"
-              className="hidden xs:inline-flex h-8 w-8 items-center justify-center rounded-full border border-encomp-green/30 text-encomp-green hover:bg-encomp-green/15"
-            >
-              ◀
-            </button>
+          <div className="max-w-[1100px] mx-auto">
+            <div className="flex items-center justify-center gap-2 py-3 px-2">
+              {/* Prev */}
+              <button
+                onClick={() => {
+                  const i = dias.indexOf(diaAtivo);
+                  const prev = i <= 0 ? dias[dias.length - 1] : dias[i - 1];
+                  setDiaAtivo(prev);
+                }}
+                aria-label="Dia anterior"
+                className="hidden xs:inline-flex h-8 w-8 items-center justify-center rounded-full border border-encomp-green/30 text-encomp-green hover:bg-encomp-green/15"
+              >
+                ◀
+              </button>
 
-            {/* Chips centralizados e com quebra de linha */}
-            <div className="flex flex-wrap justify-center gap-2">
-              {dias.map((d) => {
-                const wday = weekdayPtBr(d);
-                const label = `${wday.charAt(0).toUpperCase() + wday.slice(1)} • ${d}`;
-                const active = d === diaAtivo;
-                return (
-                  <button
-                    key={d}
-                    onClick={() => setDiaAtivo(d)}
-                    className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition
+              {/* Chips centralizados e com quebra de linha */}
+              <div className="flex flex-wrap justify-center gap-2">
+                {dias.map((d) => {
+                  const wday = weekdayPtBr(d);
+                  const label = `${wday.charAt(0).toUpperCase() + wday.slice(1)} • ${d}`;
+                  const active = d === diaAtivo;
+                  return (
+                    <button
+                      key={d}
+                      onClick={() => setDiaAtivo(d)}
+                      className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap transition
                       ${active
-                        ? "bg-encomp-green text-black"
-                        : "bg-encomp-green/10 text-encomp-green border border-encomp-green/30 hover:bg-encomp-green/20"}`}
-                    aria-pressed={active}
-                  >
-                    {label}
-                  </button>
-                );
-              })}
-            </div>
+                          ? "bg-encomp-green text-black"
+                          : "bg-encomp-green/10 text-encomp-green border border-encomp-green/30 hover:bg-encomp-green/20"}`}
+                      aria-pressed={active}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
+              </div>
 
-            {/* Next */}
-            <button
-              onClick={() => {
-                const i = dias.indexOf(diaAtivo);
-                const next = i >= dias.length - 1 ? dias[0] : dias[i + 1];
-                setDiaAtivo(next);
-              }}
-              aria-label="Próximo dia"
-              className="hidden xs:inline-flex h-8 w-8 items-center justify-center rounded-full border border-encomp-green/30 text-encomp-green hover:bg-encomp-green/15"
-            >
-              ▶
-            </button>
+              {/* Next */}
+              <button
+                onClick={() => {
+                  const i = dias.indexOf(diaAtivo);
+                  const next = i >= dias.length - 1 ? dias[0] : dias[i + 1];
+                  setDiaAtivo(next);
+                }}
+                aria-label="Próximo dia"
+                className="hidden xs:inline-flex h-8 w-8 items-center justify-center rounded-full border border-encomp-green/30 text-encomp-green hover:bg-encomp-green/15"
+              >
+                ▶
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+
         <div className="bg-encomp-dark-grey rounded-lg p-4 md:p-6 border border-encomp-green/30">
           <h3 className="text-lg md:text-xl font-bold mb-4 text-encomp-green font-orbitron">{titulo}</h3>
 

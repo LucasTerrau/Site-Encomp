@@ -476,6 +476,8 @@ const Minicursos: React.FC = () => {
         "recomendacao-jogos-ml",  // Machine Learning (recomendação)
         "criar-jogos-api",        // Página de jogos com API
         "chatbot-python",         // Chatbots com Python
+        "power-bi",
+        "react-basico"
       ]),
     []
   );
