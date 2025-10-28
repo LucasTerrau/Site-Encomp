@@ -477,7 +477,8 @@ const Minicursos: React.FC = () => {
         "criar-jogos-api",        // Página de jogos com API
         "chatbot-python",         // Chatbots com Python
         "power-bi",
-        "react-basico"
+        "react-basico",
+        "campeonato-jogos"
       ]),
     []
   );

@@ -46,10 +46,11 @@ const programacao: ProgramacaoPorDia = {
     { titulo: "Introdução a Deep learning em Python", formato: "Online", inicio: "19:00", local: "YouTube" },
   ],
 
+  // Quarta-feira (JOSIF)
   "05/11/2025": [
-    { titulo: "Abertura oficial do Josif e Apresentação Artística e Cultural: Coral Novo Tom", formato: "Atividade", inicio: "08:30", local: "Auditório" },
-    { titulo: "Inteligência Artificial, Ética e Pesquisa", formato: "Palestra", inicio: "09:00", local: "Auditório" },
-    { titulo: "Inteligência Artificial aplicada à pesquisa: recursos práticos", formato: "Palestra", inicio: "10:00", local: "Auditório" },
+    { titulo: "Abertura oficial do Evento e Apresentação Artística e Cultural: Coral Novo Tom", formato: "Atividade", inicio: "08:30", local: "Auditório" },
+    { titulo: "(JOSIF) Inteligência Artificial, Ética e Pesquisa — Palestrante: Cláudia Helena dos Santos Araújo", formato: "Palestra", inicio: "09:00", local: "Auditório" },
+    { titulo: "(JOSIF) Inteligência Artificial aplicada à pesquisa: recursos práticos — Palestrante: Lívia Carolina Vieira", formato: "Palestra", inicio: "10:00", local: "Auditório" },
 
     { titulo: "Blender para iniciantes", formato: "Presencial", inicio: "13:30", local: "Lab. 4" },
     { titulo: "Inglês voltado para a computação", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
@@ -65,10 +66,10 @@ const programacao: ProgramacaoPorDia = {
     { titulo: "Introdução à Computação em Nuvem", formato: "Online", inicio: "19:00", local: "YouTube" },
   ],
 
+  // Quinta-feira (JOSIF)
   "06/11/2025": [
-    { titulo: "Abertura do 2º dia do Josif e Apresentação Artística e Cultural: Coral do CAPS", formato: "Atividade", inicio: "08:30", local: "Auditório" },
-    { titulo: "Inteligência Artificial, Ética e Pesquisa", formato: "Palestra", inicio: "09:00", local: "Auditório" },
-    { titulo: "Como aumentar o impacto científico, social e econômico da pesquisa acadêmica?", formato: "Palestra", inicio: "09:00", local: "Auditório" },
+    { titulo: "Abertura do 2º dia do Evento e Apresentação Artística e Cultural: Coral do CAPS", formato: "Atividade", inicio: "08:30", local: "Auditório" },
+    { titulo: "(JOSIF) Como aumentar o impacto científico, social e econômico da pesquisa acadêmica? — Palestrante: Dalson Britto Figueiredo Filho", formato: "Palestra", inicio: "09:00", local: "Auditório" },
 
     { titulo: "Blender para iniciantes", formato: "Presencial", inicio: "13:30", local: "Lab. 4" },
     { titulo: "HTML e CSS", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
@@ -81,10 +82,11 @@ const programacao: ProgramacaoPorDia = {
     { titulo: "Edição de Vídeos com DaVinci", formato: "Online", inicio: "19:00", local: "YouTube" },
   ],
 
+  // Sexta-feira (JOSIF)
   "07/11/2025": [
     { titulo: "Abertura do 3º dia do Evento e Apresentação Artística e Cultural: Você na cena", formato: "Atividade", inicio: "08:30", local: "Auditório" },
-    { titulo: "Escola e Racismo: Entre o Silêncio e a Ação", formato: "Palestra", inicio: "09:00", local: "Auditório" },
-    { titulo: "O pensar com a Inteligência Artificial", formato: "Palestra", inicio: "10:00", local: "Auditório" },
+    { titulo: "(JOSIF) Escola e Racismo: Entre o Silêncio e a Ação — Palestrantes: Alessandra Bernardo Rosemberg, Marli Aparecida Ferreira Soares, Lúcia Helena da Silva", formato: "Palestra", inicio: "09:00", local: "Auditório" },
+    { titulo: "(JOSIF) O pensar com a Inteligência Artificial — Palestrante: Adelino Francklin", formato: "Palestra", inicio: "10:00", local: "Auditório" },
 
     { titulo: ".Net e Angular", formato: "Presencial", inicio: "13:30", local: "Sala de aula" },
     { titulo: "Blender para iniciantes", formato: "Presencial", inicio: "13:30", local: "Lab. 4" },
