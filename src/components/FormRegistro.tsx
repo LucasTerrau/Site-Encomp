@@ -42,12 +42,13 @@ const CURSOS = [
 ] as const;
 type CursoNome = (typeof CURSOS)[number];
 
-// 🔒 Cursos com vagas preenchidas (bloqueados no formulário)
 const EXCEDENTES = new Set<CursoNome>([
   "Blender para iniciantes (Presencial)",
   "HTML e CSS",
   "Introdução ao JavaScript",
+  "Campeonato de Jogos",
   "Informática Básica",
+  "React",
   "Inglês voltado para a Computação",
   "Montagem e Funcionamento de Computadores",
   "Cérebro, Aprendizado e Mundo Digital",
