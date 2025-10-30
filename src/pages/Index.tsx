@@ -46,12 +46,12 @@ const Index = () => {
       <Programacao />
       <Minicursos />
       <FormRegistro />
+      <Patrocinadores />
       
       <Faq />
       <Footer />
       <FloatingRegistrationButton />
     </div>
-    //<Patrocinadores />
   );
 };
 
