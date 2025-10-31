@@ -479,11 +479,12 @@ const ATIVIDADES_FIXAS: ReadonlyArray<{
   hora: string;
   titulo: string;
   formato: Formato;
+  local: string;
 }> = [
-  { hora: "08:00", titulo: "Credenciamento", formato: "Presencial" },
-  { hora: "08:15", titulo: "Apresentação musical", formato: "Presencial" },
-  { hora: "09:45", titulo: "Intervalo", formato: "Presencial" },
-  { hora: "10:15", titulo: "Apresentação musical", formato: "Presencial" },
+  { hora: "08:00", titulo: "Credenciamento", formato: "Presencial", local: "Auditório" },
+  { hora: "08:15", titulo: "Apresentação musical", formato: "Presencial", local: "Auditório" },
+  { hora: "09:45", titulo: "Intervalo", formato: "Presencial", local: "Auditório" },
+  { hora: "10:15", titulo: "Apresentação musical", formato: "Presencial", local: "Auditório" },
 ];
 
 const ATIVIDADES_SET = new Set<string>(ATIVIDADES_FIXAS.map((a) => a.titulo));

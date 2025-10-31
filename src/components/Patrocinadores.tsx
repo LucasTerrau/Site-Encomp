@@ -8,11 +8,11 @@ const COLABORADORES: Collaborator[] = [
   { name: "Clínica Lumiere", logo: "/imagens/logo clinica lumiere.png" },
   { name: "Diolli Sabores", logo: "/imagens/logo diolli sabores.png" },
   { name: "Estilo Rock", logo: "/imagens/logo estilo rock - Editado.png" },
+  { name: "Fernandes Hamburgueria", logo: "/imagens/fernandesHamburgueria.jpg"},
   { name: "Patos Burguer", logo: "/imagens/Logo Patos Burguer.png" },
   { name: "Ronaldo Importados", logo: "/imagens/Logo Ronaldo Importados-1.png" },
   { name: "Tribo Kids", logo: "/imagens/logo tribo Kids (1).png" },
   { name: "Undersexy", logo: "/imagens/logo undersexy-1.png" },
-  { name: "Fernandes Hamburgueria", logo: "/imagens/fernandesHamburgueria.jpg"}
 ];
 
 const Sponsors = () => {
