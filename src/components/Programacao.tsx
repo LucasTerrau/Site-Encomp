@@ -23,14 +23,14 @@ const programacao: ProgramacaoPorDia = {
       formato: "Palestra",
       inicio: "08:30",
       fim: "09:45",
-      local: "Auditório Campus",
+      local: "Auditório",
     },
     {
       titulo: "Do Zero ao Futuro - Como entrar no mercado de trabalho com IA no radar e o impacto das escolhas",
       formato: "Palestra",
       inicio: "10:30",
       fim: "12:00",
-      local: "Auditório Campus",
+      local: "Auditório",
     },
 
     /* Vespertino (Minicursos — Laboratórios) */
@@ -112,14 +112,14 @@ const programacao: ProgramacaoPorDia = {
       formato: "Palestra",
       inicio: "08:30",
       fim: "09:45",
-      local: "Auditório Campus",
+      local: "Auditório",
     },
     {
       titulo: "Mesa Redonda Prof. IFSULDEMINAS BCC",
       formato: "Palestra",
       inicio: "10:30",
       fim: "12:00",
-      local: "Auditório Campus",
+      local: "Auditório ",
     },
 
     /* Vespertino (Laboratórios) */
@@ -207,14 +207,14 @@ const programacao: ProgramacaoPorDia = {
       formato: "Atividade",
       inicio: "08:30",
       fim: "09:45",
-      local: "Auditório Campus",
+      local: "Auditório",
     },
     {
       titulo: "JOSIF",
       formato: "Atividade",
       inicio: "10:30",
       fim: "12:00",
-      local: "Auditório Campus",
+      local: "Auditório",
     },
 
     /* Vespertino (Laboratórios) */
@@ -310,14 +310,14 @@ const programacao: ProgramacaoPorDia = {
       formato: "Atividade",
       inicio: "08:30",
       fim: "09:45",
-      local: "Auditório Campus",
+      local: "Auditório",
     },
     {
       titulo: "JOSIF",
       formato: "Atividade",
       inicio: "10:30",
       fim: "12:00",
-      local: "Auditório Campus",
+      local: "Auditório",
     },
 
     /* Vespertino (Laboratórios) */
@@ -391,14 +391,14 @@ const programacao: ProgramacaoPorDia = {
       formato: "Atividade",
       inicio: "08:30",
       fim: "09:45",
-      local: "Auditório Campus",
+      local: "Auditório",
     },
     {
       titulo: "JOSIF",
       formato: "Atividade",
       inicio: "10:30",
       fim: "12:00",
-      local: "Auditório Campus",
+      local: "Auditório",
     },
 
     /* Vespertino (Laboratórios) */
@@ -479,7 +479,7 @@ const ATIVIDADES_FIXAS: ReadonlyArray<{
   hora: string;
   titulo: string;
   formato: Formato;
-  local: string;
+  local?: string;
 }> = [
   { hora: "08:00", titulo: "Credenciamento", formato: "Presencial", local: "Auditório" },
   { hora: "08:15", titulo: "Apresentação musical", formato: "Presencial", local: "Auditório" },
@@ -492,16 +492,18 @@ const ATIVIDADES_SET = new Set<string>(ATIVIDADES_FIXAS.map((a) => a.titulo));
 function hasPalestraNoHorario(eventos: Evento[], hora: string) {
   return eventos.some((e) => e.formato === "Palestra" && e.inicio === hora);
 }
-
 function injectExtras(eventos: Evento[]): Evento[] {
   const res = [...eventos];
   const add = (horas: string[]) => {
     res.push(
-      ...ATIVIDADES_FIXAS.filter((a) => horas.includes(a.hora)).map((a) => ({
-        titulo: a.titulo,
-        formato: a.formato,
-        inicio: a.hora,
-      }))
+      ...ATIVIDADES_FIXAS
+        .filter((a) => horas.includes(a.hora))
+        .map((a) => ({
+          titulo: a.titulo,
+          formato: a.formato,
+          inicio: a.hora,
+          local: a.local, // <<< AQUI: garante que o local venha
+        }))
     );
   };
   if (hasPalestraNoHorario(eventos, "08:30")) add(["08:00", "08:15"]);
