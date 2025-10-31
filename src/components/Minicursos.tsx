@@ -495,7 +495,7 @@ const Minicursos: React.FC<MinicursosProps> = ({ data }) => {
         {/* Link da lista de inscritos */}
         <div className="mb-8 flex items-center justify-center">
           <a
-            href="https://drive.google.com/file/d/1yNkd7dljfaJlh54_3YN9QuY5Pebn05yL/view?usp=drive_link"
+            href="https://drive.google.com/file/d/12ZHaG0ggoVqd9eR6PW2R2-bCMdk7oxAX/view?usp=sharing"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-md border border-encomp-green/40 px-4 py-2 text-sm font-semibold text-encomp-green hover:bg-encomp-green hover:text-black transition-colors"

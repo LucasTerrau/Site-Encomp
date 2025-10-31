@@ -180,7 +180,7 @@ const programacao: ProgramacaoPorDia = {
       inicio: "19:00",
       fim: "22:00",
       local: "Google Meet",
-      url: "",
+      url: "meet.google.com/huv-nupz-igi",
     },
     {
       titulo: "Edição de Vídeos com DaVinci – Dia 1",
@@ -196,7 +196,7 @@ const programacao: ProgramacaoPorDia = {
       inicio: "19:00",
       fim: "22:00",
       local: "Google Meet",
-      url: "",
+      url: "meet.google.com/kft-eknd-vwf",
     },
   ],
 
@@ -275,7 +275,7 @@ const programacao: ProgramacaoPorDia = {
       inicio: "19:00",
       fim: "22:00",
       local: "Google Meet",
-      url: "",
+      url: "meet.google.com/huv-nupz-igi",
     },
     {
       titulo: "Computação Forense – Dia 2",
@@ -283,7 +283,7 @@ const programacao: ProgramacaoPorDia = {
       inicio: "19:00",
       fim: "22:00",
       local: "Google Meet",
-      url: "",
+      url: "meet.google.com/zok-fwrt-yyp",
     },
     {
       titulo: "Edição de Vídeos com DaVinci – Dia 2",
@@ -291,7 +291,7 @@ const programacao: ProgramacaoPorDia = {
       inicio: "19:00",
       fim: "22:00",
       local: "Google Meet",
-      url: "",
+      url: "meet.google.com/tvh-yept-mxf",
     },
     {
       titulo: "Introdução à Computação em Nuvem",
@@ -372,7 +372,7 @@ const programacao: ProgramacaoPorDia = {
       inicio: "19:00",
       fim: "22:00",
       local: "Google Meet",
-      url: "",
+      url: "meet.google.com/zok-fwrt-yyp",
     },
     {
       titulo: "Edição de Vídeos com DaVinci – Dia 3",
@@ -380,7 +380,7 @@ const programacao: ProgramacaoPorDia = {
       inicio: "19:00",
       fim: "22:00",
       local: "Google Meet",
-      url: "",
+      url: "meet.google.com/tvh-yept-mxf",
     },
   ],
 
