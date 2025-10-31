@@ -22,18 +22,8 @@ const uniqueWeekdaysInOrder = (isos: string[]) => {
   if (!Array.isArray(isos) || isos.length === 0) return [];
 
   const monthAbbr = [
-    "jan",
-    "fev",
-    "mar",
-    "abr",
-    "mai",
-    "jun",
-    "jul",
-    "ago",
-    "set",
-    "out",
-    "nov",
-    "dez",
+    "jan", "fev", "mar", "abr", "mai", "jun",
+    "jul", "ago", "set", "out", "nov", "dez",
   ];
 
   const ordered = [...isos]
@@ -54,7 +44,6 @@ const uniqueWeekdaysInOrder = (isos: string[]) => {
 
     const day = String(d.getDate()).padStart(2, "0");
     const month = monthAbbr[d.getMonth()];
-
     const label = `${weekday} (${day}/${month})`;
 
     if (!seen.has(label)) {
@@ -459,38 +448,30 @@ const minicursosData: Minicurso[] = [
   },
 ];
 
-const Minicursos: React.FC = () => {
+type MinicursosProps = {
+  data?: Minicurso[]; // opcional: permite injetar dados; se não vier, usa o array local
+};
+
+const Minicursos: React.FC<MinicursosProps> = ({ data }) => {
   const levelOrder: Nivel[] = ["Iniciante", "Básico", "Intermediário", "Avançado"];
 
-  // Cursos com vagas preenchidas — exibem banner, abaixam badge e desativam o botão
-  const excedenteIds = React.useMemo(
-    () =>
-      new Set<string>([
-        "modelagem-3d-blender",   // Blender Presencial
-        "html-css",               // HTML e CSS
-        "introducao-javascript",  // JavaScript
-        "introducao-informatica", // Informática Básica
-        "ingles-computacao",      // Inglês
-        "montagem-computadores",  // Montagem de PC
-        "cerebro-aprendizado-mundo-digital",
-        "recomendacao-jogos-ml",  // Machine Learning (recomendação)
-        "criar-jogos-api",        // Página de jogos com API
-        "chatbot-python",         // Chatbots com Python
-        "power-bi",
-        "react-basico",
-        "campeonato-jogos"
-      ]),
-    []
-  );
+  // Se por algum motivo `data` vier undefined, caímos no array local;
+  // e se mesmo assim não for array, caímos em [] para evitar o erro do reduce.
+  const dataToUse: Minicurso[] = Array.isArray(data)
+    ? data
+    : Array.isArray(minicursosData)
+    ? minicursosData
+    : [];
 
-  const coursesByLevel = minicursosData.reduce((acc, course) => {
-    if (!acc[course.nivel]) acc[course.nivel] = [];
+  const coursesByLevel = dataToUse.reduce((acc, course) => {
+    if (!acc[course.nivel]) acc[course.nivel] = [] as Minicurso[];
     acc[course.nivel].push(course);
     return acc;
   }, {} as Record<Nivel, Minicurso[]>);
 
   const firstLevelWithCourses =
     levelOrder.find((l) => (coursesByLevel[l]?.length || 0) > 0) || "Básico";
+
   const [activeLevel, setActiveLevel] = React.useState<Nivel>(firstLevelWithCourses);
 
   const activeCourses = coursesByLevel[activeLevel] || [];
@@ -504,7 +485,14 @@ const Minicursos: React.FC = () => {
           <span className="text-encomp-green">/&gt;</span>
         </h2>
 
-        {/* Seção: Lista de Inscritos (PDF) */}
+        {/* Aviso global de encerramento */}
+        <div className="mb-8">
+          <div className="rounded-md border border-rose-300 bg-red-50 text-rose-800 px-4 py-3 text-center font-semibold">
+            As inscrições foram finalizadas para todos os minicursos.
+          </div>
+        </div>
+
+        {/* Link da lista de inscritos */}
         <div className="mb-8 flex items-center justify-center">
           <a
             href="https://drive.google.com/file/d/1yNkd7dljfaJlh54_3YN9QuY5Pebn05yL/view?usp=drive_link"
@@ -517,6 +505,7 @@ const Minicursos: React.FC = () => {
           </a>
         </div>
 
+        {/* Filtros por nível */}
         <div className="flex flex-wrap justify-center gap-2 mb-10">
           {levelOrder.map((level) => (
             <button
@@ -533,20 +522,13 @@ const Minicursos: React.FC = () => {
           ))}
         </div>
 
+        {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {activeCourses.map((minicurso) => {
             const isOnline = minicurso.vagas === "ilimitado";
-            const isBlenderPresencialFull = minicurso.id === "modelagem-3d-blender";
-            const isExcedente = excedenteIds.has(minicurso.id);
-
             const badgeClass = isOnline
               ? "bg-sky-500 text-white border-sky-300"
               : "bg-amber-400 text-black border-amber-200";
-
-            // Abaixar badge quando há banner (excedente) ou no Blender presencial (mantido)
-            const badgeTopClass = (isExcedente || isBlenderPresencialFull)
-              ? "top-10 md:top-12"
-              : "top-3";
 
             const diasSemana = uniqueWeekdaysInOrder(minicurso.Data);
 
@@ -556,18 +538,16 @@ const Minicursos: React.FC = () => {
                 className="bg-encomp-darkGray border border-encomp-green/20 hover:border-encomp-green/50 transition-all duration-300 hover:shadow-lg hover:shadow-encomp-green/20 overflow-hidden group"
               >
                 <div className="relative h-64 md:h-80 overflow-hidden bg-encomp-dark/50">
-                  {/* Banner de VAGAS PREENCHIDAS */}
-                  {isExcedente && (
-                    <div className="absolute inset-x-0 top-0 z-20">
-                      <div
-                        className="bg-rose-600 text-white text-[11px] md:text-xs font-extrabold tracking-wide text-center py-1"
-                        aria-label="Vagas preenchidas"
-                        title="Vagas preenchidas"
-                      >
-                        VAGAS PREENCHIDAS
-                      </div>
+                  {/* Banner vermelho em TODAS as imagens */}
+                  <div className="absolute inset-x-0 top-0 z-20">
+                    <div
+                      className="bg-rose-600 text-white text-[11px] md:text-xs font-extrabold tracking-wide text-center py-1"
+                      aria-label="Inscrições encerradas"
+                      title="Inscrições encerradas"
+                    >
+                      INSCRIÇÕES ENCERRADAS
                     </div>
-                  )}
+                  </div>
 
                   <img
                     src={encodeURI(minicurso.imagem)}
@@ -580,8 +560,9 @@ const Minicursos: React.FC = () => {
                     }}
                   />
 
+                  {/* Badge de modalidade, deslocada para baixo para não colidir com o banner */}
                   <span
-                    className={`absolute ${badgeTopClass} left-3 px-3 py-1 rounded-md text-[11px] font-bold border ${badgeClass} shadow`}
+                    className={`absolute top-10 md:top-12 left-3 px-3 py-1 rounded-md text-[11px] font-bold border ${badgeClass} shadow`}
                     title={isOnline ? "Este curso é online" : "Este curso é presencial"}
                   >
                     {isOnline ? "ONLINE" : "PRESENCIAL"}
@@ -640,35 +621,14 @@ const Minicursos: React.FC = () => {
                     {minicurso.descricao}
                   </p>
 
-                  {/* Botão que navega, seta params e dispara evento de pré-preenchimento */}
+                  {/* Botão desativado para todos */}
                   <div className="flex justify-center">
                     <Button
                       variant="outline"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (isExcedente) return; // bloqueia ação se estiver cheio
-                        const curso = minicurso.titulo;
-                        const nivel = minicurso.nivel as string;
-                        const url = new URL(window.location.href);
-                        url.searchParams.set("curso", curso);
-                        url.searchParams.set("nivel", nivel);
-                        window.history.replaceState({}, "", `${url.pathname}${url.search}#inscricao`);
-                        window.dispatchEvent(
-                          new CustomEvent("prefill-inscricao", { detail: { curso, nivel } })
-                        );
-                        document.getElementById("inscricao")?.scrollIntoView({
-                          behavior: "smooth",
-                          block: "start",
-                        });
-                      }}
-                      disabled={isExcedente}
-                      className={`transition-all font-semibold py-1.5 px-3 text-sm ${
-                        isExcedente
-                          ? "bg-gray-600 text-white cursor-not-allowed border border-transparent"
-                          : "bg-encomp-green/10 text-encomp-green border-encomp-green/30 hover:bg-encomp-green hover:text-black"
-                      }`}
+                      disabled
+                      className="transition-all font-semibold py-1.5 px-3 text-sm bg-gray-600 text-white cursor-not-allowed border border-transparent"
                     >
-                      {isExcedente ? "Inscrições Encerradas" : "Inscreva-se já!"}
+                      Inscrições Encerradas
                     </Button>
                   </div>
                 </CardContent>

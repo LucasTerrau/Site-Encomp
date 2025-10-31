@@ -8,8 +8,13 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { SendIcon } from "lucide-react";
+import { SendIcon, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+
+// ================================
+// 🚫 FLAG GLOBAL: ENCERRA TUDO
+// ================================
+const INSCRICOES_ENCERRADAS = true;
 
 // Lista completa de cursos (nomes exatos usados no site)
 const CURSOS = [
@@ -42,18 +47,17 @@ const CURSOS = [
 ] as const;
 type CursoNome = (typeof CURSOS)[number];
 
+// 🔒 Cursos com vagas preenchidas (mantidos, mas a flag acima fecha todos)
 const EXCEDENTES = new Set<CursoNome>([
   "Blender para iniciantes (Presencial)",
   "HTML e CSS",
   "Introdução ao JavaScript",
-  "Campeonato de Jogos",
   "Informática Básica",
-  "React",
   "Inglês voltado para a Computação",
   "Montagem e Funcionamento de Computadores",
   "Cérebro, Aprendizado e Mundo Digital",
   "Machine Learning descomplicado: sistema de recomendação de jogos",
-  "Desenvolvimento de uma página de jogos com API", // também é Exclusivo PartiuIF
+  "Desenvolvimento de uma página de jogos com API",
   "Criação de Chatbots com Python",
 ]);
 
@@ -178,10 +182,10 @@ const FormRegistro: React.FC = () => {
       nome: "",
       email: "",
       telefone: "",
-      publico: "" as unknown as PublicoValue,  
+      publico: "" as unknown as PublicoValue,
       vinculo: "",
       periodo: "",
-      nivel: "" as unknown as NivelForm,      
+      nivel: "" as unknown as NivelForm,
       curso: "",
     },
   });
@@ -191,10 +195,10 @@ const FormRegistro: React.FC = () => {
   const nivelSelecionado = form.watch("nivel");
   const cursoSelecionado = form.watch("curso") as CursoNome | "";
 
-  // Helper para bloquear curso excedente (vagas preenchidas)
   const isExcedenteCurso = (c: string | null | undefined): c is CursoNome =>
-    !!c && (EXCEDENTES as Set<string>).has(c);
+    !!c && (INSCRICOES_ENCERRADAS || (EXCEDENTES as Set<string>).has(c));
 
+  // Bloqueia/ajusta selects dependentes
   useEffect(() => {
     if (!publicoSelecionado) {
       form.setValue("periodo", "");
@@ -207,7 +211,7 @@ const FormRegistro: React.FC = () => {
     if (!vinculos.includes(form.getValues("vinculo"))) form.setValue("vinculo", vinculos[0]);
   }, [publicoSelecionado]);
 
-  // Prefill via URL
+  // Prefill via URL (só mostra toast de encerrado)
   useEffect(() => {
     const url = new URL(window.location.href);
     const cursoParam = url.searchParams.get("curso") as CursoNome | null;
@@ -220,17 +224,16 @@ const FormRegistro: React.FC = () => {
       if (isExcedenteCurso(cursoParam)) {
         toast({
           title: "Inscrições encerradas",
-          description: "Este minicurso está com vagas preenchidas.",
+          description: "As inscrições estão encerradas para todos os minicursos.",
           variant: "destructive",
         });
-        // Não seta curso lotado
       } else {
         form.setValue("curso", cursoParam);
       }
     }
   }, []);
 
-  // Prefill via evento dos cards
+  // Prefill via evento dos cards (só mostra toast de encerrado)
   useEffect(() => {
     const handler = (ev: Event) => {
       const { curso, nivel } = (ev as CustomEvent).detail || {};
@@ -241,7 +244,7 @@ const FormRegistro: React.FC = () => {
         if (isExcedenteCurso(curso)) {
           toast({
             title: "Inscrições encerradas",
-            description: "Este minicurso está com vagas preenchidas.",
+            description: "As inscrições estão encerradas para todos os minicursos.",
             variant: "destructive",
           });
         } else {
@@ -274,13 +277,12 @@ const FormRegistro: React.FC = () => {
     form.setValue("telefone", f);
   };
 
-  // Submissão
+  // Submissão (bloqueada globalmente)
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    // 🚫 Bloqueio adicional no submit (garantia)
-    if (isExcedenteCurso(values.curso)) {
+    if (INSCRICOES_ENCERRADAS || isExcedenteCurso(values.curso)) {
       toast({
         title: "Inscrições encerradas",
-        description: "Este minicurso está com vagas preenchidas.",
+        description: "As inscrições estão encerradas para todos os minicursos.",
         variant: "destructive",
       });
       return;
@@ -309,28 +311,9 @@ const FormRegistro: React.FC = () => {
   const periodoOptions = publicoSelecionado ? periodosByPublico[publicoSelecionado] : [];
   const safeId = (s: string) => s.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-_:.]/g, "");
 
-  // Checagem de data: zera as horas para comparar somente a data (independente do horário)
-  const hoje = new Date();
-  hoje.setHours(0, 0, 0, 0);
-  const dataLiberacao = new Date(2025, 8, 30); // 30/09/2025 (mês 0-based)
-  dataLiberacao.setHours(0, 0, 0, 0);
-
-  if (hoje < dataLiberacao) {
-    return (
-      <section id="inscricao" className="py-16 bg-encomp-darkGray">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-            <span className="text-encomp-green">&lt;</span>
-            Inscrições somente a partir de 30 de setembro.
-            <span className="text-encomp-green">/&gt;</span>
-          </h2>
-        </div>
-      </section>
-    );
-  }
-
   const isCursoExcedenteSelecionado = isExcedenteCurso(cursoSelecionado);
-  const submitDisabled = isSubmitting || isCursoExcedenteSelecionado;
+  const submitDisabled = INSCRICOES_ENCERRADAS || isSubmitting || isCursoExcedenteSelecionado;
+  const allDisabled = INSCRICOES_ENCERRADAS;
 
   return (
     <section id="inscricao" className="py-16 bg-encomp-darkGray">
@@ -341,16 +324,36 @@ const FormRegistro: React.FC = () => {
           <span className="text-encomp-green">/&gt;</span>
         </h2>
 
-        {/* Aviso quando um curso lotado estiver selecionado (ex: via prefill antigo) */}
+        {/* 🔒 AVISO GLOBAL DE ENCERRAMENTO */}
+        <div
+          role="alert"
+          aria-live="polite"
+          className="max-w-3xl mx-auto mb-8 rounded-xl border border-rose-500/40 bg-rose-500/10 text-rose-100 p-4 shadow-lg"
+        >
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="min-w-5 mt-0.5" size={20} />
+            <div className="w-full">
+              <p className="font-extrabold tracking-wide text-rose-200 text-center md:text-left">
+                INSCRIÇÕES ENCERRADAS
+              </p>
+              <p className="mt-1 text-sm md:text-base text-center md:text-left">
+                As inscrições foram finalizadas para todos os minicursos.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Aviso de curso lotado (mantido; em estado encerrado sempre aparece ao escolher) */}
         {isCursoExcedenteSelecionado && (
           <div className="max-w-2xl mx-auto mb-4 rounded-md border border-rose-500/40 bg-rose-500/10 text-rose-200 p-3 text-sm">
-            Inscrições encerradas para este minicurso (vagas preenchidas). Selecione outro curso.
+            Inscrições encerradas para este minicurso. Selecione outro (todas as opções estão encerradas).
           </div>
         )}
 
-        <div className="max-w-2xl mx-auto bg-encomp-black p-8 rounded-xl border border-encomp-green/20 hover:border-encomp-green/40 shadow-xl">
+        <div className={`max-w-2xl mx-auto bg-encomp-black p-8 rounded-xl border border-encomp-green/20 shadow-xl ${allDisabled ? "opacity-90" : ""}`}>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              {/* CPF */}
               <FormField
                 control={form.control}
                 name="cpf"
@@ -358,15 +361,20 @@ const FormRegistro: React.FC = () => {
                   <FormItem>
                     <FormLabel className="text-encomp-green">CPF</FormLabel>
                     <FormControl>
-                      <Input placeholder="000.000.000-00" {...field}
+                      <Input
+                        placeholder="000.000.000-00"
+                        {...field}
                         onChange={handleCpfChange}
-                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green" />
+                        disabled={allDisabled}
+                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
+              {/* Nome */}
               <FormField
                 control={form.control}
                 name="nome"
@@ -374,14 +382,19 @@ const FormRegistro: React.FC = () => {
                   <FormItem>
                     <FormLabel className="text-encomp-green">Nome</FormLabel>
                     <FormControl>
-                      <Input placeholder="Seu nome completo" {...field}
-                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green" />
+                      <Input
+                        placeholder="Seu nome completo"
+                        {...field}
+                        disabled={allDisabled}
+                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
+              {/* Email */}
               <FormField
                 control={form.control}
                 name="email"
@@ -389,14 +402,20 @@ const FormRegistro: React.FC = () => {
                   <FormItem>
                     <FormLabel className="text-encomp-green">E-mail</FormLabel>
                     <FormControl>
-                      <Input type="email" placeholder="seu.email@exemplo.com" {...field}
-                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green" />
+                      <Input
+                        type="email"
+                        placeholder="seu.email@exemplo.com"
+                        {...field}
+                        disabled={allDisabled}
+                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
+              {/* Telefone */}
               <FormField
                 control={form.control}
                 name="telefone"
@@ -404,15 +423,20 @@ const FormRegistro: React.FC = () => {
                   <FormItem>
                     <FormLabel className="text-encomp-green">Telefone</FormLabel>
                     <FormControl>
-                      <Input placeholder="(99) 99999-9999" {...field}
+                      <Input
+                        placeholder="(99) 99999-9999"
+                        {...field}
                         onChange={handleTelefoneChange}
-                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green" />
+                        disabled={allDisabled}
+                        className="bg-encomp-dark border-encomp-green/30 focus:border-encomp-green"
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
 
+              {/* Público */}
               <FormField
                 control={form.control}
                 name="publico"
@@ -421,13 +445,14 @@ const FormRegistro: React.FC = () => {
                     <FormLabel className="text-encomp-green">Público</FormLabel>
                     <FormControl>
                       <RadioGroup
-                        value={field.value || ""} 
+                        value={field.value || ""}
                         onValueChange={(v) => field.onChange(v as PublicoValue)}
                         className="grid grid-cols-1 gap-2 md:grid-cols-2"
+                        aria-disabled={allDisabled}
                       >
                         {PUBLICOS.map(p => (
-                          <div key={p.value} className="flex items-center space-x-2 rounded-md border border-encomp-green/20 p-2">
-                            <RadioGroupItem value={p.value} id={p.value} />
+                          <div key={p.value} className={`flex items-center space-x-2 rounded-md border ${allDisabled ? "opacity-60" : ""} border-encomp-green/20 p-2`}>
+                            <RadioGroupItem value={p.value} id={p.value} disabled={allDisabled} />
                             <label htmlFor={p.value} className="text-sm text-gray-200 cursor-pointer">{p.label}</label>
                           </div>
                         ))}
@@ -438,6 +463,7 @@ const FormRegistro: React.FC = () => {
                 )}
               />
 
+              {/* Vínculo / Período */}
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <FormField
                   control={form.control}
@@ -447,7 +473,7 @@ const FormRegistro: React.FC = () => {
                       <FormLabel className="text-encomp-green">Curso/Programa (vínculo)</FormLabel>
                       <FormControl>
                         <select
-                          disabled={!publicoSelecionado}
+                          disabled={allDisabled || !publicoSelecionado}
                           className="w-full h-10 rounded-md border border-encomp-green/30 bg-encomp-dark px-3 py-2 text-base disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 focus-visible:ring-encomp-green/50"
                           {...field}
                         >
@@ -473,7 +499,7 @@ const FormRegistro: React.FC = () => {
                       <FormLabel className="text-encomp-green">Período</FormLabel>
                       <FormControl>
                         <select
-                          disabled={!publicoSelecionado}
+                          disabled={allDisabled || !publicoSelecionado}
                           className="w-full h-10 rounded-md border border-encomp-green/30 bg-encomp-dark px-3 py-2 text-base disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-0 focus-visible:ring-encomp-green/50"
                           {...field}
                         >
@@ -492,6 +518,7 @@ const FormRegistro: React.FC = () => {
                 />
               </div>
 
+              {/* Nível */}
               <FormField
                 control={form.control}
                 name="nivel"
@@ -500,16 +527,17 @@ const FormRegistro: React.FC = () => {
                     <FormLabel className="text-encomp-green">Nível</FormLabel>
                     <FormControl>
                       <RadioGroup
-                        value={field.value || ""} 
+                        value={field.value || ""}
                         onValueChange={(v) => {
                           field.onChange(v as NivelForm);
-                          form.setValue("curso", ""); // reset ao trocar nível
+                          form.setValue("curso", "");
                         }}
                         className="grid grid-cols-2 gap-2 md:grid-cols-4"
+                        aria-disabled={allDisabled}
                       >
                         {NIVEIS.map(n => (
-                          <div key={n} className="flex items-center space-x-2 rounded-md border border-encomp-green/20 p-2">
-                            <RadioGroupItem value={n} id={`nivel-${n}`} />
+                          <div key={n} className={`flex items-center space-x-2 rounded-md border ${allDisabled ? "opacity-60" : ""} border-encomp-green/20 p-2`}>
+                            <RadioGroupItem value={n} id={`nivel-${n}`} disabled={allDisabled} />
                             <label htmlFor={`nivel-${n}`} className="text-sm text-gray-200 cursor-pointer">{n}</label>
                           </div>
                         ))}
@@ -520,6 +548,7 @@ const FormRegistro: React.FC = () => {
                 )}
               />
 
+              {/* Curso de interesse */}
               <FormField
                 control={form.control}
                 name="curso"
@@ -539,30 +568,29 @@ const FormRegistro: React.FC = () => {
                               if (isExcedenteCurso(v)) {
                                 toast({
                                   title: "Inscrições encerradas",
-                                  description: "Este minicurso está com vagas preenchidas.",
+                                  description: "As inscrições estão encerradas para todos os minicursos.",
                                   variant: "destructive",
                                 });
-                                return; // não permite selecionar
+                                return;
                               }
-                              // Exclusivo PartiuIF continua filtrado pela lógica de público mais abaixo
                               field.onChange(v);
                             }}
+                            aria-disabled={allDisabled}
                           >
                             {CURSOS
                               .filter(curso => {
-                                // filtra por nível selecionado
                                 const nivelOk = COURSE_LEVELS[curso] === nivelSelecionado;
                                 if (!nivelOk) return false;
-                                // esconde PartiuIF para quem não é PartiuIF
                                 if (curso === PARTIU_IF_ONLY && publicoSelecionado !== "partiuif") return false;
                                 return true;
                               })
                               .sort((a, b) => a.localeCompare(b))
                               .map(curso => {
-                                const isExced = EXCEDENTES.has(curso);
+                                const isExced = isExcedenteCurso(curso);
                                 const labelExtra =
                                   (curso === PARTIU_IF_ONLY ? " — Exclusivo PartiuIF" : "") +
-                                  (isExced ? " — (VAGAS PREENCHIDAS)" : "");
+                                  (isExced ? " — (INSCRIÇÕES ENCERRADAS)" : "");
+                                const safeId = curso.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-_:.]/g, "");
                                 return (
                                   <div
                                     key={curso}
@@ -574,14 +602,12 @@ const FormRegistro: React.FC = () => {
                                   >
                                     <RadioGroupItem
                                       value={curso}
-                                      id={safeId(`curso-${curso}`)}
-                                      // visualmente permite ver, mas o onValueChange bloqueia seleção de excedentes
+                                      id={`curso-${safeId}`}
+                                      disabled={allDisabled || isExced}
                                     />
-                                    <label 
-                                      htmlFor={safeId(`curso-${curso}`)} 
-                                      className={`text-sm leading-relaxed cursor-pointer ${
-                                        isExced ? "text-rose-300" : "text-gray-200"
-                                      }`}
+                                    <label
+                                      htmlFor={`curso-${safeId}`}
+                                      className={`text-sm leading-relaxed ${isExced ? "text-rose-300" : "text-gray-200"}`}
                                     >
                                       {curso}{labelExtra}
                                     </label>
@@ -597,6 +623,7 @@ const FormRegistro: React.FC = () => {
                 )}
               />
 
+              {/* Submit */}
               <Button
                 type="submit"
                 disabled={submitDisabled}
@@ -607,7 +634,7 @@ const FormRegistro: React.FC = () => {
                 }`}
                 aria-disabled={submitDisabled}
               >
-                {isSubmitting ? "Enviando..." : (<><SendIcon size={18} />Enviar Inscrição</>)}
+                {INSCRICOES_ENCERRADAS ? "Inscrições encerradas" : (isSubmitting ? "Enviando..." : (<><SendIcon size={18} />Enviar Inscrição</>))}
               </Button>
             </form>
           </Form>
