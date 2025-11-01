@@ -5,7 +5,6 @@ type Collaborator = { name: string; logo: string };
 const COLABORADORES: Collaborator[] = [
   { name: "Azarrara", logo: "/imagens/logo azarrara-1.png" },
   { name: "Bárbara Moda Inteligente", logo: "/imagens/logo barbara 1.png" },
-  { name: "Clínica Lumiere", logo: "/imagens/logo clinica lumiere.png" },
   { name: "Diolli Sabores", logo: "/imagens/logo diolli sabores.png" },
   { name: "Estilo Rock", logo: "/imagens/logo estilo rock - Editado.png" },
   { name: "Fernandes Hamburgueria", logo: "/imagens/fernandesHamburgueria.jpg"},
