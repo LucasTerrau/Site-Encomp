@@ -1,22 +1,16 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Form, FormControl, FormField, FormItem, FormLabel, FormMessage,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { SendIcon, AlertTriangle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
-// ================================
-// 🚫 FLAG GLOBAL: ENCERRA TUDO
-// ================================
 const INSCRICOES_ENCERRADAS = true;
 
-// Lista completa de cursos (nomes exatos usados no site)
 const CURSOS = [
   "Linux aplicado à prática de programação",
   "Docker",
@@ -47,7 +41,6 @@ const CURSOS = [
 ] as const;
 type CursoNome = (typeof CURSOS)[number];
 
-// 🔒 Cursos com vagas preenchidas (mantidos, mas a flag acima fecha todos)
 const EXCEDENTES = new Set<CursoNome>([
   "Blender para iniciantes (Presencial)",
   "HTML e CSS",
@@ -67,11 +60,9 @@ const PUBLICOS = [
   { value: "partiuif", label: "PartiuIF" },
   { value: "comunidade", label: "Comunidade/Outros (N/A)" },
 ] as const;
-type PublicoValue = typeof PUBLICOS[number]["value"];
+type PublicoValue = (typeof PUBLICOS)[number]["value"];
 
-const PUBLICO_LABEL_BY_VALUE: Record<PublicoValue, string> = Object.fromEntries(
-  PUBLICOS.map(p => [p.value, p.label] as const)
-) as Record<PublicoValue, string>;
+const PUBLICO_LABEL_BY_VALUE: Record<PublicoValue, string> = Object.fromEntries(PUBLICOS.map((p) => [p.value, p.label] as const)) as Record<PublicoValue, string>;
 
 const TECNICOS_EM = [
   "Técnico em Design Gráfico Integrado ao Ensino Médio",
@@ -89,7 +80,7 @@ const GRADUACOES = [
 
 const periodosByPublico: Record<PublicoValue, string[]> = {
   "ensino-medio": ["1º Ano", "2º Ano", "3º Ano"],
-  graduacao: ["1º período","2º período","3º período","4º período","5º período","6º período","7º período","8º período"],
+  graduacao: ["1º período", "2º período", "3º período", "4º período", "5º período", "6º período", "7º período", "8º período"],
   partiuif: ["N/A"],
   comunidade: ["N/A"],
 };
@@ -102,14 +93,7 @@ const vinculoByPublico: Record<PublicoValue, string[]> = {
 };
 
 const NIVEIS = ["Iniciante", "Básico", "Intermediário", "Avançado"] as const;
-export type NivelForm = typeof NIVEIS[number];
-
-const LEVEL_ORDER: Record<NivelForm, number> = {
-  Iniciante: 0,
-  Básico: 1,
-  Intermediário: 2,
-  Avançado: 3,
-};
+export type NivelForm = (typeof NIVEIS)[number];
 
 const COURSE_LEVELS: Record<CursoNome, NivelForm> = {
   ".NET e Angular": "Avançado",
@@ -120,7 +104,7 @@ const COURSE_LEVELS: Record<CursoNome, NivelForm> = {
   "Como adquirir um computador": "Iniciante",
   "Computação Forense": "Avançado",
   "Criação de Chatbots com Python": "Intermediário",
-  "Docker": "Avançado",
+  Docker: "Avançado",
   "Desenvolvimento de uma página de jogos com API": "Iniciante",
   "Edição de Vídeo com DaVinci Resolve": "Intermediário",
   "HTML e CSS": "Básico",
@@ -133,7 +117,7 @@ const COURSE_LEVELS: Record<CursoNome, NivelForm> = {
   "Linux aplicado à prática de programação": "Intermediário",
   "Machine Learning descomplicado: sistema de recomendação de jogos": "Intermediário",
   "Montagem e Funcionamento de Computadores": "Básico",
-  "React": "Avançado",
+  React: "Avançado",
   "Virtualização e Introdução ao Kali Linux com foco em Pentest": "Avançado",
   "Visualização de Dados em Power BI": "Básico",
   "Workshop de LangChain": "Avançado",
@@ -146,19 +130,21 @@ const formSchema = z.object({
   cpf: z.string().regex(/^(\d{3})\.(\d{3})\.(\d{3})-(\d{2})$/u, { message: "CPF deve estar no formato 000.000.000-00" }),
   nome: z.string().min(3, { message: "Nome deve ter pelo menos 3 caracteres." }),
   email: z.string().email({ message: "Email inválido." }),
-  telefone: z.string().refine(v => {
-    const d = v.replace(/\D/g, "");
-    return d.length >= 10 && d.length <= 11;
-  }, { message: "Telefone deve ter 10 ou 11 dígitos (com DDD)." }),
-  publico: z.enum(PUBLICOS.map(p => p.value) as [PublicoValue, ...PublicoValue[]], { required_error: "Selecione o público." }),
+  telefone: z.string().refine(
+    (v) => {
+      const d = v.replace(/\D/g, "");
+      return d.length >= 10 && d.length <= 11;
+    },
+    { message: "Telefone deve ter 10 ou 11 dígitos (com DDD)." }
+  ),
+  publico: z.enum(PUBLICOS.map((p) => p.value) as [PublicoValue, ...PublicoValue[]], { required_error: "Selecione o público." }),
   vinculo: z.string().min(1, { message: "Selecione seu curso/programa." }),
   periodo: z.string().min(1, { message: "Selecione o período." }),
   nivel: z.enum(NIVEIS, { required_error: "Selecione seu nível." }),
   curso: z.string().min(1, { message: "Selecione um curso/área de interesse." }),
 });
 
-const GOOGLE_FORM_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLSd0_PCOx5EgFOYqu7QRDIWlR8b87YnNJmawhxLOFIFemQiDYw/formResponse";
+const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSd0_PCOx5EgFOYqu7QRDIWlR8b87YnNJmawhxLOFIFemQiDYw/formResponse";
 
 const FORM_ENTRY_IDS = {
   cpf: "entry.891552767",
@@ -172,7 +158,7 @@ const FORM_ENTRY_IDS = {
   curso: "entry.729292152",
 };
 
-const FormRegistro: React.FC = () => {
+const FormRegistro = () => {
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -195,10 +181,8 @@ const FormRegistro: React.FC = () => {
   const nivelSelecionado = form.watch("nivel");
   const cursoSelecionado = form.watch("curso") as CursoNome | "";
 
-  const isExcedenteCurso = (c: string | null | undefined): c is CursoNome =>
-    !!c && (INSCRICOES_ENCERRADAS || (EXCEDENTES as Set<string>).has(c));
+  const isExcedenteCurso = (c: string | null | undefined): c is CursoNome => !!c && (INSCRICOES_ENCERRADAS || (EXCEDENTES as Set<string>).has(c));
 
-  // Bloqueia/ajusta selects dependentes
   useEffect(() => {
     if (!publicoSelecionado) {
       form.setValue("periodo", "");
@@ -209,9 +193,8 @@ const FormRegistro: React.FC = () => {
     const vinculos = vinculoByPublico[publicoSelecionado];
     if (!periodos.includes(form.getValues("periodo"))) form.setValue("periodo", periodos[0]);
     if (!vinculos.includes(form.getValues("vinculo"))) form.setValue("vinculo", vinculos[0]);
-  }, [publicoSelecionado]);
+  }, [publicoSelecionado, form]);
 
-  // Prefill via URL (só mostra toast de encerrado)
   useEffect(() => {
     const url = new URL(window.location.href);
     const cursoParam = url.searchParams.get("curso") as CursoNome | null;
@@ -231,9 +214,8 @@ const FormRegistro: React.FC = () => {
         form.setValue("curso", cursoParam);
       }
     }
-  }, []);
+  }, [form, toast]);
 
-  // Prefill via evento dos cards (só mostra toast de encerrado)
   useEffect(() => {
     const handler = (ev: Event) => {
       const { curso, nivel } = (ev as CustomEvent).detail || {};
@@ -253,8 +235,8 @@ const FormRegistro: React.FC = () => {
       }
       document.getElementById("inscricao")?.scrollIntoView({ behavior: "smooth", block: "start" });
     };
-    window.addEventListener("prefill-inscricao" as any, handler as EventListener);
-    return () => window.removeEventListener("prefill-inscricao" as any, handler as EventListener);
+    window.addEventListener("prefill-inscricao", handler as EventListener);
+    return () => window.removeEventListener("prefill-inscricao", handler as EventListener);
   }, [form, toast]);
 
   const handleCpfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -277,7 +259,6 @@ const FormRegistro: React.FC = () => {
     form.setValue("telefone", f);
   };
 
-  // Submissão (bloqueada globalmente)
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     if (INSCRICOES_ENCERRADAS || isExcedenteCurso(values.curso)) {
       toast({
@@ -308,9 +289,6 @@ const FormRegistro: React.FC = () => {
     }
   };
 
-  const periodoOptions = publicoSelecionado ? periodosByPublico[publicoSelecionado] : [];
-  const safeId = (s: string) => s.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-_:.]/g, "");
-
   const isCursoExcedenteSelecionado = isExcedenteCurso(cursoSelecionado);
   const submitDisabled = INSCRICOES_ENCERRADAS || isSubmitting || isCursoExcedenteSelecionado;
   const allDisabled = INSCRICOES_ENCERRADAS;
@@ -324,26 +302,16 @@ const FormRegistro: React.FC = () => {
           <span className="text-encomp-green">/&gt;</span>
         </h2>
 
-        {/* 🔒 AVISO GLOBAL DE ENCERRAMENTO */}
-        <div
-          role="alert"
-          aria-live="polite"
-          className="max-w-3xl mx-auto mb-8 rounded-xl border border-rose-500/40 bg-rose-500/10 text-rose-100 p-4 shadow-lg"
-        >
+        <div role="alert" aria-live="polite" className="max-w-3xl mx-auto mb-8 rounded-xl border border-rose-500/40 bg-rose-500/10 text-rose-100 p-4 shadow-lg">
           <div className="flex items-start gap-3">
             <AlertTriangle className="min-w-5 mt-0.5" size={20} />
             <div className="w-full">
-              <p className="font-extrabold tracking-wide text-rose-200 text-center md:text-left">
-                INSCRIÇÕES ENCERRADAS
-              </p>
-              <p className="mt-1 text-sm md:text-base text-center md:text-left">
-                As inscrições foram finalizadas para todos os minicursos.
-              </p>
+              <p className="font-extrabold tracking-wide text-rose-200 text-center md:text-left">INSCRIÇÕES ENCERRADAS</p>
+              <p className="mt-1 text-sm md:text-base text-center md:text-left">As inscrições foram finalizadas para todos os minicursos.</p>
             </div>
           </div>
         </div>
 
-        {/* Aviso de curso lotado (mantido; em estado encerrado sempre aparece ao escolher) */}
         {isCursoExcedenteSelecionado && (
           <div className="max-w-2xl mx-auto mb-4 rounded-md border border-rose-500/40 bg-rose-500/10 text-rose-200 p-3 text-sm">
             Inscrições encerradas para este minicurso. Selecione outro (todas as opções estão encerradas).
@@ -353,7 +321,6 @@ const FormRegistro: React.FC = () => {
         <div className={`max-w-2xl mx-auto bg-encomp-black p-8 rounded-xl border border-encomp-green/20 shadow-xl ${allDisabled ? "opacity-90" : ""}`}>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              {/* CPF */}
               <FormField
                 control={form.control}
                 name="cpf"
@@ -374,7 +341,6 @@ const FormRegistro: React.FC = () => {
                 )}
               />
 
-              {/* Nome */}
               <FormField
                 control={form.control}
                 name="nome"
@@ -394,7 +360,6 @@ const FormRegistro: React.FC = () => {
                 )}
               />
 
-              {/* Email */}
               <FormField
                 control={form.control}
                 name="email"
@@ -415,7 +380,6 @@ const FormRegistro: React.FC = () => {
                 )}
               />
 
-              {/* Telefone */}
               <FormField
                 control={form.control}
                 name="telefone"
@@ -436,7 +400,6 @@ const FormRegistro: React.FC = () => {
                 )}
               />
 
-              {/* Público */}
               <FormField
                 control={form.control}
                 name="publico"
@@ -450,10 +413,12 @@ const FormRegistro: React.FC = () => {
                         className="grid grid-cols-1 gap-2 md:grid-cols-2"
                         aria-disabled={allDisabled}
                       >
-                        {PUBLICOS.map(p => (
+                        {PUBLICOS.map((p) => (
                           <div key={p.value} className={`flex items-center space-x-2 rounded-md border ${allDisabled ? "opacity-60" : ""} border-encomp-green/20 p-2`}>
                             <RadioGroupItem value={p.value} id={p.value} disabled={allDisabled} />
-                            <label htmlFor={p.value} className="text-sm text-gray-200 cursor-pointer">{p.label}</label>
+                            <label htmlFor={p.value} className="text-sm text-gray-200 cursor-pointer">
+                              {p.label}
+                            </label>
                           </div>
                         ))}
                       </RadioGroup>
@@ -463,7 +428,6 @@ const FormRegistro: React.FC = () => {
                 )}
               />
 
-              {/* Vínculo / Período */}
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <FormField
                   control={form.control}
@@ -480,8 +444,10 @@ const FormRegistro: React.FC = () => {
                           {!publicoSelecionado ? (
                             <option value="">Selecione o público primeiro</option>
                           ) : (
-                            (vinculoByPublico[publicoSelecionado] || []).map(opt => (
-                              <option key={opt} value={opt}>{opt}</option>
+                            (vinculoByPublico[publicoSelecionado] || []).map((opt) => (
+                              <option key={opt} value={opt}>
+                                {opt}
+                              </option>
                             ))
                           )}
                         </select>
@@ -506,8 +472,10 @@ const FormRegistro: React.FC = () => {
                           {!publicoSelecionado ? (
                             <option value="">Selecione o público primeiro</option>
                           ) : (
-                            periodosByPublico[publicoSelecionado].map(opt => (
-                              <option key={opt} value={opt}>{opt}</option>
+                            periodosByPublico[publicoSelecionado].map((opt) => (
+                              <option key={opt} value={opt}>
+                                {opt}
+                              </option>
                             ))
                           )}
                         </select>
@@ -518,7 +486,6 @@ const FormRegistro: React.FC = () => {
                 />
               </div>
 
-              {/* Nível */}
               <FormField
                 control={form.control}
                 name="nivel"
@@ -535,10 +502,12 @@ const FormRegistro: React.FC = () => {
                         className="grid grid-cols-2 gap-2 md:grid-cols-4"
                         aria-disabled={allDisabled}
                       >
-                        {NIVEIS.map(n => (
+                        {NIVEIS.map((n) => (
                           <div key={n} className={`flex items-center space-x-2 rounded-md border ${allDisabled ? "opacity-60" : ""} border-encomp-green/20 p-2`}>
                             <RadioGroupItem value={n} id={`nivel-${n}`} disabled={allDisabled} />
-                            <label htmlFor={`nivel-${n}`} className="text-sm text-gray-200 cursor-pointer">{n}</label>
+                            <label htmlFor={`nivel-${n}`} className="text-sm text-gray-200 cursor-pointer">
+                              {n}
+                            </label>
                           </div>
                         ))}
                       </RadioGroup>
@@ -548,15 +517,12 @@ const FormRegistro: React.FC = () => {
                 )}
               />
 
-              {/* Curso de interesse */}
               <FormField
                 control={form.control}
                 name="curso"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-encomp-green">
-                      Curso de interesse {nivelSelecionado && `(${nivelSelecionado})`}
-                    </FormLabel>
+                    <FormLabel className="text-encomp-green">Curso de interesse {nivelSelecionado && `(${nivelSelecionado})`}</FormLabel>
                     <FormControl>
                       <div className="space-y-2 max-h-64 overflow-y-auto border border-encomp-green/20 rounded-md p-2">
                         {!nivelSelecionado ? (
@@ -577,39 +543,32 @@ const FormRegistro: React.FC = () => {
                             }}
                             aria-disabled={allDisabled}
                           >
-                            {CURSOS
-                              .filter(curso => {
-                                const nivelOk = COURSE_LEVELS[curso] === nivelSelecionado;
-                                if (!nivelOk) return false;
-                                if (curso === PARTIU_IF_ONLY && publicoSelecionado !== "partiuif") return false;
-                                return true;
-                              })
+                            {CURSOS.filter((curso) => {
+                              const nivelOk = COURSE_LEVELS[curso] === nivelSelecionado;
+                              if (!nivelOk) return false;
+                              if (curso === PARTIU_IF_ONLY && publicoSelecionado !== "partiuif") return false;
+                              return true;
+                            })
                               .sort((a, b) => a.localeCompare(b))
-                              .map(curso => {
+                              .map((curso) => {
                                 const isExced = isExcedenteCurso(curso);
                                 const labelExtra =
-                                  (curso === PARTIU_IF_ONLY ? " — Exclusivo PartiuIF" : "") +
-                                  (isExced ? " — (INSCRIÇÕES ENCERRADAS)" : "");
-                                const safeId = curso.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-_:.]/g, "");
+                                  (curso === PARTIU_IF_ONLY ? " — Exclusivo PartiuIF" : "") + (isExced ? " — (INSCRIÇÕES ENCERRADAS)" : "");
+                                const safeId = curso
+                                  .toLowerCase()
+                                  .replace(/\s+/g, "-")
+                                  .replace(/[^a-z0-9-_:.]/g, "");
                                 return (
                                   <div
                                     key={curso}
                                     className={`flex items-start space-x-2 p-2 rounded-md border ${
-                                      isExced
-                                        ? "border-rose-500/40 bg-rose-500/5 opacity-80"
-                                        : "border-encomp-green/20 hover:border-encomp-green/40"
+                                      isExced ? "border-rose-500/40 bg-rose-500/5 opacity-80" : "border-encomp-green/20 hover:border-encomp-green/40"
                                     }`}
                                   >
-                                    <RadioGroupItem
-                                      value={curso}
-                                      id={`curso-${safeId}`}
-                                      disabled={allDisabled || isExced}
-                                    />
-                                    <label
-                                      htmlFor={`curso-${safeId}`}
-                                      className={`text-sm leading-relaxed ${isExced ? "text-rose-300" : "text-gray-200"}`}
-                                    >
-                                      {curso}{labelExtra}
+                                    <RadioGroupItem value={curso} id={`curso-${safeId}`} disabled={allDisabled || isExced} />
+                                    <label htmlFor={`curso-${safeId}`} className={`text-sm leading-relaxed ${isExced ? "text-rose-300" : "text-gray-200"}`}>
+                                      {curso}
+                                      {labelExtra}
                                     </label>
                                   </div>
                                 );
@@ -623,18 +582,22 @@ const FormRegistro: React.FC = () => {
                 )}
               />
 
-              {/* Submit */}
               <Button
                 type="submit"
                 disabled={submitDisabled}
-                className={`w-full font-bold gap-2 ${
-                  submitDisabled
-                    ? "bg-gray-600 text-white cursor-not-allowed"
-                    : "bg-encomp-green text-black hover:opacity-90"
-                }`}
+                className={`w-full font-bold gap-2 ${submitDisabled ? "bg-gray-600 text-white cursor-not-allowed" : "bg-encomp-green text-black hover:opacity-90"}`}
                 aria-disabled={submitDisabled}
               >
-                {INSCRICOES_ENCERRADAS ? "Inscrições encerradas" : (isSubmitting ? "Enviando..." : (<><SendIcon size={18} />Enviar Inscrição</>))}
+                {INSCRICOES_ENCERRADAS ? (
+                  "Inscrições encerradas"
+                ) : isSubmitting ? (
+                  "Enviando..."
+                ) : (
+                  <>
+                    <SendIcon size={18} />
+                    Enviar Inscrição
+                  </>
+                )}
               </Button>
             </form>
           </Form>
